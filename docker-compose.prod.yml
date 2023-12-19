@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  web:
+    env_file:
+      - .env
+      - ../envs/.env-${GITHUB_REPOSITORY_NAME}
+    environment:
+      DATABASE_URL: mysql://${USER_NAME}:${USER_PASSWORD}@${DATABASE_SUBDOMAIN_NAME}-db:3306/${DB_NAME}?serverVersion=8&charset=utf8mb4
+    build: .
+    container_name: ${PROJECT_NAME:-project}-web
+    volumes:
+      - ./public/uploads:/var/www/public/uploads
+    restart: always
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.${PROJECT_NAME:-project}-secure.entrypoints=websecure"
+      - "traefik.http.routers.${PROJECT_NAME:-project}-secure.rule=Host(`${PROJECT_NAME:-project}.${HOST:-localhost}`)"
+
+networks:
+  proxy:
+    external: true
