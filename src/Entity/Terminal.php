@@ -39,9 +39,13 @@ class Terminal
     #[ORM\ManyToMany(targetEntity: Opened::class, mappedBy: 'terminal')]
     private Collection $openeds;
 
+    #[ORM\OneToMany(mappedBy: 'terminal', targetEntity: Booking::class)]
+    private Collection $bookings;
+
     public function __construct()
     {
         $this->openeds = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,6 +159,36 @@ class Terminal
     {
         if ($this->openeds->removeElement($opened)) {
             $opened->removeTerminal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): static
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setTerminal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): static
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getTerminal() === $this) {
+                $booking->setTerminal(null);
+            }
         }
 
         return $this;
