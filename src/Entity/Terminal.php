@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TerminalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TerminalRepository::class)]
@@ -33,6 +35,14 @@ class Terminal
 
     #[ORM\ManyToOne(inversedBy: 'terminal')]
     private ?Town $town = null;
+
+    #[ORM\ManyToMany(targetEntity: Opened::class, mappedBy: 'terminal')]
+    private Collection $openeds;
+
+    public function __construct()
+    {
+        $this->openeds = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +129,33 @@ class Terminal
     public function setTown(?Town $town): static
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Opened>
+     */
+    public function getOpeneds(): Collection
+    {
+        return $this->openeds;
+    }
+
+    public function addOpened(Opened $opened): static
+    {
+        if (!$this->openeds->contains($opened)) {
+            $this->openeds->add($opened);
+            $opened->addTerminal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpened(Opened $opened): static
+    {
+        if ($this->openeds->removeElement($opened)) {
+            $opened->removeTerminal($this);
+        }
 
         return $this;
     }
