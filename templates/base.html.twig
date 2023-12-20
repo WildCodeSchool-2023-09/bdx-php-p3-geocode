@@ -8,6 +8,7 @@
             {% block title %}Projet 3 Name{% endblock %}
         </title>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -17,6 +18,7 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'components/_header.html.twig' %}
         {% block body %}{% endblock %}
     </body>
 </html>
