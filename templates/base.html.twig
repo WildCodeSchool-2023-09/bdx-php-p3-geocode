@@ -19,6 +19,9 @@
     </head>
     <body>
         {% include 'components/_header.html.twig' %}
-        {% block body %}{% endblock %}
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        {% include 'components/_footer.html.twig' %}
     </body>
 </html>
