@@ -45,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Car::class)]
     private Collection $cars;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Town $town = null;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
@@ -194,6 +197,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $car->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTown(): ?Town
+    {
+        return $this->town;
+    }
+
+    public function setTown(?Town $town): static
+    {
+        $this->town = $town;
 
         return $this;
     }
