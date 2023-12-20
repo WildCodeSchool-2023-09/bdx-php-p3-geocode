@@ -30,9 +30,13 @@ class Town
     #[ORM\OneToMany(mappedBy: 'town', targetEntity: User::class)]
     private Collection $user;
 
+    #[ORM\OneToMany(mappedBy: 'town', targetEntity: Terminal::class)]
+    private Collection $terminal;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->terminal = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,6 +116,36 @@ class Town
             // set the owning side to null (unless already changed)
             if ($user->getTown() === $this) {
                 $user->setTown(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Terminal>
+     */
+    public function getTerminal(): Collection
+    {
+        return $this->terminal;
+    }
+
+    public function addTerminal(Terminal $terminal): static
+    {
+        if (!$this->terminal->contains($terminal)) {
+            $this->terminal->add($terminal);
+            $terminal->setTown($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerminal(Terminal $terminal): static
+    {
+        if ($this->terminal->removeElement($terminal)) {
+            // set the owning side to null (unless already changed)
+            if ($terminal->getTown() === $this) {
+                $terminal->setTown(null);
             }
         }
 
