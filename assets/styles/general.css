@@ -1,0 +1,242 @@
+@import url("https://fonts.googleapis.com/css2?family=Voces");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Voces", sans-serif;
+}
+:root {
+    --color-primary: #e5e9e7;
+    --color-secondary: #525b5a;
+    --color-ternary: #21a89a;
+    --color-quaternary: #5cd858;
+
+    --map-heigth: calc(100vh - calc(2 * var(--navbar-height) + 6px));
+
+    --navbar-height: 70px;
+
+    --gradient: linear-gradient(
+        90deg,
+        var(--color-ternary),
+        var(--color-quaternary)
+    );
+
+    /*navbar responsive*/
+    --navbar-svg-size: calc(var(--navbar-height) / 2.1875);
+    --navbar-ul-width: 350px;
+    --navbar-li-width: 20%;
+    --navbar-indicator-size: calc(var(--navbar-ul-width) / 5);
+    --navbar-indicator-positionY: -50%;
+    --navbar-font-size: 0.75em;
+    --navbar-line-icon-height: 75x;
+
+    --navbar-translateY-icon: 20px;
+    --navbar-translateY-icon-active: -24px;
+    --navbar-translateY-text-active: 25px;
+
+    /*header*/
+    --header-height: var(--navbar-height);
+    --header-logo-size: calc(var(--header-height) * 1.5);
+
+    --navbar-background: var(--color-quaternary);
+    --navbar-active: var(--color-secondary);
+    --color-body-background: white;
+}
+
+@media screen and (width > 576px) {
+    :root {
+        --map-heigth: calc(100vh - calc(2 * var(--navbar-height) - 19px));
+
+        --navbar-height: 100px;
+        --navbar-svg-size: calc(var(--navbar-height) / 2.1875);
+        --navbar-ul-width: 550px;
+        --navbar-indicator-size: calc(var(--navbar-ul-width) / 5);
+        --navbar-indicator-positionY: -52%;
+        --navbar-font-size: 1em;
+        --navbar-line-icon-height: 140x;
+
+        --navbar-translateY-text-active: 52px;
+
+        --header-height: calc(var(--navbar-height) * 3 / 4);
+        --header-logo-size: calc(var(--header-height) * 1.75);
+    }
+}
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+body {
+    min-height: 100vh;
+    background-image: var(--gradient);
+}
+
+main {
+    min-height: calc(100vh - 140px);
+}
+#map {
+    /* configure the size of the map */
+    width: 100%;
+    height: var(--map-heigth);
+    border-radius: 20px;
+    border: 6px solid var(--color-body-background);
+    border-bottom: 13px solid var(--color-body-background);
+    align-self: end;
+}
+nav svg {
+    width: var(--navbar-svg-size);
+    height: var(--navbar-svg-size);
+}
+.navigation {
+    position: sticky;
+    z-index: 1000;
+    top: calc(100vh - var(--navbar-height));
+    width: 100%;
+    height: calc(var(--navbar-height) + 6px);
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.navigation ul {
+    display: flex;
+    width: var(--navbar-ul-width);
+}
+.navigation ul li {
+    position: relative;
+    list-style: none;
+    width: var(--navbar-li-width);
+    height: var(--navbar-indicator-size);
+    z-index: 1;
+}
+.navigation ul li a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+.navigation ul li .icon {
+    position: relative;
+    display: block;
+    line-height: var(--navbar-line-icon-height);
+    font-size: 1.5em;
+    text-align: center;
+    transition: 0.5s;
+    color: var(--color-body-background);
+    transform: translateY(var(--navbar-translateY-icon));
+}
+.navigation ul li.active .icon {
+    transform: translateY(var(--navbar-translateY-icon-active));
+}
+.navigation ul li .text {
+    position: absolute;
+    color: var(--color-body-background);
+    font-weight: 400;
+    font-size: var(--navbar-font-size);
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    opacity: 0;
+    transform: translateY(20px);
+    text-shadow: 6px 5px 2px rgb(0 0 0 / 0.4);
+}
+.navigation ul li .text:hover {
+    text-shadow: -6px 5px 2px rgb(0 0 0 / 0.4);
+    transform: translateX(0);
+    transition-duration: 1s;
+    transition-property: text-shadow, transform;
+}
+.navigation ul li.active .text {
+    opacity: 1;
+    transform: translateY(var(--navbar-translateY-text-active));
+}
+
+svg {
+    filter: drop-shadow(6px 5px 2px rgb(0 0 0 / 0.4));
+    transform: translateX(0);
+    transition-duration: 1s;
+    transition-property: filter, transform;
+}
+a:hover svg {
+    filter: drop-shadow(-6px 5px 2px rgb(0 0 0 / 0.4));
+    transform: translateX(0);
+}
+
+.indicator {
+    position: absolute;
+    top: var(--navbar-indicator-positionY);
+    width: var(--navbar-indicator-size);
+    height: var(--navbar-indicator-size);
+    background: var(--navbar-active);
+    border-radius: 50%;
+    border: 6px solid var(--color-body-background);
+    transition: 0.5s;
+}
+.indicator::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+
+    left: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-right-radius: 20px;
+    box-shadow: 0px -10px 0 0 var(--color-body-background);
+}
+.indicator::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-top-left-radius: 20px;
+    box-shadow: 0px -10px 0 0 var(--color-body-background);
+}
+.navigation ul li:nth-child(1).active ~ .indicator {
+    transform: translateX(calc(var(--navbar-indicator-size) * 0));
+}
+.navigation ul li:nth-child(2).active ~ .indicator {
+    transform: translateX(calc(var(--navbar-indicator-size) * 1));
+}
+.navigation ul li:nth-child(3).active ~ .indicator {
+    transform: translateX(calc(var(--navbar-indicator-size) * 2));
+}
+.navigation ul li:nth-child(4).active ~ .indicator {
+    transform: translateX(calc(var(--navbar-indicator-size) * 3));
+}
+.navigation ul li:nth-child(5).active ~ .indicator {
+    transform: translateX(calc(var(--navbar-indicator-size) * 4));
+}
+
+header {
+    width: 100%;
+    height: var(--header-height);
+    background: transparent;
+    position: relative;
+}
+header img {
+    width: var(--header-logo-size);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1000;
+    left: calc(50% - calc(var(--header-logo-size) / 2));
+}
+svg {
+    filter: drop-shadow(6px 5px 2px rgb(0 0 0 / 0.4));
+    transform: translateX(0);
+    transition-duration: 1s;
+    transition-property: filter, transform;
+}
+a:hover svg {
+    filter: drop-shadow(-6px 5px 2px rgb(0 0 0 / 0.4));
+    transform: translateX(0);
+}
