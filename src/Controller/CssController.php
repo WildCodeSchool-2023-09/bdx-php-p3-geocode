@@ -29,7 +29,6 @@ class CssController extends AbstractController
             ->add('name', TextType::class)
             ->add('email', EmailType::class)
             ->add('message', TextareaType::class)
-            ->add('send', SubmitType::class)
             ->getForm();
 
         $form->handleRequest($request);
