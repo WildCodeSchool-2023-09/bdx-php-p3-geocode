@@ -58,3 +58,7 @@ input[type="checkbox"]:checked {
         transform: translate(-10px, -13px);
     }
 }
+    .checkbox{
+        display: grid;
+        grid-template-columns: 80px 20px;
+    }
