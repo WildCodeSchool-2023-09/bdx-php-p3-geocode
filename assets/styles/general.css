@@ -236,7 +236,8 @@ svg {
     transition-duration: 1s;
     transition-property: filter, transform;
 }
-a:hover svg {
-    filter: drop-shadow(-6px 5px 2px rgb(0 0 0 / 0.4));
-    transform: translateX(0);
+
+main svg{
+    width: 2rem;
+    height: 2rem;
 }
