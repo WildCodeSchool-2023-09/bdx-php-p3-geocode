@@ -41,7 +41,8 @@
                 <span class="text">Favoris</span>
             </a>
         </li>
-        <li class="list {{ (app.request.attributes.get('_route') == 'app_css') ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
+{#        {{ dump((app.request.attributes.get('_route')) }}#}
+        <li class="list {{ ((app.request.attributes.get('_route') == 'app_css') or (app.request.attributes.get('_route') == 'app_css_form')) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
             <a href="{{ path('app_css') }}" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
