@@ -30,3 +30,31 @@ main {
     border: 0.05rem solid #ccc;
     border-radius: 0.25rem;
   }
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+}
+
+input[type=checkbox] {
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+input[type="checkbox"]:checked {
+    background: white;
+    position: relative;
+    &:before {
+        font-family: "Voces", sans-serif;
+        content: url("../images/check.svg");
+        display: block;
+        color: grey;
+        font-size: 13px;
+        position: absolute;
+        transform: translate(-10px, -13px);
+    }
+}
