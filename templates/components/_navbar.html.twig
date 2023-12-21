@@ -1,7 +1,7 @@
 <nav class="navigation">
     <ul {{ stimulus_controller('navbar') }}>
-        <li class="list active"  {{ stimulus_target('navbar', 'list') }}>
-            <a href="#" {{ stimulus_action('navbar', 'openActive') }} >
+        <li class="list {{ (app.request.attributes.get('_route') == 'app_home') ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
+            <a href="/" {{ stimulus_action('navbar', 'openActive') }} >
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ev-front" viewBox="0 0 16 16">
             <path d="M9.354 4.243a.188.188 0 0 0-.085-.218.186.186 0 0 0-.23.034L6.051 7.246a.188.188 0 0 0 .136.316h1.241l-.673 2.195a.188.188 0 0 0 .085.218c.075.043.17.03.23-.034l2.88-3.187a.188.188 0 0 0-.137-.316H8.572z" />
@@ -41,8 +41,8 @@
                 <span class="text">Favoris</span>
             </a>
         </li>
-        <li class="list"  {{ stimulus_target('navbar', 'list') }}>
-            <a href="#" {{ stimulus_action('navbar', 'openActive') }}>
+        <li class="list {{ (app.request.attributes.get('_route') == 'app_css') ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
+            <a href="{{ path('app_css') }}" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z" />
