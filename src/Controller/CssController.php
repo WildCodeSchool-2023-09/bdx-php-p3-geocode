@@ -21,6 +21,7 @@ class CssController extends AbstractController
         ]);
     }
 
+    #[Route('/css/form', name: 'app_css_form')]
     public function contact(Request $request): Response
     {
         $defaultData = ['message' => 'Type your message here'];
