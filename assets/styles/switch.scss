@@ -1,24 +1,24 @@
 :root{
-    --width: 80px;
-    --height: 40px;
-    --border: 2px;
-    --half-width: calc(var(--width)/2);
+    --switch-width: 80px;
+    --switch-height: 30px;
+    --switch-border: 2px;
+    --switch-half-width: calc(var(--switch-width)/2);
 
-    --font-size: 1rem;
+    --switch-font-size: 1rem;
 
 }
 .long-switch{
-    --width: 160px;
-    --half-width: calc(var(--width)/2);
-    --font-size: 2rem;
+    --switch-width: 160px;
+    --switch-half-width: calc(var(--switch-width)/2);
+    --switch-font-size: 1rem;
 }
 
 
 .switch {
     position: relative;
     display: inline-block;
-    width: var(--width);
-    height: var(--height);
+    width: var(--switch-width);
+    height: var(--switch-height);
 }
 
 .switch input {
@@ -28,6 +28,7 @@
 }
 
 .slider {
+    display: inline-block;
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -42,10 +43,10 @@
 .slider:before {
     position: absolute;
     content: "";
-    height: calc(var(--height) - calc(2*var(--border)));
-    width: calc(var(--half-width) - calc(var(--border)*2));
-    left: var(--border);
-    bottom: var(--border);
+    height: calc(var(--switch-height) - calc(2*var(--switch-border)));
+    width: calc(var(--switch-half-width) - calc(var(--switch-border)*2));
+    left: var(--switch-border);
+    bottom: var(--switch-border);
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -61,21 +62,25 @@ input:focus + .slider {
 
 input:checked + .slider:before {
     color: white;
-    -webkit-transform: translateX(var(--half-width));
-    -ms-transform: translateX(var(--half-width));
-    transform: translateX(var(--half-width));
+    -webkit-transform: translateX(var(--switch-half-width));
+    -ms-transform: translateX(var(--switch-half-width));
+    transform: translateX(var(--switch-half-width));
 }
 
 /* Rounded sliders */
 .slider.round {
     display: flex;
     justify-content: space-around;
-    font-size: var(--font-size);
-    border-radius: calc(var(--height) - calc(2*var(--border)));
+    font-size: var(--switch-font-size);
+    border-radius: calc(var(--switch-height) - calc(2*var(--switch-border)));
 }
 
 .slider.round:before {
-    font-size: var(--font-size);
+    font-size: var(--switch-font-size);
     text-align: center;
-    border-radius: calc(var(--height) - calc(2*var(--border)));
+    border-radius: calc(var(--switch-height) - calc(2*var(--switch-border)));
+}
+.slider span{
+    margin-top: auto;
+    margin-bottom: auto;
 }
