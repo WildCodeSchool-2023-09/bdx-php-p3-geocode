@@ -27,9 +27,30 @@
             <label for="checkbox">checkbox</label>
             <input type="checkbox" id="checkbox" name="checkbox">
         </div>
+
+
+        <h2>Switch</h2>
+
         <label for="file" hidden>image</label>
         <input type="file" id="file" name="file">
+
     </form>
+
+        <label class="switch long-switch">
+            <input type="checkbox" checked>
+            <span class="slider round"><span>ON</span><span>OFF</span></span>
+        </label>
+          <label class="switch ">
+            <input type="checkbox" checked>
+            <span class="slider round"><span>ON</span><span>OFF</span></span>
+        </label>
+          <div>
+              <label class="switch long-switch">
+                  <input type="checkbox" checked>
+                  <span class="slider round"><span>Kms</span><span>Miles</span></span>
+              </label>
+          </div>
+
         <form>
         <!-- <label for="nom">NAME :</label>
         <input type="text" id="nom" name="nom" required>
@@ -45,25 +66,8 @@
         </select>
 
     </form>
-    {# <div class="sidebar">
-        <b><a href="#">Administrateur</a></b>
-            <i><a href="#">Compte</a></i>
-            <i><a href="#">Messagerie</a></i>
-            <i><a href="#">Notifications</a></i>
-            <i><a href="#">Paramètres</a></i>
-        <b><a href="#">Tableau de bord</a></b>
-          <b><a href="#">Organisation</a></b>
-            <i><a href="#">Liste des Bornes</a></i>
-            <i><a href="#">Liste des Véhicules</a></i>
-            <i><a href="#">Liste des Utilisateurs</a></i>
-        <b><a href="#">Actualités</a></b>
-            <i><a href="#">Liste des actualités</a></i>
-            <i><a href="#">Créer une actualité</a></i>
-        <b><a href="#">Statistiques</a></b>
-            <i><a href="#">Accéder aux statistiques</a></i>
-            <i><a href="#">Accéder aux rapports</a></i>
 
-  </div> #}
+  </div>
 
 </div>
 {% endblock %}
