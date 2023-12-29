@@ -4,26 +4,31 @@
 
 {% block body %}
 
-    <div class="formulaire-container">
+{#    <div class="main">#}
 
-    <h1>S'inscrire</h1>
+        <div class="formulaire-container">
 
-        {{ form_errors(registrationForm) }}
+        <h1 class="titleUnderLogo">S'inscrire</h1>
 
-        {{ form_start(registrationForm) }}
-            {{ form_row(registrationForm.gender) }}
-            {{ form_row(registrationForm.firstname) }}
-            {{ form_row(registrationForm.lastname) }}
-            {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.plainPassword, {
-                label: 'Password'
-            }) }}
-            {{ form_row(registrationForm.town) }}
-{#            {{ form_row(registrationForm.postal-Code) }}#}
-            {{ form_row(registrationForm.birthday) }}
-            {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_errors(registrationForm) }}
 
-            <button class="button" type="submit" >Register</button>
-        {{ form_end(registrationForm) }}
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.gender ) }}
+                {{ form_row(registrationForm.firstname) }}
+                {{ form_row(registrationForm.lastname) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+                {{ form_row(townForm.name) }}
+                {{ form_row(townForm.postalCode) }}
+
+                {{ form_row(registrationForm.birthday) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button class="button" type="submit" >S'enregistrer</button>
+            {{ form_end(registrationForm) }}
+        </div>
     </div>
 {% endblock %}

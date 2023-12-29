@@ -27,18 +27,33 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
+                'attr' => [
+                    'class' => 'input'
+                ],
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prenom',
+                'attr' => [
+                    'class' => 'input'
+                ],
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
+                'row_attr' => [
+                    'class' => 'liste'
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => [
+                    'class' => 'input'
+                ],
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
+                'row_attr' => [
+                    'class' => 'liste'
+                ],
                 'choices' => [
                     'Homme' => 'homme',
                     'Femme' => 'Femme',
@@ -46,24 +61,21 @@ class RegistrationFormType extends AbstractType
                     'Autre' => 'autre',
                 ],
             ])
-            ->add('town', TextType::class, [
-//                'class' => Town::class,
-//                'choice_label' => 'name',
-                'label' => 'Ville',
-            ])
-//            ->add('town', IntegerType::class, [
-////                'class' => Town::class,
-////                'choice_label' => 'postalCode',
-//                'label' => 'Code Postal',
-//            ])
 
             ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+                'mapped' => false,
+                'label' => 'En m\'inscrivant à ce site je j\'accepte toutes les conditions  ',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                                 ],
+                                'row_attr' => [
+                                    'class' => 'liste'
+                                ],
+                'attr' => [
+                    'class' => 'input[type="checkbox"]'
+                ],
             ])
 //            ->add('plainPassword', PasswordType::class, [
             ->add('plainPassword', RepeatedType::class, [
@@ -78,7 +90,10 @@ class RegistrationFormType extends AbstractType
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas',
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'class' => 'input'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
