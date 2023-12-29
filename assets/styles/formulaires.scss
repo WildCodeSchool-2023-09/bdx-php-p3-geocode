@@ -12,15 +12,20 @@ main {
     border-radius: 1.25rem;
     padding: 1.25rem;
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   label {
     margin-bottom: 0.5rem;
+      margin-right: 5px;
   }
 
   input {
@@ -28,6 +33,7 @@ main {
     margin-bottom: 1rem;
     border: 0.05rem solid #ccc;
     border-radius: 0.25rem;
+    width: 359px;
   }
 
 input[type=checkbox] {
@@ -74,4 +80,12 @@ input[type=file]::file-selector-button {
 input[type=file]::file-selector-button:hover {
     filter: drop-shadow(-4px 4px 2px rgb(0 0 0 / 0.4));
     transform: translateX(0);
+}
+
+.liste{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    width: 80%;
 }
