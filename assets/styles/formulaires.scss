@@ -7,24 +7,14 @@ main {
     font-size: 16px;
   }
 
-  .formulaire-container {
-    background-color: #E5E9E7;
-    border-radius: 1.25rem;
-    padding: 1.25rem;
-    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #525B5A(0, 0, 0, 0.1);
-    border-radius: 2rem;
+    background-color: #E5E9E7;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
   }
 
   label {
@@ -87,10 +77,10 @@ input[type=file]::file-selector-button:hover {
     transform: translateX(0);
 }
 
-.liste{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    margin-bottom: 1rem;
-    width: 80%;
-}
+//.liste{
+//    display: flex;
+//    align-items: center;
+//    flex-direction: row;
+//    margin-bottom: 1rem;
+//    width: 80%;
+//}

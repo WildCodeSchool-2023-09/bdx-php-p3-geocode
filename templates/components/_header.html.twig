@@ -1,4 +1,9 @@
 <header>
     <img src="{{ asset('build/images/logo.png')}}" alt="logo de GeoCode" />
+    {% if app.user %}
+    <div class="icon_header">
+        <button class="button"><a href="{{ path('app_logout') }}">Me déconnecter</a></button>
+    </div>
+    {% endif %}
 </header>
 
