@@ -222,13 +222,18 @@ header {
     height: var(--header-height);
     background: transparent;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 header img {
     width: var(--header-logo-size);
     border-radius: 50%;
     position: absolute;
-    z-index: 1000;
+    top: 0;
     left: calc(50% - calc(var(--header-logo-size) / 2));
+    z-index: 1000;
 }
 svg {
     filter: drop-shadow(6px 5px 2px rgb(0 0 0 / 0.4));

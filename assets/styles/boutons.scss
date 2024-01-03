@@ -2,14 +2,27 @@
 .button {
     font-size: 16px;
     background-color: #21A89A;
-    color: #fff; 
+    color: #fff;
     padding: 0.5rem 3rem;
-    border: none; 
+    border: none;
     border-radius: 2rem;
-    cursor: pointer; 
+    cursor: pointer;
+    margin: 5px;
+    transition: filter 0.5s ease;
+
+    a {
+        text-decoration: none;
+        color: #fff;
+
+        :visited{
+            color: #fff;
+        }
+    }
+
   }
 
 .button:hover {
-    filter: drop-shadow(-6px 5px 2px #525B5A(0 0 0 / 0.4));
+    //filter: drop-shadow(-6px 5px 2px #525B5A(0 0 0 / 0.4));
+    filter: drop-shadow(-6px 5px 2px rgba(82, 91, 90, 0.4));
     transform: translateX(0);
   }

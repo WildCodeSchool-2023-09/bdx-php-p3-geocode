@@ -7,20 +7,14 @@ main {
     font-size: 16px;
   }
 
-  .formulaire-container {
-    background-color: #E5E9E7;
-    border-radius: 1.25rem;
-    padding: 1.25rem;
-    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #E5E9E7;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
   }
 
   label {
