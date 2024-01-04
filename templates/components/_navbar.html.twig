@@ -1,7 +1,9 @@
 <nav class="navigation">
     <ul {{ stimulus_controller('navbar') }}>
-        <li class="list {{ (app.request.attributes.get('_route') == 'app_home') ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
-            <a href="/" {{ stimulus_action('navbar', 'openActive') }} >
+        <li class="list {{ (app.request.attributes.get('_route') == 'app_home' or
+                            app.request.attributes.get('_route') == 'app_map'
+                            ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
+            <a href="{{ path('app_map') }}" {{ stimulus_action('navbar', 'openActive') }} >
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ev-front" viewBox="0 0 16 16">
             <path d="M9.354 4.243a.188.188 0 0 0-.085-.218.186.186 0 0 0-.23.034L6.051 7.246a.188.188 0 0 0 .136.316h1.241l-.673 2.195a.188.188 0 0 0 .085.218c.075.043.17.03.23-.034l2.88-3.187a.188.188 0 0 0-.137-.316H8.572z" />
