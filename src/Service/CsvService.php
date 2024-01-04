@@ -31,8 +31,8 @@ class CsvService
             $line = fgets($fileToRead);
             $arrayFromLine = explode(',', $line);
             $town = new Town();
-            if (!$this->verifyTownName($arrayFromLine[1])) {
-                throw new Exception('Town name is empty !');
+            if (!$this->verifyTownData($arrayFromLine)) {
+                throw new Exception('it seems there\'s some problems with towns data!');
             }
             $town->setName($arrayFromLine[1])
                 ->setPostalCode(intval($arrayFromLine[2]))
@@ -45,6 +45,11 @@ class CsvService
         fclose($fileToRead);
     }
 
+    private function verifyTownData(array $townArray): bool
+    {
+        return $this->verifyTownName($townArray[1]) &&
+                $this->verifyZipCode($townArray[2]);
+    }
     private function verifyFile(string $firstLine): bool
     {
          return $firstLine === 'insee_code,city_code,zip_code,label,latitude,
@@ -57,5 +62,10 @@ class CsvService
             return false;
         }
         return true;
+    }
+
+    private function verifyZipCode(string $zipCode): bool
+    {
+        return preg_match('/[0-9]{5}/', $zipCode);
     }
 }
