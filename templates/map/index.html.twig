@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MapController!{% endblock %}
+{% block title %}Geocode - Carte{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/nlero/Documents/WCS/projects/bdx-php-p3-geocode/src/Controller/MapController.php'|file_link(0) }}">src/Controller/MapController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/nlero/Documents/WCS/projects/bdx-php-p3-geocode/templates/map/index.html.twig'|file_link(0) }}">templates/map/index.html.twig</a></code></li>
-    </ul>
-</div>
+<div id="map" {{ stimulus_controller('map') }}></div>
 {% endblock %}
+
+
