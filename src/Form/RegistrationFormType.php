@@ -39,9 +39,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
-                'row_attr' => [
-                    'class' => 'liste'
-                ],
+                'widget' => 'single_text'
+//                'row_attr' => [
+//                    'class' => 'liste'
+//                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',

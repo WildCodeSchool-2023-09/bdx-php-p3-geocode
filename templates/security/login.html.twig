@@ -10,7 +10,7 @@
 
         {% if app.user %}
             <div class="mb-3">
-                Vous êtes connecté(e) {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                Vous êtes connecté(e) {{ app.user.userIdentifier }}
             </div>
         {% endif %}
 
@@ -25,5 +25,8 @@
         <button class="button" type="submit">
             Me connecter
         </button>
+
+        <p> Première visite ? <a href="{{ path('app_register') }}">Inscrivez-vous</a></p>
+{#        <a href="{{ path('app_logout') }}">Me déconnecter</a>#}
     </form>
 {% endblock %}

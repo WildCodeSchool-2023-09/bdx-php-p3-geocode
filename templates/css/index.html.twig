@@ -15,26 +15,25 @@
     {% endif %}
 
       <button class="button">Confirmer</button>
-      <div class="formulaire-container">
-    <form action="#" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" placeholder="Votre nom">
-        <label for="number">numéro</label>
-        <input type="number" id="number" name="number" placeholder="0">
-        <label for="date">date</label>
-        <input type="date" id="date" name="date">
-        <div class="checkbox">
-            <label for="checkbox">checkbox</label>
-            <input type="checkbox" id="checkbox" name="checkbox">
-        </div>
+{#      <div class="formulaire-container">#}
+        <form action="#" method="post">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom">
+            <label for="number">numéro</label>
+            <input type="number" id="number" name="number" placeholder="0">
+            <label for="date">date</label>
+            <input type="date" id="date" name="date">
+            <div class="checkbox">
+                <label for="checkbox">checkbox</label>
+                <input type="checkbox" id="checkbox" name="checkbox">
+            </div>
 
+            <h2>Switch</h2>
 
-        <h2>Switch</h2>
+            <label for="file" hidden>image</label>
+            <input type="file" id="file" name="file">
 
-        <label for="file" hidden>image</label>
-        <input type="file" id="file" name="file">
-
-    </form>
+        </form>
 
         <label class="switch long-switch">
             <input type="checkbox" checked>
@@ -57,18 +56,18 @@
 
         <label for="email">LASTNAME :</label>
         <input type="email" id="email" name="email" required> -->
-<div class="liste">
-        <label for="infos"> Demande :</label>
-        <select id="infos" name="infos"  class="custom-select">>
-            <option value="informantions">Demande d'informations</option>
-            <option value="partenariats">Demande de partenariats</option>
-            <option value="autres">Autres</option>
-        </select>
-</div>
+        <div class="liste">
+                <label for="infos"> Demande :</label>
+                <select id="infos" name="infos"  class="custom-select">>
+                    <option value="informantions">Demande d'informations</option>
+                    <option value="partenariats">Demande de partenariats</option>
+                    <option value="autres">Autres</option>
+                </select>
+        </div>
 
     </form>
 
-  </div>
+{#  </div>#}
 
 </div>
 {% endblock %}
