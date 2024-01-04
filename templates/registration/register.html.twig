@@ -13,7 +13,20 @@
             {{ form_errors(registrationForm) }}
 
             {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.gender ) }}
+{#                {{ form_row(registrationForm.gender ) }}#}
+                <div class="select-list" >
+                    <input type="radio" name="{{ field_name(registrationForm.gender) }}">
+                    <span class="placeholder">{{ field_label(registrationForm.gender) }}</span>
+
+                    {% for label, value in field_choices(registrationForm.gender) %}
+
+                        <label class="option">
+                            <input class='reset-radio' type="radio" name="{{ field_name(registrationForm.gender) }}" value='{{ value }}'>
+                            <span class="title">{{ label }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
                 {{ form_row(registrationForm.firstname) }}
                 {{ form_row(registrationForm.lastname) }}
                 {{ form_row(registrationForm.email) }}
