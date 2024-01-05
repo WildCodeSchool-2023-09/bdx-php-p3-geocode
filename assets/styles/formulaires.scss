@@ -77,6 +77,32 @@ input[type=file]::file-selector-button:hover {
     transform: translateX(0);
 }
 
+.alert.alert-success {
+    color: #127127;; /* Couleur du texte pour le succès */
+    background-color: #00ffa9;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.alert.alert-success svg{
+    margin: 5px 8px;
+}
+
+.alert.alert-danger {
+    color: #f02d3f; /* Couleur du texte pour l'erreur */
+    background-color: #ff000061;;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.alert.alert-danger svg {
+    margin: 5px 8px;
+}
+
 //.liste{
 //    display: flex;
 //    align-items: center;
@@ -84,3 +110,4 @@ input[type=file]::file-selector-button:hover {
 //    margin-bottom: 1rem;
 //    width: 80%;
 //}
+
