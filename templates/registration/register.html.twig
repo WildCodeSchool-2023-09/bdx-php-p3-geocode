@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+{#    <div class="main">#}
+
+        <div class="formulaire-container">
+
+        <h1 class="titleUnderLogo">S'inscrire</h1>
+
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+{#                {{ form_row(registrationForm.gender ) }}#}
+                <div class="select-list" >
+                    <input type="radio" name="{{ field_name(registrationForm.gender) }}">
+                    <span class="placeholder">{{ field_label(registrationForm.gender) }}</span>
+
+                    {% for label, value in field_choices(registrationForm.gender) %}
+
+                        <label class="option">
+                            <input class='reset-radio' type="radio" name="{{ field_name(registrationForm.gender) }}" value='{{ value }}'>
+                            <span class="title">{{ label }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                {{ form_row(registrationForm.firstname) }}
+                {{ form_row(registrationForm.lastname) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+                {{ form_row(townForm.name) }}
+                {{ form_row(townForm.postalCode) }}
+
+                {{ form_row(registrationForm.birthday) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button class="button" type="submit" >S'enregistrer</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
