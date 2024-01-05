@@ -8,7 +8,7 @@ use Exception;
 
 class CsvService
 {
-    public function __construct(private EntityManagerInterface $entityManager, private string $townFile)
+    public function __construct(private string $townFile, private EntityManagerInterface $entityManager)
     {
     }
 
@@ -21,7 +21,7 @@ class CsvService
         }
         $fileToRead = fopen($filename, "r");
 
-        if (!$this->verifyFile(fgets($fileToRead))) {
+        if (!$this->verifyFirstLineFile(fgets($fileToRead))) {
             fclose($fileToRead);
             throw new Exception('file doesn\'t match');
         } // on passe la première ligne qui est celle des étiquettes
@@ -45,15 +45,25 @@ class CsvService
         fclose($fileToRead);
     }
 
-    private function verifyTownData(array $townArray): bool
+    public function verifyTownData(array $townArray): bool
     {
         return $this->verifyTownName($townArray[1]) &&
                 $this->verifyZipCode($townArray[2]);
     }
-    private function verifyFile(string $firstLine): bool
+    public function verifyFirstLineFile(string $firstLine): bool
     {
-         return $firstLine === 'insee_code,city_code,zip_code,label,latitude,
-         longitude,department_name,department_number,region_name,region_geojson_name';
+        $firstLineArray = array_map('trim', explode(',', $firstLine));
+        $neededFirstLine = ['insee_code',
+            'city_code',
+            'zip_code',
+            'label',
+            'latitude',
+            'longitude',
+            'department_name',
+            'department_number',
+            'region_name',
+            'region_geojson_name'];
+        return $firstLineArray === $neededFirstLine ;
     }
 
     private function verifyTownName(string $name): bool
