@@ -20,8 +20,10 @@ export default class extends Controller {
                 userLon = Number(position.coords.longitude.toFixed(2));
                 console.log(userLon, userLat);
                 console.log(typeof userLat);
-                map.setView({ lon: userLon, lat: userLat }, 2);
-                map.setZoom(15);
+                map.setMinZoom(3);
+                map.setView({ lon: userLon, lat: userLat }, 15);
+
+                //map.setZoom(15);
                 L.marker({ lon: userLon, lat: userLat })
                 .bindPopup("Vous êtes ici")
                 .addTo(map);
