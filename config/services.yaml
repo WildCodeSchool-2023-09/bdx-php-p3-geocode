@@ -21,6 +21,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
     App\Service\CsvService:
+        public: true
         arguments:
             $townFile: '%app.town_csv%'
     # add more service definitions when explicit configuration is needed
