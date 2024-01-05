@@ -4,9 +4,9 @@ vich_uploader:
     metadata:
         type: attribute
 
-mappings:
-    poster_file:
-        # alias qui nous permet d'accéder à nos images depuis le navigateur
-        uri_prefix: /uploads/images/pictures
-        upload_destination: '%upload_directory%'
-        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+    mappings:
+        poster_file:
+            # alias qui nous permet d'accéder à nos images depuis le navigateur
+            uri_prefix: /uploads/images/pictures
+            upload_destination: '%upload_directory%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

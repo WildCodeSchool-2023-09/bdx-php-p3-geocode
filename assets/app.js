@@ -10,3 +10,8 @@ import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+import profilePictureDefault  from './images/Default.pfp.png';
+
+let html = `<img src="${profilePictureDefault}" alt="profile Picture Default">`;
+

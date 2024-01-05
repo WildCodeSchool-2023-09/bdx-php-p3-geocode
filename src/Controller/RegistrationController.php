@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Town;
 use App\Entity\User;
 use App\Form\TownType;
 use App\Form\RegistrationFormType;
@@ -26,10 +27,12 @@ class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
 
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $townForm = $this->createForm(TownType::class);
+
+        $form->handleRequest($request);
+        $townForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -40,6 +43,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            //TODO prendre les infos du town form
+            // récupérer le nom et ce cp
+            // aller chercher la town where name = nom and postal_code = code postal
+            // $user->setTown() la Town
+
+            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
