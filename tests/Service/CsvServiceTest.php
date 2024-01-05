@@ -6,13 +6,10 @@ use App\Service\CsvBasiqueService;
 use App\Service\CsvService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class CsvBasiqueServiceTest extends KernelTestCase
+class CsvServiceTest extends KernelTestCase
 {
     public function testVerifyFirstLineFile(): void
     {
-//        self::bootKernel();
-//        $contenair = static ::getContainer();
-//        $csvService = $contenair->get(CsvService::class);
         $csvService = new CsvBasiqueService();
         $line1 = 'insee_code,city_code,zip_code,label,latitude,longitude,department_name,
         department_number,region_name,region_geojson_name';
