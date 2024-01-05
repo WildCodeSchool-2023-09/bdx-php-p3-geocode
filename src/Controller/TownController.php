@@ -14,7 +14,6 @@ class TownController extends AbstractController
     #[Route('/town', name: 'app_town')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $form = $this->createForm(TownType::class);
         $form->handleRequest($request);
 

@@ -250,3 +250,33 @@ main svg{
 .titleUnderLogo {
     margin-top: 10%;
 }
+
+.pictures {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: solid;
+    display: block;
+    object-fit: cover;
+}
+
+.pictureProfil {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 3rem;
+}
+
+.firstInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.secondInfo {
+    margin-top: 2rem;
+}
+
+.title{
+    margin-bottom: 3rem;
+}
+
