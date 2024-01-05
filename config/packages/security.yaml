@@ -20,7 +20,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_home
+                target: app_map
 
             remember_me:
                 secret: '%kernel.secret%'
