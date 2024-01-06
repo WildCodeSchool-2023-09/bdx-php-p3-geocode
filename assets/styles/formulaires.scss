@@ -17,6 +17,7 @@ main {
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
   }
 
+
   label {
       display: block;
       margin-bottom: 0.5rem;
@@ -28,7 +29,10 @@ main {
     margin-bottom: 1rem;
     border: 0.05rem solid #ccc;
     border-radius: 0.25rem;
-    width: 359px;
+    width: 300px;
+    @media screen and (width > 572px) {
+      width: 359px;
+    }
   }
 
 input[type=checkbox] {

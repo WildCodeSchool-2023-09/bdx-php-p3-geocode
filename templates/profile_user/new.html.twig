@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <div >
+        <h1 class="title">Modifier mon profil</h1>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.picture) }}
+        {{ form_row(form.pictureFile) }}
+
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+{#        {{ form_row(form.currentPassword) }}#}
+{#        {{ form_row(form.plainPassword) }}#}
+{#        {{ form_row(form.gender) }}#}
+        {{ form_row(townForm.name) }}
+        {{ form_row(townForm.postalCode) }}
+
+        <button class="btn btn-lg btn-secondary mt-3 text-white" type="submit">Modifier</button>
+        {{ form_end(form) }}
+
+        <a class="mt-3" href="{{ path('app_profile_user') }}">
+            Retour sur mon profil
+        </a>
+    </div>
+{% endblock %}
