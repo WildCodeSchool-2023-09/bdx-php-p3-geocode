@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfileUserType;
 use App\Form\TownType;
+use App\Form\ChangePasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\New_;
@@ -12,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileUserController extends AbstractController
@@ -84,6 +87,40 @@ class ProfileUserController extends AbstractController
             'user' => $user,
             'form' => $form,
             'townForm' => $townForm->createView(),
+        ]);
+    }
+
+    #[Route('/profile/user/{id}/modify-password', name: 'app_modify_password', methods: ['GET', 'POST'])]
+    public function modifyPassword(
+        Request $request,
+        User $user,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+    ): Response {
+
+        $form = $this->createForm(ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form['plainPassword']->getData();
+            if ($newPassword) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $newPassword
+                    )
+                );
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Mot de passe modifié avec succès!');
+
+            return $this->redirectToRoute('app_logout');
+        }
+
+        return $this->render('profile_user/change_password.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }

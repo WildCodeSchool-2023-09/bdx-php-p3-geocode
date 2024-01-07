@@ -41,42 +41,6 @@ class ProfileUserType extends AbstractType
                 ],
             ])
 
-//            ->add('currentPassword', PasswordType::class, [
-//                'label' => 'Mot de passe actuel',
-//                'mapped' => false,
-//                'constraints' => [
-//                    new NotBlank([
-//                        'message' => 'Please enter your current password',
-//                    ]),
-//                ],
-//            ])
-//            ->add('plainPassword', RepeatedType::class, [
-//                'type' => PasswordType::class,
-//                'first_options' => [
-//                    'label' => 'Nouveau mot de passe',
-//                ],
-//                'second_options' => [
-//                    'label' => 'Confirmation du nouveau mot de passe',
-//                ],
-//                'invalid_message' => 'Les mots de passe ne correspondent pas',
-//                'mapped' => false,
-//                'attr' => [
-//                    'autocomplete' => 'new-password',
-//                    'class' => 'input',
-//                ],
-//                'constraints' => [
-//                    new NotBlank([
-//                        'message' => 'Please enter a new password',
-//                    ]),
-//                    new Length([
-//                        'min' => 8,
-//                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-//                        // max length allowed by Symfony for security reasons
-//                        'max' => 4096,
-//                    ]),
-//                ],
-//            ])
-
             ->add('pictureFile', VichFileType::class, [
                 'label' => 'Ajouter une image',
                 'required'      => false,
