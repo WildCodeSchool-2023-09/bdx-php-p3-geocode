@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\PictureUserType;
 use App\Form\ProfileUserType;
 use App\Form\TownType;
 use App\Form\ChangePasswordType;
@@ -70,13 +71,15 @@ class ProfileUserController extends AbstractController
 //        }
         $form = $this->createForm(ProfileUserType::class, $user);
         $townForm = $this->createForm(TownType::class);
+//        $pictureForm = $this->createForm(PictureUserType::class);
+
         $form->handleRequest($request);
         $townForm->handleRequest($request);
+//        $pictureForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
-
 
             $this->addFlash('success', 'Votre profil à été modifié');
 
@@ -86,9 +89,36 @@ class ProfileUserController extends AbstractController
         return $this->render('profile_user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+//            'pictureForm' => $pictureForm,
             'townForm' => $townForm->createView(),
         ]);
     }
+
+    #[Route('/profile/user/{id}/picture', name: 'app_profile_user_picture', methods: ['GET', 'POST'])]
+    public function modifyPicture(
+        Request $request,
+        User $user,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $pictureForm = $this->createForm(PictureUserType::class, $user);
+        $pictureForm->handleRequest($request);
+
+        if ($pictureForm->isSubmitted() && $pictureForm->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre image de profil à été modifié');
+
+            return $this->redirectToRoute('app_profile_user');
+        }
+
+        return $this->render('profile_user/pictureUser.html.twig', [
+            'user' => $user,
+            'pictureForm' => $pictureForm,
+        ]);
+    }
+
 
     #[Route('/profile/user/{id}/modify-password', name: 'app_modify_password', methods: ['GET', 'POST'])]
     public function modifyPassword(

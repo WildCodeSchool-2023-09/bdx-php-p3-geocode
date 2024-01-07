@@ -41,22 +41,22 @@ class ProfileUserType extends AbstractType
                 ],
             ])
 
-            ->add('pictureFile', VichFileType::class, [
-                'label' => 'Ajouter une image',
-                'required'      => false,
-                'allow_delete'  => true, // not mandatory, default is true
-                'download_uri' => false, // not mandatory, default is true
-                'delete_label' => 'Supprimer', // Personnalisez l'étiquette de suppression
-//                'download_label' => 'Télécharger', // Personnalisez l'étiquette de téléchargement
-            ])
-
-            ->add('picture', TextType::class, [
-                'label' => 'Image actuelle',
-                'required' => false,
-                'attr' => [
-                    'readonly' => true, // Vous pouvez ajouter cela pour le rendre en lecture seule
-                ],
-            ])
+//            ->add('pictureFile', VichFileType::class, [
+//                'label' => 'Ajouter une image',
+//                'required'      => false,
+//                'allow_delete'  => true, // not mandatory, default is true
+//                'download_uri' => false, // not mandatory, default is true
+//                'delete_label' => 'Supprimer', // Personnalisez l'étiquette de suppression
+////                'download_label' => 'Télécharger', // Personnalisez l'étiquette de téléchargement
+//            ])
+//
+//            ->add('picture', TextType::class, [
+//                'label' => 'Image actuelle',
+//                'required' => false,
+//                'attr' => [
+//                    'readonly' => true, // Vous pouvez ajouter cela pour le rendre en lecture seule
+//                ],
+//            ])
 
         ;
     }
