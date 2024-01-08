@@ -81,6 +81,9 @@ main {
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
+main.map {
+    padding: 0;
+}
 #map {
     /* configure the size of the map */
     width: 100%;

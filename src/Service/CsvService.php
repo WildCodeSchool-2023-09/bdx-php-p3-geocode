@@ -66,16 +66,23 @@ class CsvService
         return $firstLineArray === $neededFirstLine ;
     }
 
-    private function verifyTownName(string $name): bool
+    public function verifyTownName(string $name): bool
     {
-        if (empty(trim($name))) {
-            return false;
-        }
-        return true;
+        return preg_match('/[a-z\s]+/', $name);
     }
 
-    private function verifyZipCode(string $zipCode): bool
+    public function verifyZipCode(string $zipCode): bool
     {
-        return preg_match('/[0-9]{5}/', $zipCode);
+        return preg_match('/\d{5}/', $zipCode);
+    }
+
+    public function verifyLatitude(float $latitude): bool
+    {
+        return $latitude >= -90 && $latitude < 90;
+    }
+
+    public function verifyLongitude(float $longitude): bool
+    {
+        return $longitude >= -180 && $longitude < 180;
     }
 }

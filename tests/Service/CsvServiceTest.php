@@ -29,4 +29,32 @@ class CsvServiceTest extends KernelTestCase
         $this->assertTrue($csvService->verifyFirstLineFile($line1));
         $this->assertFalse($csvService->verifyFirstLineFile($line2));
     }
+
+    public function testVerifyZipCode(): void
+    {
+        self::bootKernel();
+        $contenair = static ::getContainer();
+        $csvService = $contenair->get(CsvService::class);
+        $zipCode1 = '33000';
+        $zipCode2 = 'Bordeaux';
+        $zipCode3 = '3300';
+        $this->assertTrue($csvService->verifyZipCode($zipCode1));
+        $this->assertFalse($csvService->verifyZipCode($zipCode2));
+        $this->assertFalse($csvService->verifyZipCode($zipCode3));
+    }
+
+    public function testVerifyTownName(): void
+    {
+        self::bootKernel();
+        $contenair = static ::getContainer();
+        $csvService = $contenair->get(CsvService::class);
+        $name1 = 'bordeaux';
+        $name2 = 'saint germain';
+        $name3 = '';
+        $name4 = '33000';
+        $this->assertTrue($csvService->verifyTownName($name1));
+        $this->assertTrue($csvService->verifyTownName($name2));
+        $this->assertFalse($csvService->verifyTownName($name3));
+        $this->assertFalse($csvService->verifyTownName($name4));
+    }
 }
