@@ -88,13 +88,11 @@ class CsvService
 
     public function verifyFilename(): bool
     {
-        $filename = dirname('.', 2) . $this->townFile;
-        return is_file($filename);
+        return is_file($this->getFilename());
     }
 
     public function getFilename(): string
     {
-        $filename = dirname('.', 2) . $this->townFile;
-        return $filename;
+        return dirname('.', 2) . $this->townFile;
     }
 }
