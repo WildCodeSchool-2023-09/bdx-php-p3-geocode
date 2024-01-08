@@ -14,12 +14,11 @@ class CsvService
 
     public function readTown(): void
     {
-        $filename = dirname('.', 2) . $this->townFile;
-        if (!is_file($filename)) {
+        if (!$this->verifyFilename()) {
             throw new Exception('File not find.' . PHP_EOL .
                 'Verify your sources directory or yours parameters in config.yalm');
         }
-        $fileToRead = fopen($filename, "r");
+        $fileToRead = fopen($this->getFilename(), "r");
 
         if (!$this->verifyFirstLineFile(fgets($fileToRead))) {
             fclose($fileToRead);
@@ -48,7 +47,9 @@ class CsvService
     public function verifyTownData(array $townArray): bool
     {
         return $this->verifyTownName($townArray[1]) &&
-                $this->verifyZipCode($townArray[2]);
+                $this->verifyZipCode($townArray[2]) &&
+                $this->verifyLatitude($townArray[4]) &&
+                $this->verifyLongitude($townArray[5]);
     }
     public function verifyFirstLineFile(string $firstLine): bool
     {
