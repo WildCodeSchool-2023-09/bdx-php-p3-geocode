@@ -85,4 +85,10 @@ class CsvService
     {
         return $longitude >= -180 && $longitude < 180;
     }
+
+    public function verifyFilename(): bool
+    {
+        $filename = dirname('.', 2) . $this->townFile;
+        return is_file($filename);
+    }
 }
