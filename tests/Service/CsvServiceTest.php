@@ -57,4 +57,34 @@ class CsvServiceTest extends KernelTestCase
         $this->assertFalse($csvService->verifyTownName($name3));
         $this->assertFalse($csvService->verifyTownName($name4));
     }
+
+    public function testVerifyLatitude(): void
+    {
+        self::bootKernel();
+        $contenair = static ::getContainer();
+        $csvService = $contenair->get(CsvService::class);
+        $lat1 = 45.36;
+        $lat2 = -45.36;
+        $lat3 = 91.25;
+        $lat4 = -91.25;
+        $this->assertTrue($csvService->verifyLatitude($lat1));
+        $this->assertTrue($csvService->verifyLatitude($lat2));
+        $this->assertFalse($csvService->verifyLatitude($lat3));
+        $this->assertFalse($csvService->verifyLatitude($lat4));
+    }
+
+    public function testVerifyLongitude(): void
+    {
+        self::bootKernel();
+        $contenair = static ::getContainer();
+        $csvService = $contenair->get(CsvService::class);
+        $lon1 = 45.36;
+        $lon2 = -45.36;
+        $lon3 = 191.25;
+        $lon4 = -191.25;
+        $this->assertTrue($csvService->verifyLongitude($lon1));
+        $this->assertTrue($csvService->verifyLongitude($lon2));
+        $this->assertFalse($csvService->verifyLongitude($lon3));
+        $this->assertFalse($csvService->verifyLongitude($lon4));
+    }
 }
