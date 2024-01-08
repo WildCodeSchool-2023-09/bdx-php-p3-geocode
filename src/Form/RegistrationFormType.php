@@ -66,12 +66,12 @@ class RegistrationFormType extends AbstractType
                 'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions  ',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter nos conditions.',
                     ]),
                                 ],
-                                'row_attr' => [
-                                    'class' => 'liste'
-                                ],
+                'row_attr' => [
+                    'class' => 'liste'
+                ],
                 'attr' => [
                     'class' => 'input[type="checkbox"]'
                 ],

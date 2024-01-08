@@ -78,6 +78,8 @@ main {
     border-radius: 20px;
     border: 6px solid var(--color-body-background);
     border-bottom: 13px solid var(--color-body-background);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 #map {
     /* configure the size of the map */
@@ -252,18 +254,29 @@ main svg{
 }
 
 .pictures {
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     border: solid;
     display: block;
     object-fit: cover;
 }
 
+@media screen and (width > 576px) {
+    .pictures {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: solid;
+        display: block;
+        object-fit: cover;
+    }
+}
+
 .pictureProfil {
     display: flex;
     align-items: flex-end;
-    margin-right: 3rem;
+    margin-right: 2rem;
 }
 
 .firstInfo{
@@ -277,6 +290,26 @@ main svg{
 }
 
 .title{
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
+
+a{
+    text-decoration: none;
+    color: var(--color-ternary);
+}
+
+.svgText{
+    display: flex;
+    align-items: center;
+}
+
+.marg{
+    margin-right: 8px;
+}
+
+
+
+
+
 

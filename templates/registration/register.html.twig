@@ -6,7 +6,7 @@
 
 {#    <div class="main">#}
 
-        <div class="formulaire-container">
+        <div >
 
         <h1 class="titleUnderLogo">S'inscrire</h1>
 
@@ -27,6 +27,7 @@
                     {% endfor %}
                 </div>
 
+
                 {{ form_row(registrationForm.firstname) }}
                 {{ form_row(registrationForm.lastname) }}
                 {{ form_row(registrationForm.email) }}
@@ -42,6 +43,7 @@
 
                 <button class="button" type="submit" >S'enregistrer</button>
             {{ form_end(registrationForm) }}
+
         </div>
     </div>
 {% endblock %}
