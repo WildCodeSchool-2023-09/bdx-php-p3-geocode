@@ -75,4 +75,14 @@ class CsvService
     {
         return preg_match('/\d{5}/', $zipCode);
     }
+
+    public function verifyLatitude(float $latitude): bool
+    {
+        return $latitude >= -90 && $latitude < 90;
+    }
+
+    public function verifyLongitude(float $longitude): bool
+    {
+        return $longitude >= -180 && $longitude < 180;
+    }
 }
