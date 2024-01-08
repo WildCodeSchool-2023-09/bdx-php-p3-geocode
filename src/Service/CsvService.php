@@ -91,4 +91,10 @@ class CsvService
         $filename = dirname('.', 2) . $this->townFile;
         return is_file($filename);
     }
+
+    public function getFilename(): string
+    {
+        $filename = dirname('.', 2) . $this->townFile;
+        return $filename;
+    }
 }
