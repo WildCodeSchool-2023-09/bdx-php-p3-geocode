@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\TownType;
+use App\Service\CsvService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,5 +32,13 @@ class TownController extends AbstractController
             'townForm' => $form->createView(),
 //            'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/townfile', name: 'app_townfile')]
+    public function townFile(CsvService $csvService): Response
+    {
+        return $this->render('town/test.html.twig', [
+            'townfile' => $csvService->getFilename(),
+            ]);
     }
 }
