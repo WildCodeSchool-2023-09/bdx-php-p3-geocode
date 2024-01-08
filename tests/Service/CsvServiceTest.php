@@ -87,4 +87,12 @@ class CsvServiceTest extends KernelTestCase
         $this->assertFalse($csvService->verifyLongitude($lon3));
         $this->assertFalse($csvService->verifyLongitude($lon4));
     }
+
+    public function testVerifyFilename(): void
+    {
+        self::bootKernel();
+        $contenair = static ::getContainer();
+        $csvService = $contenair->get(CsvService::class);
+        $this->assertTrue($csvService->verifyFilename());
+    }
 }
