@@ -19,7 +19,7 @@ class Town
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $postalCode = null;
+    private ?string $zipCode = null;
 
     #[ORM\Column]
     private ?float $latitude = null;
@@ -56,14 +56,14 @@ class Town
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getZipCode(): ?int
     {
-        return $this->postalCode;
+        return $this->zipCode;
     }
 
-    public function setPostalCode(int $postalCode): static
+    public function setZipCode(int $zipCode): static
     {
-        $this->postalCode = $postalCode;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
