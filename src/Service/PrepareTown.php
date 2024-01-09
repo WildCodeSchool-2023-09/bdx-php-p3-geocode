@@ -6,8 +6,12 @@ class PrepareTown
 {
     public function prepareTownName(string $name): string
     {
-        $string = strtoupper($name);
-        return str_replace([' L ', ' S ', ' D '], [' L\'', ' S\'', ' D\''], $string);
+        $name = strtoupper($name);
+        if (str_starts_with($name, 'L ')) {
+            echo 'plop';
+            $name[1] = "'";
+        }
+        return str_replace([' L ', ' S ', ' D ', 'QU '], [' L\'', ' S\'', ' D\'', 'QU\''], $name);
     }
 
     public function preparePos(string $pos): float
