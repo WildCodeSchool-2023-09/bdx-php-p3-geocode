@@ -21,4 +21,11 @@ class PrepareTownTest extends TestCase
         $this->assertSame(49.2488, $prepareTown->preparePos('49.248827847'));
         $this->assertSame(-49.2488, $prepareTown->preparePos('-49.248827847'));
     }
+
+    public function testPrepareZipCode(): void
+    {
+        $prepareTown = new PrepareTown();
+        $this->assertSame('33000', $prepareTown->prepareZipCode('33000'));
+        $this->assertSame('03000', $prepareTown->prepareZipCode('3000'));
+    }
 }
