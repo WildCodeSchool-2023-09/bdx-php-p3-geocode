@@ -1,0 +1,32 @@
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--color-ternary);
+    padding-top: 20px;
+    transition: width 0.3s;
+}
+
+.sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--color-primary);
+    display: block;
+    transition: 0.3s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar a:hover {
+    color: var(--color-body-background);
+    transform: translateX(5px);
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
