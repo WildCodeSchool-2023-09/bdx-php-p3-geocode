@@ -56,12 +56,12 @@ class Town
         return $this;
     }
 
-    public function getZipCode(): ?int
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    public function setZipCode(int $zipCode): static
+    public function setZipCode(string $zipCode): static
     {
         $this->zipCode = $zipCode;
 
