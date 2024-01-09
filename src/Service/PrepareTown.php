@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class PrepareTownService
+class PrepareTown
 {
     public function prepareTownName(string $name): string
     {
