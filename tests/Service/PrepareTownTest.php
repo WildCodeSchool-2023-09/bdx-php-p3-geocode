@@ -14,4 +14,11 @@ class PrepareTownTest extends TestCase
         $this->assertSame('ALBON D\'ARDECHE', $prepareTown->prepareTownName('albon d ardeche'));
         $this->assertSame('L\'AIGUILLON LA PRESQU\'ILE', $prepareTown->prepareTownName('l aiguillon la presqu ile'));
     }
+
+    public function testPreparePos(): void
+    {
+        $prepareTown = new PrepareTown();
+        $this->assertSame(49.2488, $prepareTown->preparePos('49.248827847'));
+        $this->assertSame(-49.2488, $prepareTown->preparePos('-49.248827847'));
+    }
 }
