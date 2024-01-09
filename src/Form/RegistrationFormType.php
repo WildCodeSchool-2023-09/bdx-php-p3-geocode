@@ -16,13 +16,25 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\LessThan;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $this->addNameFields($builder);
+        $this->addBirthdayField($builder);
+        $this->addEmailField($builder);
+        $this->addGenderField($builder);
+        $this->addAgreeTermsField($builder);
+        $this->addPasswordField($builder);
+    }
+    private function addNameFields(FormBuilderInterface $builder): void
     {
         $builder
             ->add('lastname', TextType::class, [
@@ -30,26 +42,84 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new Length([
+                        'min' => 2,
+                        'max' => 255,
+                        'minMessage' => "Veuillez choisir un nom d'utilisateur entre 2 et 255 caractères",
+                        'maxMessage' => "Veuillez choisir un nom d'utilisateur entre 2 et 255 caractères.",
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[a-z]+$/i',
+                        'message' => "Nom d'utilisateur invalide",
+                        'htmlPattern' => '^[a-zA-Z]+$',
+                    ]),
+                    new NotBlank([
+                        'message' => "Veuillez entrer votre nom.",
+                    ]),
+                ],
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Prenom',
+                'label' => 'Prénom',
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new Length([
+                        'min' => 2,
+                        'max' => 255,
+                        'minMessage' => "Veuillez choisir un prénom d'utilisateur entre 2 et 255 caractères",
+                        'maxMessage' => "Veuillez choisir un prénom d'utilisateur entre 2 et 255 caractères.",
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[a-z]+$/i',
+                        'message' => "Prénom d'utilisateur invalide",
+                        'htmlPattern' => '^[a-zA-Z]+$',
+                    ]),
+                    new NotBlank([
+                        'message' => "Veuillez entrer votre prénom.",
+                    ]),
+                ],
             ])
+        ;
+    }
+    private function addBirthdayField(FormBuilderInterface $builder): void
+    {
+        $builder
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
-                'widget' => 'single_text'
-//                'row_attr' => [
-//                    'class' => 'liste'
-//                ],
+                'widget' => 'single_text',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer votre date d'anniversaire.",
+                    ]),
+                    new LessThan([
+                        'value' => 'now',
+                        'message' => "La date d'anniversaire doit être antérieure à aujourd'hui.",
+                    ]),
+                ],
             ])
+        ;
+    }
+    private function addEmailField(FormBuilderInterface $builder): void
+    {
+        $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer votre e-mail.",
+                    ]),
+                ]
             ])
+        ;
+    }
+    private function addGenderField(FormBuilderInterface $builder): void
+    {
+        $builder
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
                 'choices' => [
@@ -60,7 +130,13 @@ class RegistrationFormType extends AbstractType
                 ],
                 'expanded' => true,
             ])
+        ;
+    }
 
+
+    private function addAgreeTermsField(FormBuilderInterface $builder): void
+    {
+        $builder
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions  ',
@@ -68,7 +144,7 @@ class RegistrationFormType extends AbstractType
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
-                                ],
+                ],
                 'row_attr' => [
                     'class' => 'liste'
                 ],
@@ -76,10 +152,13 @@ class RegistrationFormType extends AbstractType
                     'class' => 'input[type="checkbox"]'
                 ],
             ])
-//            ->add('plainPassword', PasswordType::class, [
+        ;
+    }
+
+    private function addPasswordField(FormBuilderInterface $builder): void
+    {
+        $builder
             ->add('plainPassword', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'Mot de passe',

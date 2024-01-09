@@ -47,7 +47,7 @@
     width: calc(var(--switch-half-width) - calc(var(--switch-border)*2));
     left: var(--switch-border);
     bottom: var(--switch-border);
-    background-color: white;
+    background-color: var(--color-quinternary);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -61,7 +61,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-    color: white;
+    color: var(--color-quinternary);
     -webkit-transform: translateX(var(--switch-half-width));
     -ms-transform: translateX(var(--switch-half-width));
     transform: translateX(var(--switch-half-width));

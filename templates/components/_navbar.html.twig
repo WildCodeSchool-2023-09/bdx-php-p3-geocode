@@ -48,7 +48,7 @@
 {#        {{ dump((app.request.attributes.get('_route')) }}#}
         <li class="list {{  ((app.request.attributes.get('_route') == 'app_login') or
                             (app.request.attributes.get('_route') == 'app_register') or
-                            (app.request.attributes.get('_route') == 'app_profile_user')
+                            (app.request.attributes.get('_route') starts with 'app_profile_user')
                         ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
             <a href="{{ path('app_login') }}" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">

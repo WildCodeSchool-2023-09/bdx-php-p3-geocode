@@ -2,7 +2,7 @@
 .button {
     font-size: 16px;
     background-color: var(--color-ternary);
-    color: #fff;
+    color: var(--color-quinternary);
     padding: 0.5rem 3rem;
     border: none;
     border-radius: 2rem;
@@ -12,10 +12,10 @@
 
     a {
         text-decoration: none;
-        color: #fff;
+        color: var(--color-quinternary);
 
         :visited{
-            color: #fff;
+            color: var(--color-quinternary);
         }
     }
   }
@@ -29,7 +29,7 @@
 .disconnectButton{
     font-size: 16px;
     background-color: var(--color-ternary);
-    color: #fff;
+    color: var(--color-quinternary);
     padding: 7px;
     border: none;
     border-radius: 2rem;
@@ -39,10 +39,10 @@
 
     a {
         text-decoration: none;
-        color: #fff;
+        color: var(--color-quinternary);
 
         :visited{
-            color: #fff;
+            color: var(--color-quinternary);
         }
     }
 }

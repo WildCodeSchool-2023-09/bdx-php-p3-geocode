@@ -11,6 +11,7 @@
     --color-secondary: #525b5a;
     --color-ternary: #21a89a;
     --color-quaternary: #5cd858;
+    --color-quinternary: #FFFFFF;
 
     --map-heigth: calc(100vh - calc(2 * var(--navbar-height) + 6px));
 
@@ -41,7 +42,7 @@
 
     --navbar-background: var(--color-quaternary);
     --navbar-active: var(--color-secondary);
-    --color-body-background: white;
+    --color-body-background: var(--color-quinternary);
 }
 
 @media screen and (width > 576px) {
@@ -310,6 +311,13 @@ a{
 
 .marg{
     margin-right: 8px;
+}
+
+svg.bi.bi-power {
+    width: var(--navbar-svg-size);
+    height: var(--navbar-svg-size);
+    margin-right: 8px;
+    color: var(--color-quinternary);
 }
 
 

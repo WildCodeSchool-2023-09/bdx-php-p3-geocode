@@ -45,12 +45,12 @@ input[type=checkbox] {
     border-radius: 4px;
     height: 15px;
     width: 15px;
-    background: #fff;
+    background: var(--color-quinternary);
     border: 1px solid #ccc;
 }
 
 input[type="checkbox"]:checked {
-    background: white;
+    background: var(--color-quinternary);
     position: relative;
     &:before {
         font-family: "Voces", sans-serif;
@@ -72,7 +72,7 @@ input[type=file]::file-selector-button {
     padding: 2% 4%;
     border-radius: 2rem;
     background-color: var(--color-ternary);
-    color: white;
+    color: var(--color-quinternary);
     transition: 1s;
 }
 
