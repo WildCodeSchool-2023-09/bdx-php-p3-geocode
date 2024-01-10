@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Town;
 use App\Entity\User;
-use App\Form\TownTypeForm;
+use App\Form\TownType;
 use App\Form\RegistrationFormType;
 use App\Security\UserAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
         $user = new User();
 
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $townForm = $this->createForm(TownTypeForm::class);
+        $townForm = $this->createForm(TownType::class);
 
         $form->handleRequest($request);
         $townForm->handleRequest($request);

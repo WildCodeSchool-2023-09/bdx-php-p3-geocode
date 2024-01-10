@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\PictureUserTypeForm;
-use App\Form\ProfileUserTypeForm;
-use App\Form\TownTypeForm;
-use App\Form\ModifyPasswordConnectTypeForm;
+use App\Form\PictureUserType;
+use App\Form\ProfileUserType;
+use App\Form\TownType;
+use App\Form\ModifyPasswordConnectType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\New_;
@@ -38,7 +38,7 @@ class ProfileUserController extends AbstractController
     ): Response {
         $user = new User();
 
-        $form = $this->createForm(ProfileUserTypeForm::class, $user);
+        $form = $this->createForm(ProfileUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,8 +91,8 @@ class ProfileUserController extends AbstractController
 //            // If not the owner, throws a 403 Access Denied exception
 //            throw $this->createAccessDeniedException('Seul le propriétaire peut modifier la série!');
 //        }
-        $form = $this->createForm(ProfileUserTypeForm::class, $user);
-        $townForm = $this->createForm(TownTypeForm::class);
+        $form = $this->createForm(ProfileUserType::class, $user);
+        $townForm = $this->createForm(TownType::class);
 //        $pictureForm = $this->createForm(PictureUserType::class);
 
         $form->handleRequest($request);
@@ -123,7 +123,7 @@ class ProfileUserController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager
     ): Response {
-        $pictureForm = $this->createForm(PictureUserTypeForm::class, $user);
+        $pictureForm = $this->createForm(PictureUserType::class, $user);
         $pictureForm->handleRequest($request);
 
         if ($pictureForm->isSubmitted() && $pictureForm->isValid()) {
@@ -151,7 +151,7 @@ class ProfileUserController extends AbstractController
         AuthenticationUtils $authenticationUtils,
     ): Response {
 
-        $form = $this->createForm(ModifyPasswordConnectTypeForm::class);
+        $form = $this->createForm(ModifyPasswordConnectType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
