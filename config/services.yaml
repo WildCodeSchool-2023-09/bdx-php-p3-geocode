@@ -7,7 +7,7 @@ parameters:
 
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
     upload_directory: '%kernel.project_dir%/public/uploads/images/pictures/'
-    app.town_csv: 'sources/cities.csv'
+    app.town_csv: '/sources/cities.csv'
 
 
 services:
