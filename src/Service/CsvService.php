@@ -8,88 +8,105 @@ use Exception;
 
 class CsvService
 {
-    public function __construct(private string $townFile, private EntityManagerInterface $entityManager)
-    {
+    private mixed $fileToRead;
+
+    public function __construct(
+        private string $townFile,
+        private EntityManagerInterface $entityManager,
+        private PrepareTown $prepareTown = new PrepareTown()
+    ) {
+        $this->verifyFilename();
+        //on ouvre le fichier en mode lecture
+        $this->fileToRead = fopen($this->getFilename(), "r");
     }
 
     public function readTown(): void
     {
-        if (!$this->verifyFilename()) {
-            throw new Exception('File not find.' . PHP_EOL .
-                'Verify your sources directory or yours parameters in config.yalm');
-        }
-        $fileToRead = fopen($this->getFilename(), "r");
+        // on vérifie la première ligne qui est celle des étiquettes
+        $this->verifyFirstLineFile(fgets($this->fileToRead));
 
-        if (!$this->verifyFirstLineFile(fgets($fileToRead))) {
-            fclose($fileToRead);
-            throw new Exception('file doesn\'t match');
-        } // on passe la première ligne qui est celle des étiquettes
+        while (!feof(($this->fileToRead))) { // tant qu'on est pas à la fin du fichier
+            $line = fgets($this->fileToRead);
 
-
-        while (!feof(($fileToRead))) { // tant qu'on est pas à la fin du fichier
-            $line = fgets($fileToRead);
-            $arrayFromLine = explode(',', $line);
-            $town = new Town();
-            if (!$this->verifyTownData($arrayFromLine)) {
-                throw new Exception('it seems there\'s some problems with towns data!');
+            // évite la levée d'une exception à la dernière ligne du fichier
+            if (trim($line) === '') {
+                break;
             }
-            $town->setName($arrayFromLine[1])
-                ->setPostalCode(intval($arrayFromLine[2]))
-                ->setLatitude(floatval($arrayFromLine[4]))
-                ->setLongitude(floatval($arrayFromLine[5]));
+            $arrayFromLine = explode(',', $line);
+            $town = $this->verifyTownData($arrayFromLine);
             $this->entityManager->persist($town);
         }
         $this->entityManager->flush();
 
-        fclose($fileToRead);
+        fclose($this->fileToRead);
     }
 
-    public function verifyTownData(array $townArray): bool
+    public function verifyTownData(array $townArray): Town
     {
-        return $this->verifyTownName($townArray[1]) &&
-                $this->verifyZipCode($townArray[2]) &&
-                $this->verifyLatitude($townArray[4]) &&
-                $this->verifyLongitude($townArray[5]);
-    }
-    public function verifyFirstLineFile(string $firstLine): bool
-    {
-        $firstLineArray = array_map('trim', explode(',', $firstLine));
-        $neededFirstLine = ['insee_code',
-            'city_code',
-            'zip_code',
-            'label',
-            'latitude',
-            'longitude',
-            'department_name',
-            'department_number',
-            'region_name',
-            'region_geojson_name'];
-        return $firstLineArray === $neededFirstLine ;
+        $town = new Town();
+        $town->setName($this->verifyTownName($townArray[1]))
+            ->setZipCode($this->verifyZipCode($townArray[2]))
+            ->setLatitude($this->verifyLatitude($townArray[4]))
+            ->setLongitude($this->verifyLongitude($townArray[5]));
+        return $town;
     }
 
-    public function verifyTownName(string $name): bool
+    public function verifyFirstLineFile(string $firstLine): void
     {
-        return preg_match('/[a-z\s]+/', $name);
+        $neededFirstLine = 'insee_code,city_code,zip_code,label,latitude,longitude,' .
+            'department_name,department_number,region_name,region_geojson_name';
+        if ($firstLine !== $neededFirstLine) {
+            fclose($this->fileToRead);
+            throw new Exception('file doesn\'t match');
+        }
     }
 
-    public function verifyZipCode(string $zipCode): bool
+    public function verifyTownName(string $name): string
     {
-        return preg_match('/\d{5}/', $zipCode);
+        if (!preg_match('/[a-z\s]+/', $name)) {
+            fclose($this->fileToRead);
+            throw new Exception('it seems there\'s some problems with the town name : ' . $name);
+        }
+        return $this->prepareTown->prepareTownName($name);
     }
 
-    public function verifyLatitude(float $latitude): bool
+    public function verifyZipCode(string $zipCode): string
     {
-        return $latitude >= -90 && $latitude < 90;
+        $zipCode = $this->prepareTown->prepareZipCode($zipCode);
+        if (!preg_match('/\d{5}/', $zipCode)) {
+            fclose($this->fileToRead);
+            throw new Exception('it seems there\'s some problems with the town zipCode : ' . $zipCode);
+        }
+        return $zipCode;
     }
 
-    public function verifyLongitude(float $longitude): bool
+    public function verifyLatitude(string $latitude): float
     {
-        return $longitude >= -180 && $longitude < 180;
+        $latitude = $this->prepareTown->preparePos($latitude);
+        if ($latitude < -90 || $latitude > 90) {
+            fclose($this->fileToRead);
+            throw new Exception('it seems there\'s some problems with the latitude : ' . $latitude);
+        }
+        return $latitude;
     }
 
-    public function verifyFilename(): bool
+    public function verifyLongitude(string $longitude): float
     {
-        return is_file($this->getFilename());
+        $longitude = $this->prepareTown->preparePos($longitude);
+        if ($longitude < -180 || $longitude > 180) {
+            fclose($this->fileToRead);
+            throw new Exception('it seems there\'s some problems with the longitude : ' . $longitude);
+        }
+        return $longitude;
+    }
+
+    public function verifyFilename(): void
+    {
+        if (!is_file($this->getFilename())) {
+            fclose($this->fileToRead);
+            throw new Exception('File not found.' . PHP_EOL .
+                'Verify your sources directory or yours parameters in config.yalm');
+        }
     }
 
     public function getFilename(): string
