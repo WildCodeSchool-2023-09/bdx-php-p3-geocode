@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\PictureUserType;
-use App\Form\ProfileUserType;
-use App\Form\TownType;
-use App\Form\ChangePasswordType;
+use App\Form\PictureUserTypeForm;
+use App\Form\ProfileUserTypeForm;
+use App\Form\TownTypeForm;
+use App\Form\ModifyPasswordConnectTypeForm;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\New_;
@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProfileUserController extends AbstractController
 {
@@ -37,7 +38,7 @@ class ProfileUserController extends AbstractController
     ): Response {
         $user = new User();
 
-        $form = $this->createForm(ProfileUserType::class, $user);
+        $form = $this->createForm(ProfileUserTypeForm::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -90,8 +91,8 @@ class ProfileUserController extends AbstractController
 //            // If not the owner, throws a 403 Access Denied exception
 //            throw $this->createAccessDeniedException('Seul le propriétaire peut modifier la série!');
 //        }
-        $form = $this->createForm(ProfileUserType::class, $user);
-        $townForm = $this->createForm(TownType::class);
+        $form = $this->createForm(ProfileUserTypeForm::class, $user);
+        $townForm = $this->createForm(TownTypeForm::class);
 //        $pictureForm = $this->createForm(PictureUserType::class);
 
         $form->handleRequest($request);
@@ -122,7 +123,7 @@ class ProfileUserController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager
     ): Response {
-        $pictureForm = $this->createForm(PictureUserType::class, $user);
+        $pictureForm = $this->createForm(PictureUserTypeForm::class, $user);
         $pictureForm->handleRequest($request);
 
         if ($pictureForm->isSubmitted() && $pictureForm->isValid()) {
@@ -147,12 +148,23 @@ class ProfileUserController extends AbstractController
         User $user,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
+        AuthenticationUtils $authenticationUtils,
     ): Response {
 
-        $form = $this->createForm(ChangePasswordType::class);
+        $form = $this->createForm(ModifyPasswordConnectTypeForm::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer le mot de passe actuel soumis dans le formulaire
+            $currentPassword = $form['currentPassword']->getData();
+
+            // Vérifier si le mot de passe actuel est correct
+            if (!$userPasswordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('error', 'Le mot de passe actuel est incorrect.');
+                return $this->redirectToRoute('app_modify_password', ['id' => $user->getId()]);
+            }
+
+            // Mettre à jour le mot de passe avec le nouveau mot de passe hashé
             $newPassword = $form['plainPassword']->getData();
             if ($newPassword) {
                 $user->setPassword(
@@ -162,11 +174,12 @@ class ProfileUserController extends AbstractController
                     )
                 );
             }
+
+            // Persister les changements et rediriger vers la déconnexion
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash('success', 'Mot de passe modifié avec succès!');
-
             return $this->redirectToRoute('app_logout');
         }
 

@@ -9,6 +9,18 @@
 
         <h1 class="titleUnderLogo">S'inscrire</h1>
 
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
             {{ form_errors(registrationForm) }}
 
             {{ form_start(registrationForm) }}

@@ -84,9 +84,10 @@ input[type=file]::file-selector-button:hover {
 .alert.alert-success {
     color: #127127;; /* Couleur du texte pour le succès */
     background-color: #00ffa9;
-    width: 300px;
+    //width: 300px;
     display: flex;
     align-items: center;
+    justify-content: center;
     font-weight: bold;
 }
 
@@ -97,9 +98,10 @@ input[type=file]::file-selector-button:hover {
 .alert.alert-danger {
     color: #f02d3f; /* Couleur du texte pour l'erreur */
     background-color: #ff000061;;
-    width: 300px;
+    //width: 300px;
     display: flex;
     align-items: center;
+    justify-content: center;
     font-weight: bold;
 }
 

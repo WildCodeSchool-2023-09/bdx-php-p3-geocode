@@ -74,6 +74,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private string $resetToken;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
@@ -361,5 +364,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
             $this->email,
             $this->password,
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+        return $this;
     }
 }
