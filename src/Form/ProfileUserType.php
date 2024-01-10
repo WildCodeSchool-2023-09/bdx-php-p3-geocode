@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class ProfileUserTypeForm extends AbstractType
+class ProfileUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
