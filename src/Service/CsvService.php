@@ -55,7 +55,7 @@ class CsvService
     {
         $neededFirstLine = 'insee_code,city_code,zip_code,label,latitude,longitude,' .
             'department_name,department_number,region_name,region_geojson_name';
-        if ($firstLine !== $neededFirstLine) {
+        if (trim($firstLine) !== $neededFirstLine) {
             fclose($this->fileToRead);
             throw new Exception('file doesn\'t match');
         }
