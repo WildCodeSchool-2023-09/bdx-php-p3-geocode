@@ -52,8 +52,29 @@ class ProfileUserController extends AbstractController
             return $this->redirectToRoute('app_profile_user');
         }
 
-        return $this->render('profile_user/new.html.twig', [
+        return $this->render('profile_user/edit.html.twig', [
             'form' => $form,
+        ]);
+    }
+
+
+    #[Route('/profile/user/show/{id<^[0-9]+$>}', name: 'app_profile_user_show', methods: ['GET', 'POST'])]
+    public function show(
+        int $id,
+        User $user,
+        UserRepository $userRepository,
+    ): Response {
+
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No program with id : ' . $id . ' found in program\'s table.'
+            );
+        }
+
+        return $this->render('profile_user/showProfile.html.twig', [
+        'user' => $user,
         ]);
     }
 
@@ -86,7 +107,7 @@ class ProfileUserController extends AbstractController
             return $this->redirectToRoute('app_profile_user');
         }
 
-        return $this->render('profile_user/new.html.twig', [
+        return $this->render('profile_user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
 //            'pictureForm' => $pictureForm,
