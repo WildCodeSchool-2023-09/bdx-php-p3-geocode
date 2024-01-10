@@ -1,0 +1,4 @@
+# translations/security.fr.yaml
+
+security:
+    'Invalid credentials.': "L'identification a échoué. Veuillez vérifier votre email ou mot de passe et réessayer."

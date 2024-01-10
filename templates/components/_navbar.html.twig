@@ -48,7 +48,11 @@
 {#        {{ dump((app.request.attributes.get('_route')) }}#}
         <li class="list {{  ((app.request.attributes.get('_route') == 'app_login') or
                             (app.request.attributes.get('_route') == 'app_register') or
-                            (app.request.attributes.get('_route') == 'app_profile_user')
+                            (app.request.attributes.get('_route') starts with 'app_profile_user') or
+                            (app.request.attributes.get('_route') == 'app_forgot_password_request') or
+                            (app.request.attributes.get('_route') == 'app_check_email') or
+                            (app.request.attributes.get('_route') == 'app_modify_password') or
+                            (app.request.attributes.get('_route') == 'app_reset_password')
                         ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
             <a href="{{ path('app_login') }}" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\TownType;
+use App\Form\TownTypeForm;
 use App\Service\CsvService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +15,7 @@ class TownController extends AbstractController
     #[Route('/town', name: 'app_town')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TownType::class);
+        $form = $this->createForm(TownTypeForm::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

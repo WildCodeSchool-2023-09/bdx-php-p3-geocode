@@ -6,7 +6,9 @@
     <main>
         <form method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
             {% endif %}
 
             {% if app.user %}
@@ -28,6 +30,7 @@
             </button>
 
             <p> Première visite ? <a href="{{ path('app_register') }}">Inscrivez-vous</a></p>
+            <p><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
     {#        <a href="{{ path('app_logout') }}">Me déconnecter</a>#}
         </form>
     </main>

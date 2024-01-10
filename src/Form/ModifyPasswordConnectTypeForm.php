@@ -12,24 +12,26 @@ use Symfony\Component\Form\Extension\PasswordHasher\PasswordHasherExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Expression;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class ChangePasswordType extends AbstractType
+class ModifyPasswordConnectTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-//            ->add('currentPassword', PasswordType::class, [
-//            'label' => 'Mot de passe actuel',
-//            'mapped' => false,
-//            'constraints' => [
-//                new NotBlank([
-//                    'message' => 'Please enter your current password',
-//                ]),
-//
-//            ],
-//        ])
+            ->add('currentPassword', PasswordType::class, [
+            'label' => 'Mot de passe actuel',
+            'mapped' => false,
+            'invalid_message' => 'Le mot de passe ne correspondent pas',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez saisir votre mot de passe actuel',
+                ]),
+            ],
+        ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
