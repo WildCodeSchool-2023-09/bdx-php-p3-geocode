@@ -20,7 +20,7 @@ class CarType extends AbstractType
                     new NotBlank(['message' => 'Merci de remplir le champ de la marque du véhicule']),
                     new Length([
                         'max' => 255,
-                        'maxMessage' => 'La marque ne peut pas dépasser {{ limit }} caractères.',
+                        'maxMessage' => 'Le champ de la marque marque ne peut pas dépasser {{ limit }} caractères.',
                     ]),
                 ],
             ])
@@ -29,7 +29,7 @@ class CarType extends AbstractType
                     new NotBlank(['message' => 'Merci de remplir le champ du modèle du véhicule']),
                     new Length([
                         'max' => 255,
-                        'maxMessage' => 'Le modèle ne peut pas dépasser {{ limit }} caractères.',
+                        'maxMessage' => 'Le champ du modèle ne peut pas dépasser {{ limit }} caractères.',
                     ]),
                 ],
             ])
