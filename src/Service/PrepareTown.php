@@ -8,7 +8,6 @@ class PrepareTown
     {
         $name = strtoupper($name);
         if (str_starts_with($name, 'L ')) {
-            echo 'plop';
             $name[1] = "'";
         }
         return str_replace([' L ', ' S ', ' D ', 'QU '], [' L\'', ' S\'', ' D\'', 'QU\''], $name);
