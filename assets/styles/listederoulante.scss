@@ -31,7 +31,7 @@ select {
     font-size: 1rem;
     box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, .5);
 
-    .title,
+    .list-title,
     .placeholder {
         position: relative;
         display: block;
@@ -54,14 +54,14 @@ select {
         cursor: pointer;
         &:checked {
 
-            div.options label.option .title {
+            div.options label.option .list-title {
                 display: none!important;
             }
         }
         &:not(:checked) {
             z-index: 4;
             ~label.option {
-                >span.title {
+                >span.list-title {
                     display: none;
                 }
             }
@@ -85,7 +85,7 @@ select {
         z-index: 1;
         width: 100%;
         transition: all 1s ease-out;
-        span.title {
+        span.list-title {
             position: relative;
             z-index: 2;
             transition: background .3s ease-out;
@@ -98,7 +98,7 @@ select {
         }
         input {
             display: none;
-            &:checked~span.title {
+            &:checked~span.list-title {
                 position: absolute;
                 display: block;
                 z-index: 3;
