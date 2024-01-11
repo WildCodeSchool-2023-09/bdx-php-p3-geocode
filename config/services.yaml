@@ -27,9 +27,11 @@ services:
     App\Service\AbstractCsvService:
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
+    App\Service\AbstractGeoCsvService:
+        parent: App\Service\AbstractCsvService
     App\Service\CsvTownService:
         public: true
-        parent: App\Service\AbstractCsvService
+        parent: App\Service\AbstractGeoCsvService
         arguments:
             $filename: '%app.town_csv%'
     # add more service definitions when explicit configuration is needed
