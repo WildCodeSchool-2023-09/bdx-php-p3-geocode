@@ -24,9 +24,13 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Service\AbstractCsvService:
+        abstract: true
+        arguments: ['@doctrine.orm.entity_manager']
     App\Service\CsvTownService:
         public: true
+        parent: App\Service\AbstractCsvService
         arguments:
-            $townFile: '%app.town_csv%'
+            $filename: '%app.town_csv%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
