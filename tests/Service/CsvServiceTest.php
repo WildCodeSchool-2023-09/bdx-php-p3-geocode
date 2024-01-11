@@ -3,7 +3,7 @@
 namespace App\Tests\Service;
 
 use App\Entity\Town;
-use App\Service\CsvService;
+use App\Service\CsvTownService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CsvServiceTest extends KernelTestCase
@@ -12,7 +12,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $this->assertNull($csvService->verifyFilename());
     }
 
@@ -20,7 +20,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $line1 = 'insee_code,city_code,zip_code,label,latitude,longitude,department_name,' .
             'department_number,region_name,region_geojson_name';
         $line2 = 'longitude,department_name,department_number,region_name,region_geojson_name';
@@ -33,7 +33,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $name1 = 'bordeaux';
         $name2 = 'saint germain';
         $name3 = '';
@@ -50,7 +50,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $zipCode1 = '33000';
         $zipCode2 = 'Bordeaux';
         $zipCode3 = '3300';
@@ -64,7 +64,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $lat1 = '45.248827847';
         $lat2 = '-45.248827847';
         $lat3 = '91.248827847';
@@ -81,7 +81,7 @@ class CsvServiceTest extends KernelTestCase
     {
         self::bootKernel();
         $container = static ::getContainer();
-        $csvService = $container->get(CsvService::class);
+        $csvService = $container->get(CsvTownService::class);
         $lon1 = '45.368827847';
         $lon2 = '-45.368827847';
         $lon3 = '191.258827847';

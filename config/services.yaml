@@ -24,7 +24,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    App\Service\CsvService:
+    App\Service\CsvTownService:
         public: true
         arguments:
             $townFile: '%app.town_csv%'

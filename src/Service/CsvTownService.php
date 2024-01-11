@@ -8,7 +8,7 @@ use Exception;
 use LongitudeOne\Spatial\Exception\InvalidValueException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
-class CsvService
+class CsvTownService
 {
     private mixed $fileToRead;
 

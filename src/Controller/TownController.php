@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Form\TownType;
 use App\Repository\GeoTownRepository;
 use App\Repository\TownRepository;
-use App\Service\CsvService;
+use App\Service\CsvTownService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +37,7 @@ class TownController extends AbstractController
     }
 
     #[Route('/townfile', name: 'app_townfile')]
-    public function townFile(CsvService $csvService): Response
+    public function townFile(CsvTownService $csvService): Response
     {
         return $this->render('town/test.html.twig', [
             'townfile' => $csvService->getFilename(),
