@@ -4,6 +4,22 @@
 
 {% block body %}
     <main>
+        {% if townfile is defined %}
         <h1>{{ townfile }}</h1>
+        {% endif %}
+        {% if town is defined %}
+            {{ dump(town) }}
+        {% endif %}
+        {% if point is defined %}
+            {{ dump(point) }}
+        {% endif %}
+        <h2>Villes voisines</h2>
+        {% if towns is defined %}
+        <ul>
+            {% for neighbor in towns %}
+                {{ dump(neighbor) }}
+            {% endfor %}
+        </ul>
+        {% endif %}
     </main>
 {% endblock %}

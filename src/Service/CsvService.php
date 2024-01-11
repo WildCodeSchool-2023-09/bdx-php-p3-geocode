@@ -5,11 +5,16 @@ namespace App\Service;
 use App\Entity\Town;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use LongitudeOne\Spatial\Exception\InvalidValueException;
+use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 class CsvService
 {
     private mixed $fileToRead;
 
+    /**
+     * @throws Exception
+     */
     public function __construct(
         private string $townFile,
         private EntityManagerInterface $entityManager,
@@ -20,6 +25,9 @@ class CsvService
         $this->fileToRead = fopen($this->getFilename(), "r");
     }
 
+    /**
+     * @throws InvalidValueException
+     */
     public function readTown(): void
     {
         // on vérifie la première ligne qui est celle des étiquettes
@@ -41,16 +49,23 @@ class CsvService
         fclose($this->fileToRead);
     }
 
+    /**
+     * @throws InvalidValueException
+     * @throws Exception
+     */
     public function verifyTownData(array $townArray): Town
     {
         $town = new Town();
+        $point = new Point([$this->verifyLongitude($townArray[5]), $this->verifyLatitude($townArray[4])]);
         $town->setName($this->verifyTownName($townArray[1]))
             ->setZipCode($this->verifyZipCode($townArray[2]))
-            ->setLatitude($this->verifyLatitude($townArray[4]))
-            ->setLongitude($this->verifyLongitude($townArray[5]));
+            ->setPoint($point);
         return $town;
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyFirstLineFile(string $firstLine): void
     {
         $neededFirstLine = 'insee_code,city_code,zip_code,label,latitude,longitude,' .
@@ -61,6 +76,9 @@ class CsvService
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyTownName(string $name): string
     {
         if (!preg_match('/[a-z\s]+/', $name)) {
@@ -70,6 +88,9 @@ class CsvService
         return $this->prepareTown->prepareTownName($name);
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyZipCode(string $zipCode): string
     {
         $zipCode = $this->prepareTown->prepareZipCode($zipCode);
@@ -80,6 +101,9 @@ class CsvService
         return $zipCode;
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyLatitude(string $latitude): float
     {
         $latitude = $this->prepareTown->preparePos($latitude);
@@ -90,6 +114,9 @@ class CsvService
         return $latitude;
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyLongitude(string $longitude): float
     {
         $longitude = $this->prepareTown->preparePos($longitude);
@@ -100,6 +127,9 @@ class CsvService
         return $longitude;
     }
 
+    /**
+     * @throws Exception
+     */
     public function verifyFilename(): void
     {
         if (!is_file($this->getFilename())) {

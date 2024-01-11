@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Town;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,6 +22,7 @@ class TownRepository extends ServiceEntityRepository
         parent::__construct($registry, Town::class);
     }
 
+
 //    /**
 //     * @return Town[] Returns an array of Town objects
 //     */
@@ -36,6 +38,17 @@ class TownRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOneByName(string $name): ?Town
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.name = :n')
+            ->setParameter('n', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 //    public function findOneBySomeField($value): ?Town
 //    {
 //        return $this->createQueryBuilder('t')
