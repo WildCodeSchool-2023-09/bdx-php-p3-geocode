@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\TownType;
+use App\Repository\GeoTownRepository;
+use App\Repository\TownRepository;
 use App\Service\CsvService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,5 +42,19 @@ class TownController extends AbstractController
         return $this->render('town/test.html.twig', [
             'townfile' => $csvService->getFilename(),
             ]);
+    }
+
+    #[Route('/towns', name: 'app_towns')]
+    public function getTownByName(TownRepository $townRepository, GeoTownRepository $geoTownRepository): Response
+    {
+
+        $town = $townRepository->findOneByName('Colmar');
+        $point = $town->getPointAsString();
+        $towns = $geoTownRepository->findNear($town, 40000);
+        return $this->render('town/test.html.twig', [
+            'town' => $town,
+            'towns' => $towns,
+            'point' => $point,
+        ]);
     }
 }
