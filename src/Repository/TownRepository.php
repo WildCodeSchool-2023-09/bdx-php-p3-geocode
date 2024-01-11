@@ -41,7 +41,7 @@ class TownRepository extends ServiceEntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneByName($name): ?Town
+    public function findOneByName(string $name): ?Town
     {
         return $this->createQueryBuilder('t')
             ->where('t.name = :n')
