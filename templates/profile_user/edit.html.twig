@@ -22,14 +22,10 @@
             {{ form_start(form) }}
             {{ form_errors(form) }}
 
-    {#        {{ form_row(form.picture) }}#}
-    {#        {{ form_row(form.pictureFile) }}#}
-
             {{ form_row(form.firstname) }}
             {{ form_row(form.lastname) }}
             {{ form_row(form.email) }}
-            {{ form_row(townForm.name) }}
-            {{ form_row(townForm.postalCode) }}
+            {{ form_row(form.town) }}
 
             <button class="button" type="submit">Modifier</button>
             {{ form_end(form) }}

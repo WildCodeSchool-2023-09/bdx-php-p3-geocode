@@ -151,4 +151,14 @@ class Town
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function getNameZipcode(): string
+    {
+        return $this->name . ' ' . $this->zipCode;
+    }
 }
