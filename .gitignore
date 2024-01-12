@@ -34,3 +34,4 @@ yarn-error.log
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 nicosmaker.php
+AdminFixtures.php
