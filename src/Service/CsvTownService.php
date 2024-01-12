@@ -12,6 +12,7 @@ class CsvTownService extends AbstractGeoCsvService
 {
     /**
      * @throws InvalidValueException
+     * @throws Exception
      */
     public function readTown(): void
     {
