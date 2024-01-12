@@ -20,10 +20,10 @@
                     {{ message }}
                 </div>
             {% endfor %}
+            {{ form_start(registrationForm) }}
 
             {{ form_errors(registrationForm) }}
 
-            {{ form_start(registrationForm) }}
 {#                {{ form_row(registrationForm.gender ) }}#}
                 <div class="select-list" >
                     <input type="radio" name="{{ field_name(registrationForm.gender) }}">
@@ -45,13 +45,18 @@
                     label: 'Password'
                 }) }}
 
-                {{ form_row(townForm.name) }}
-                {{ form_row(townForm.postalCode) }}
+                {{ form_row(registrationForm.town) }}
+
+{#                {{ form_row(townForm.zipCode) }}#}
+{#                    {{ form_row(townForm.name) }}#}
 
                 {{ form_row(registrationForm.birthday) }}
                 {{ form_row(registrationForm.agreeTerms) }}
 
+
+
                 <button class="button" type="submit" >S'enregistrer</button>
+
             {{ form_end(registrationForm) }}
 
         </div>
