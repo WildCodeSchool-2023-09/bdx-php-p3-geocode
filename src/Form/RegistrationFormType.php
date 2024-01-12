@@ -33,6 +33,14 @@ class RegistrationFormType extends AbstractType
         $this->addGenderField($builder);
         $this->addAgreeTermsField($builder);
         $this->addPasswordField($builder);
+        $builder
+            ->add('town', TownNameAutocompleteField::class, [
+                'class' => Town::class,
+                'label' => 'Ville',
+                'attr' => [
+                    'class' => 'input'
+                ],
+            ]);
     }
     private function addNameFields(FormBuilderInterface $builder): void
     {

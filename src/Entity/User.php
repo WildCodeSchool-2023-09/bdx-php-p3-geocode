@@ -55,6 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private Collection $cars;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
+    #[ORM\JoinColumn(name:"town_id", referencedColumnName:"id")]
     private ?Town $town = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Booking::class)]
