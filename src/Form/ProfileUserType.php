@@ -77,6 +77,13 @@ class ProfileUserType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('town', TownNameAutocompleteField::class, [
+                'class' => Town::class,
+                'label' => 'Ville',
+                'attr' => [
+                    'class' => 'input'
+                ],
+            ]);
         ;
     }
 

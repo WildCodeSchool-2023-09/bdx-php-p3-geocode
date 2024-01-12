@@ -4,6 +4,7 @@
 
 {% block body %}
     <main>
+
         {% if townfile is defined %}
         <h1>{{ townfile }}</h1>
         {% endif %}
@@ -21,5 +22,6 @@
             {% endfor %}
         </ul>
         {% endif %}
+
     </main>
 {% endblock %}
