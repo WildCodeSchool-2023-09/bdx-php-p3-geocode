@@ -27,6 +27,7 @@ services:
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
     App\Service\AbstractGeoCsvService:
+        abstract: true
         parent: App\Service\AbstractCsvService
     App\Service\CsvTownService:
         public: true
