@@ -53,29 +53,4 @@ class CsvTownService extends AbstractGeoCsvService
             throw new Exception('file doesn\'t match');
         }
     }
-
-    /**
-     * @throws Exception
-     */
-    public function verifyTownName(string $name): string
-    {
-        if (!preg_match('/[a-z\s]+/', $name)) {
-            fclose($this->file);
-            throw new Exception('it seems there\'s some problems with the town name : ' . $name);
-        }
-        return $this->prepareTown->prepareTownName($name);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function verifyZipCode(string $zipCode): string
-    {
-        $zipCode = $this->prepareTown->prepareZipCode($zipCode);
-        if (!preg_match('/\d{5}/', $zipCode)) {
-            fclose($this->file);
-            throw new Exception('it seems there\'s some problems with the town zipCode : ' . $zipCode);
-        }
-        return $zipCode;
-    }
 }
