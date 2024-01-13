@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Town;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,6 +47,19 @@ class TownRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->where('t.name = :n')
             ->setParameter('n', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOneByNameAndZipCode(string $name, string $zipCode): ?Town
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.name = :n AND t.zip_code = :z')
+            ->setParameter('n', $name)
+            ->setParameter('z', $zipCode)
             ->getQuery()
             ->getOneOrNullResult();
     }
