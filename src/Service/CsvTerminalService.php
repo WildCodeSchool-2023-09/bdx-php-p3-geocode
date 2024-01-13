@@ -10,6 +10,27 @@ use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 class CsvTerminalService extends AbstractGeoCsvService
 {
+    public function getColumns(array $array): array
+    {
+        $result = [];
+        $keys = [
+            'adresse_station',
+            'coordonneesXY',
+            'puissance_nominale',
+            'prise_type_ef',
+            'prise_type_2',
+            'prise_type_combo_ccs',
+            'prise_type_chademo',
+            'prise_type_autre',
+            'horaires',
+        ];
+
+        foreach ($keys as $key) {
+            $result[$key] = $array[$key];
+        }
+
+        return $result;
+    }
     /**
      * @throws Exception
      */
@@ -35,12 +56,17 @@ class CsvTerminalService extends AbstractGeoCsvService
      * @throws InvalidValueException
      * @throws Exception
      */
-    public function verifyTownData(array $townArray): Terminal
+    public function verifyTerminalData(array $terminalArray): Terminal
     {
         $terminal = new Terminal();
-        $point = new Point([$this->verifyLongitude($townArray[5]), $this->verifyLatitude($townArray[4])]);
+        $point = new Point([$this->verifyLongitude($terminalArray[5]), $this->verifyLatitude($terminalArray[4])]);
         $terminal->setPoint($point);
         return $terminal;
+    }
+
+    public function verifyPos(array $array): array
+    {
+        return [];
     }
     // point -> 13 => [2.37351000,48.91973300]
     // address -> 11 => 102 rue du Port 93300 Aubervilliers
@@ -49,4 +75,8 @@ class CsvTerminalService extends AbstractGeoCsvService
     // maxPower -> 17
     // town -> extract zipcode & town, findByZipCodeAndName()
     // opened -> 30
+    public function verifyData(array $data): Terminal
+    {
+        return new Terminal();
+    }
 }
