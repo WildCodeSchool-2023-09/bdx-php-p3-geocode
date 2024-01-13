@@ -50,7 +50,7 @@ class TownController extends AbstractController
 
         $town = $townRepository->findOneByName('Colmar');
         $point = $town->getPointAsString();
-        $towns = $geoTownRepository->findNear($town, 40000);
+        $towns = $geoTownRepository->findNear($town, 10000);
         return $this->render('town/test.html.twig', [
             'town' => $town,
             'towns' => $towns,
