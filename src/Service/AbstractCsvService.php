@@ -54,10 +54,7 @@ abstract class AbstractCsvService
             $object = $this->verifyData($row);
             $this->entityManager->persist($object);
         }
-
         $this->entityManager->flush();
-
-        fclose($this->file);
     }
 
     /**
