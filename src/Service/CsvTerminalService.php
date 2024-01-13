@@ -28,6 +28,7 @@ class CsvTerminalService extends AbstractGeoCsvService
         $keys = [
             'adresse_station',
             'coordonneesXY',
+            'nbre_pdc',
             'puissance_nominale',
             'prise_type_ef',
             'prise_type_2',
@@ -82,6 +83,8 @@ class CsvTerminalService extends AbstractGeoCsvService
         $addressData = $this->verifyAddressAndTown($data['address']);
         $terminal->setAddress($addressData['address']);
         $terminal->setTown($this->townRepository->findOneByNameAndZipCode($data['town'], $addressData['zip_code']));
+        $terminal->setMaxPower($this->prepareTerminal->preparePositiveNumber($data['puissance_nominale']));
+        $terminal->setNumberOutlet($this->prepareTerminal->preparePositiveNumber($data['nbre_pdc']));
 
         return $terminal;
     }
