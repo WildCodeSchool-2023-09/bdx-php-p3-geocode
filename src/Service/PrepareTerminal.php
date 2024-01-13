@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Repository\TownRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
+use UnexpectedValueException;
 
 class PrepareTerminal
 {
@@ -54,6 +55,15 @@ class PrepareTerminal
                 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y'];
 
             return str_replace($search, $replace, $string);
+    }
+
+    public function preparePositiveNumber(string $string): int
+    {
+        $number = intval($string);
+        if ($number <= 0) {
+            throw new UnexpectedValueException('It seems the value ' . $string . ' isn\'t positive');
+        }
+        return $number;
     }
 //    ELECTRA;891624884;help@electra.com;ELECTRA;help@electra.com;;ELECTRA;FRELCPGRAHC;;
 //    Gradignan - Hôtel Campanile;Station dédiée à la recharge rapide;1 allée des demoiselles 33700 Gradignan;
