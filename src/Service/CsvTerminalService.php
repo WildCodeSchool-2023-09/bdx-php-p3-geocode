@@ -3,13 +3,25 @@
 namespace App\Service;
 
 use App\Entity\Terminal;
+use App\Repository\TownRepository;
 use App\Service\AbstractGeoCsvService;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use LongitudeOne\Spatial\Exception\InvalidValueException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 class CsvTerminalService extends AbstractGeoCsvService
 {
+    public function __construct(
+        string $filename,
+        EntityManagerInterface $entityManager,
+        private TownRepository $townRepository,
+        private PrepareTerminal $prepareTerminal = new PrepareTerminal(),
+        PrepareTown $prepareTown = new PrepareTown(),
+    ) {
+        parent::__construct($filename, $entityManager, $prepareTown);
+    }
+
     public function getColumns(array $array): array
     {
         $result = [];
@@ -52,31 +64,46 @@ class CsvTerminalService extends AbstractGeoCsvService
         }
     }
 
-    /**
-     * @throws InvalidValueException
-     * @throws Exception
-     */
-    public function verifyTerminalData(array $terminalArray): Terminal
-    {
-        $terminal = new Terminal();
-        $point = new Point([$this->verifyLongitude($terminalArray[5]), $this->verifyLatitude($terminalArray[4])]);
-        $terminal->setPoint($point);
-        return $terminal;
-    }
-
-    public function verifyPos(array $array): array
-    {
-        return [];
-    }
-    // point -> 13 => [2.37351000,48.91973300]
+    // point -> 13 => [2.37351000,48.91973300] // ok
     // address -> 11 => 102 rue du Port 93300 Aubervilliers
     // outletType -> ef 2 combo-ccs chademo autre [18:22]
     // numberOutlet -> 14
     // maxPower -> 17
     // town -> extract zipcode & town, findByZipCodeAndName()
     // opened -> 30
+    /**
+     * @throws InvalidValueException
+     * @throws Exception
+     */
     public function verifyData(array $data): Terminal
     {
-        return new Terminal();
+        $terminal = new Terminal();
+        $terminal->setPoint(new Point($this->verifyPos($data['coordonneesXY'])));
+        $addressData = $this->verifyAddressAndTown($data['address']);
+        $terminal->setAddress($addressData['address']);
+        $terminal->setTown($this->townRepository->findOneByNameAndZipCode($data['town'], $addressData['zip_code']));
+
+        return $terminal;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function verifyPos(string $coordinates): array
+    {
+        $coords = $this->prepareTerminal->preparePos($coordinates);
+        return [$this->verifyLongitude($coords['longitude']),
+            $this->verifyLatitude($coords['latitude'])];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function verifyAddressAndTown(string $addressPrepared): array
+    {
+        $data = $this->prepareTerminal->prepareAddressAndTown($addressPrepared);
+        $data['town'] = $this->verifyTownName($data['town']);
+        $data['zip_code'] = $this->verifyZipCode($data['zip_code']);
+        return $data;
     }
 }
