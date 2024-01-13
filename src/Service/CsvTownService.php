@@ -10,41 +10,33 @@ use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 class CsvTownService extends AbstractGeoCsvService
 {
-    /**
-     * @throws InvalidValueException
-     * @throws Exception
-     */
-    public function readTown(): void
+    protected function getColumns(array $array): array
     {
-        // on vérifie la première ligne qui est celle des étiquettes
-        $this->verifyFirstLineFile(fgets($this->file));
+        $result = [];
+        $keys = [
+            'city_code',
+            'zip_code',
+            'latitude',
+            'longitude'
+        ];
 
-        while (!feof(($this->file))) { // tant qu'on est pas à la fin du fichier
-            $line = fgets($this->file);
-
-            // évite la levée d'une exception à la dernière ligne du fichier
-            if (trim($line) === '') {
-                break;
-            }
-            $arrayFromLine = explode(',', $line);
-            $town = $this->verifyTownData($arrayFromLine);
-            $this->entityManager->persist($town);
+        foreach ($keys as $key) {
+            $result[$key] = $array[$key];
         }
-        $this->entityManager->flush();
 
-        fclose($this->file);
+        return $result;
     }
 
     /**
      * @throws InvalidValueException
      * @throws Exception
      */
-    public function verifyTownData(array $townArray): Town
+    public function verifyData(array $data): Town
     {
         $town = new Town();
-        $point = new Point([$this->verifyLongitude($townArray[5]), $this->verifyLatitude($townArray[4])]);
-        $town->setName($this->verifyTownName($townArray[1]))
-            ->setZipCode($this->verifyZipCode($townArray[2]))
+        $point = new Point([$this->verifyLongitude($data['longitude']), $this->verifyLatitude($data['latitude'])]);
+        $town->setName($this->verifyTownName($data['city_code']))
+            ->setZipCode($this->verifyZipCode($data['zip_code']))
             ->setPoint($point);
         return $town;
     }

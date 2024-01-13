@@ -9,6 +9,9 @@ abstract class AbstractCsvService
 {
     protected mixed $file;
 
+    abstract public function verifyFirstLineFile(string $firstLine): void;
+    abstract protected function getColumns(array $array): array;
+    abstract public function verifyData(array $data): object;
     /**
      * @throws Exception
      */
@@ -20,6 +23,41 @@ abstract class AbstractCsvService
         $this->verifyFilename();
         //on ouvre le fichier en mode lecture
         $this->file = fopen($this->getFilename(), "r");
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function read(): array
+    {
+        $header = trim(fgets($this->file));
+        $this->verifyFirstLineFile($header);
+        $header = explode(';', $header);
+        $rows = [];
+        while (($data = fgetcsv($this->file, null, ";")) !== false) {
+            if ($data) {
+                $row = array_combine($header, $data);
+                $rows[] =  $this->getColumns($row);
+            }
+        }
+        fclose($this->file);
+        return $rows;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function saveInDatabase(): void
+    {
+        $rows = $this->read();
+        foreach ($rows as $row) {
+            $object = $this->verifyData($row);
+            $this->entityManager->persist($object);
+        }
+
+        $this->entityManager->flush();
+
+        fclose($this->file);
     }
 
     /**
