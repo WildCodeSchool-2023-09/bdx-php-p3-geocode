@@ -6,7 +6,7 @@ use App\Entity\Town;
 use App\Service\CsvTownService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class CsvServiceTest extends KernelTestCase
+class CsvTownServiceTest extends KernelTestCase
 {
     public function testVerifyFilename(): void
     {
