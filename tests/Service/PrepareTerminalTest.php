@@ -45,4 +45,15 @@ class PrepareTerminalTest extends TestCase
         $this->assertEquals($address1, $prepareTerminal->prepareAddressAndTown($string1));
         $this->assertEquals($address2, $prepareTerminal->prepareAddressAndTown($string2));
     }
+
+    public function testPreparePositiveNumber(): void
+    {
+        $prepareTerminal = new PrepareTerminal();
+        $this->assertSame(1, $prepareTerminal->preparePositiveNumber('1'));
+        $this->assertSame(350, $prepareTerminal->preparePositiveNumber('350'));
+        $this->expectException(\UnexpectedValueException::class);
+        $prepareTerminal->preparePositiveNumber('0');
+        $this->expectException(\UnexpectedValueException::class);
+        $prepareTerminal->preparePositiveNumber('-50');
+    }
 }
