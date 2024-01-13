@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Repository\TownRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 class PrepareTerminal
@@ -13,6 +15,45 @@ class PrepareTerminal
         $latitude = round(floatval(substr($latitude, 0, -1)), 5);
         return ['longitude' => $longitude,
                 'latitude' => $latitude];
+    }
+
+    public function prepareAddressAndTown(string $string): array
+    {
+        $result = [];
+        // 1 allée des demoiselles 33700 Gradignan
+        $zipCode = $this->getZipCode($string);
+        [$address, $town] = explode(' ' . $zipCode . ' ', $string);
+        $town = $this->prepareTown($town);
+        $result['address'] = $address;
+        $result['zip_code'] = $zipCode;
+        $result['town'] = $town;
+        return $result;
+    }
+
+    public function getZipCode(string $string): string
+    {
+        $pattern = '/\d{5}/';
+        preg_match_all($pattern, $string, $zipArray);
+        return $zipArray[0][count($zipArray[0]) - 1];
+    }
+
+    public function prepareTown(string $string): string
+    {
+        $town = str_replace('-', ' ', $this->withdrawAccents($string));
+        return strtoupper($town);
+    }
+
+    public function withdrawAccents(string $string): string
+    {
+            $search  = ['À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô',
+                'Õ', 'Ö', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'à', 'á', 'â', 'ã', 'ä', 'å', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í',
+                'î', 'ï', 'ð', 'ò', 'ó', 'ô', 'õ', 'ö', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ'];
+
+            $replace = ['A', 'A', 'A', 'A', 'A', 'A', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O',
+                'O', 'O', 'U', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'a', 'a', 'a', 'c', 'e', 'e', 'e', 'e', 'i', 'i',
+                'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y'];
+
+            return str_replace($search, $replace, $string);
     }
 //    ELECTRA;891624884;help@electra.com;ELECTRA;help@electra.com;;ELECTRA;FRELCPGRAHC;;
 //    Gradignan - Hôtel Campanile;Station dédiée à la recharge rapide;1 allée des demoiselles 33700 Gradignan;
