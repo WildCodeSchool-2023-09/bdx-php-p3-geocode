@@ -17,6 +17,9 @@ class TownFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        $eta = -hrtime(true);
         $this->csvService->saveInDatabase();
+        $eta += hrtime(true);
+        echo 'done in ' . round($eta / 1e+9, 3) . ' seconds' . PHP_EOL;
     }
 }
