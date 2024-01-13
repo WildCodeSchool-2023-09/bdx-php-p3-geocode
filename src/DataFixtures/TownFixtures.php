@@ -12,8 +12,11 @@ class TownFixtures extends Fixture
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function load(ObjectManager $manager): void
     {
-        $this->csvService->readTown();
+        $this->csvService->saveInDatabase();
     }
 }
