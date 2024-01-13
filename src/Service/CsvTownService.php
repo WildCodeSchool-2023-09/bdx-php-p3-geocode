@@ -46,8 +46,8 @@ class CsvTownService extends AbstractGeoCsvService
      */
     public function verifyFirstLineFile(string $firstLine): void
     {
-        $neededFirstLine = 'insee_code,city_code,zip_code,label,latitude,longitude,' .
-            'department_name,department_number,region_name,region_geojson_name';
+        $neededFirstLine = 'insee_code;city_code;zip_code;label;latitude;longitude;' .
+            'department_name;department_number;region_name;region_geojson_name';
         if (trim($firstLine) !== $neededFirstLine) {
             fclose($this->file);
             throw new Exception('file doesn\'t match');

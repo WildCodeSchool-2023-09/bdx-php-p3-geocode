@@ -21,9 +21,9 @@ class CsvServiceTest extends KernelTestCase
         self::bootKernel();
         $container = static ::getContainer();
         $csvService = $container->get(CsvTownService::class);
-        $line1 = 'insee_code,city_code,zip_code,label,latitude,longitude,department_name,' .
-            'department_number,region_name,region_geojson_name';
-        $line2 = 'longitude,department_name,department_number,region_name,region_geojson_name';
+        $line1 = 'insee_code;city_code;zip_code;label;latitude;longitude;department_name;' .
+            'department_number;region_name;region_geojson_name';
+        $line2 = 'longitude;department_name;department_number;region_name;region_geojson_name';
         $this->assertNull($csvService->verifyFirstLineFile($line1));
         $this->expectException(\Exception::class);
         $csvService->verifyFirstLineFile($line2);
