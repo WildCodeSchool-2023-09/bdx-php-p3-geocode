@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\TownType;
 use App\Repository\GeoTownRepository;
+use App\Repository\TerminalRepository;
 use App\Repository\TownRepository;
 use App\Service\CsvTownService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,18 +46,22 @@ class TownController extends AbstractController
     }
 
     #[Route('/towns', name: 'app_towns')]
-    public function getTownByName(TownRepository $townRepository, GeoTownRepository $geoTownRepository): Response
-    {
-
+    public function getTownByName(
+        TownRepository $townRepository,
+        GeoTownRepository $geoTownRepository,
+        TerminalRepository $terminalRepository,
+    ): Response {
         $town = $townRepository->findOneByName('Gradignan');
         $point = $town->getPointAsString();
         $towns = $geoTownRepository->findNear($town, 10000);
         $gradignan = $townRepository->findOneByNameAndZipCode('gradignan', '33700');
+        $terminals = $terminalRepository->findNearPosition(0, 45, 5000);
         return $this->render('town/test.html.twig', [
             'town' => $town,
             'towns' => $towns,
             'point' => $point,
             'gradignan' => $gradignan,
+            'terminals' => $terminals,
         ]);
     }
 }
