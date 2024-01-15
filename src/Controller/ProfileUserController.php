@@ -9,14 +9,12 @@ use App\Form\TownType;
 use App\Form\ModifyPasswordConnectType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProfileUserController extends AbstractController
@@ -185,6 +183,36 @@ class ProfileUserController extends AbstractController
 
         return $this->render('profile_user/change_password.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/profile/user/{id}/delete', name: 'app_profile_user_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        user $user,
+        EntityManagerInterface $entityManager,
+        TokenStorageInterface $tokenStorage,
+    ): Response {
+
+        $tokenStorage->setToken(null);
+
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre profil a été supprimé');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression du profil');
+        }
+
+        return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/profile/user/{id}/delete/confirm', name: 'app_profile_user_confirm_delete')]
+    public function confirmDeleteProfile(User $user): Response
+    {
+        return $this->render('profile_user/delete.html.twig', [
+            'user' => $user,
         ]);
     }
 }

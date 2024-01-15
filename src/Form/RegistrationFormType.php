@@ -134,9 +134,14 @@ class RegistrationFormType extends AbstractType
                     'Homme' => 'homme',
                     'Femme' => 'Femme',
                     'Non binaire' => 'non_binaire',
-                    'Autre' => 'autre',
+                    'Ne pas spécifier' => 'non_spécifier',
                 ],
                 'expanded' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez remplir ce champ.",
+                    ]),
+                ]
             ])
         ;
     }

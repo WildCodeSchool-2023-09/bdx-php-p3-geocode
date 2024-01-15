@@ -43,6 +43,9 @@
         <div>
             <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}"> Modifier mon image </a>
         </div>
+        <div>
+            <a href="{{ path('app_profile_user_confirm_delete', {'id': app.user.id}) }}"> Supprimer mon profil </a>
+        </div>
     </div>
     <div class="endPage">
         <a class="mt-3" href="{{ path('app_profile_user') }}">

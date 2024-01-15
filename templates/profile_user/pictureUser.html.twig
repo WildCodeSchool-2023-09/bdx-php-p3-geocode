@@ -7,12 +7,6 @@
         <div >
             <h1 class="title">Modifier mon image</h1>
 
-{#            {% for message in app.flashes('success') %}#}
-{#                <div class="alert alert-success" role="alert">#}
-{#                    {{ message }}#}
-{#                </div>#}
-{#            {% endfor %}#}
-
             {% for message in app.flashes('error') %}
                 <div class="alert alert-danger" role="alert">
                     {{ message }}
@@ -29,7 +23,6 @@
             {% endif %}
 
             {{ form_row(pictureForm.pictureFile, {'attr' : {'class' : 'divColumn'}}) }}
-
 
             <button class="button" type="submit">Modifier</button>
             {{ form_end(pictureForm) }}
