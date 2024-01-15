@@ -6,7 +6,7 @@ use App\Service\CsvTownService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class TownFixtures extends Fixture
+class CitiesFixtures extends Fixture
 {
     public function __construct(private CsvTownService $csvService)
     {
