@@ -9,18 +9,48 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use LongitudeOne\Spatial\Exception\InvalidValueException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
+use UnexpectedValueException;
 
 class CsvTerminalService extends AbstractGeoCsvService
 {
     public function __construct(
-        string $filename,
-        EntityManagerInterface $entityManager,
-        private TownRepository $townRepository,
-        private PrepareTerminal $prepareTerminal = new PrepareTerminal(),
-        PrepareTown $prepareTown = new PrepareTown(),
+        protected string $sortingIndex1,
+        protected string $sortingIndex2,
+        protected string $filename,
+        protected EntityManagerInterface $entityManager,
+        //private TownRepository $townRepository,
+        private PrepareTerminal $prepareTerminal,
+        PrepareTown $prepareTown,
     ) {
-        parent::__construct($filename, $entityManager, $prepareTown);
+        parent::__construct($sortingIndex1, $sortingIndex2, $filename, $entityManager, $prepareTown);
     }
+
+//    /**
+//     * @throws Exception
+//     */
+//    public function saveInDatabase(): void
+//    {
+//        $rows = $this->read();
+//
+//            usort($rows, fn($row1, $row2) => strcmp(
+//                $row1[$this->sortingIndex1] . $row1[$this->sortingIndex2],
+//                $row2[$this->sortingIndex1] . $row2[$this->sortingIndex2]
+//            ));
+//
+//        $previousRow = null;
+//        foreach ($rows as $row) {
+//            if ($previousRow != $row) {
+//                try {
+//                    $object = $this->verifyData($row);
+//                    $this->entityManager->persist($object);
+//                    $previousRow = $row;
+//                } catch (Exception $exception) {
+//                    print_r($exception);
+//                }
+//            }
+//        }
+//        $this->entityManager->flush();
+//    }
 
     public function getColumns(array $array): array
     {
@@ -29,12 +59,12 @@ class CsvTerminalService extends AbstractGeoCsvService
             'adresse_station',
             'coordonneesXY',
             'nbre_pdc',
-            'puissance_nominale',
-            'prise_type_ef',
-            'prise_type_2',
-            'prise_type_combo_ccs',
-            'prise_type_chademo',
-            'prise_type_autre',
+//            'puissance_nominale',
+//            'prise_type_ef',
+//            'prise_type_2',
+//            'prise_type_combo_ccs',
+//            'prise_type_chademo',
+//            'prise_type_autre',
             'horaires',
         ];
 
@@ -73,18 +103,27 @@ class CsvTerminalService extends AbstractGeoCsvService
     // town -> extract zipcode & town, findByZipCodeAndName()
     // opened -> 30
     /**
+     * Receive a row from read() and return an object
+     * @param array $data
+     * @return Terminal
      * @throws InvalidValueException
-     * @throws Exception
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function verifyData(array $data): Terminal
     {
         $terminal = new Terminal();
         $terminal->setPoint(new Point($this->verifyPos($data['coordonneesXY'])));
-        $addressData = $this->verifyAddressAndTown($data['address']);
-        $terminal->setAddress($addressData['address']);
-        $terminal->setTown($this->townRepository->findOneByNameAndZipCode($data['town'], $addressData['zip_code']));
-        $terminal->setMaxPower($this->prepareTerminal->preparePositiveNumber($data['puissance_nominale']));
-        $terminal->setNumberOutlet($this->prepareTerminal->preparePositiveNumber($data['nbre_pdc']));
+//        $addressData = $this->verifyAddressAndTown($data['adresse_station']);
+        $terminal->setAddress($data['adresse_station']);
+//        $terminal->setAddress($addressData['address']);
+//        $terminal->setTown($this->townRepository->findOneByNameAndZipCode(
+//            $addressData['town'],
+//            $addressData['zip_code']
+//        ));
+        $terminal->setMaxPower(0);
+        $terminal->setNumberOutlet($this->verifyPositiveNumber($data['nbre_pdc']));
+//        $terminal->setOutletType($this->verifyOutletType($data));
+        $terminal->setOutletType('inconnu');
 
         return $terminal;
     }
@@ -108,5 +147,22 @@ class CsvTerminalService extends AbstractGeoCsvService
         $data['town'] = $this->verifyTownName($data['town']);
         $data['zip_code'] = $this->verifyZipCode($data['zip_code']);
         return $data;
+    }
+
+    public function verifyPositiveNumber(int $number): int
+    {
+        if ($number < 0) {
+            throw new UnexpectedValueException('It seems the value ' . $number . ' isn\'t positive');
+        }
+        return $number;
+    }
+
+    public function verifyOutletType(array $data): string
+    {
+        $outletType = $this->prepareTerminal->prepareOutletType($data);
+        if (empty($outletType)) {
+            $outletType = 'inconnu';
+        }
+        return $outletType;
     }
 }
