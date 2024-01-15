@@ -57,7 +57,7 @@ class TownRepository extends ServiceEntityRepository
     public function findOneByNameAndZipCode(string $name, string $zipCode): ?Town
     {
         return $this->createQueryBuilder('t')
-            ->where('t.name = :n AND t.zip_code = :z')
+            ->where('t.name = :n AND t.zipCode = :z')
             ->setParameter('n', $name)
             ->setParameter('z', $zipCode)
             ->getQuery()
