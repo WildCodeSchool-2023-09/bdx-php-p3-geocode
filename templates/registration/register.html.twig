@@ -25,7 +25,9 @@
             {{ form_errors(registrationForm) }}
 
 {#                {{ form_row(registrationForm.gender ) }}#}
+
                 <div class="select-list" >
+                    {{ form_errors(registrationForm.gender) }}
                     <input type="radio" name="{{ field_name(registrationForm.gender) }}">
                     <span class="placeholder">{{ field_label(registrationForm.gender) }}</span>
 
