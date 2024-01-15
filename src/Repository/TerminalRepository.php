@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Terminal;
+use App\Entity\Town;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,38 @@ class TerminalRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Terminal::class);
+    }
+
+    public function findNearTown(Town $town, int $distance = 10000): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+        SELECT address, ST_X(point), ST_Y(point), number_outlet,
+               ST_Distance_Sphere(point, ST_GeomFromText(:townlocation)) AS distance_m
+        FROM terminal HAVING distance_m <= :distance';
+
+        $resultSet = $conn->executeQuery($sql, [
+            'townlocation' => $town->getPointAsString(),
+            'distance' => $distance
+        ]);
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function findNearPosition(float $longitude, float $latitude, int $distance = 10000): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $target = 'POINT(' . $longitude . ' ' . $latitude . ')';
+        $sql = '
+        SELECT address, ST_X(point) as longitude, ST_Y(point) as latitude, number_outlet,
+               ST_Distance_Sphere(point, ST_GeomFromText(:target)) AS distance_m
+        FROM terminal HAVING distance_m <= :distance';
+
+        $resultSet = $conn->executeQuery($sql, [
+            'target' => $target,
+            'distance' => $distance
+        ]);
+        return $resultSet->fetchAllAssociative();
     }
 
 //    /**
