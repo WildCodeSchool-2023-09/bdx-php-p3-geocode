@@ -48,13 +48,15 @@ class TownController extends AbstractController
     public function getTownByName(TownRepository $townRepository, GeoTownRepository $geoTownRepository): Response
     {
 
-        $town = $townRepository->findOneByName('Colmar');
+        $town = $townRepository->findOneByName('Gradignan');
         $point = $town->getPointAsString();
         $towns = $geoTownRepository->findNear($town, 10000);
+        $gradignan = $townRepository->findOneByNameAndZipCode('gradignan', '33700');
         return $this->render('town/test.html.twig', [
             'town' => $town,
             'towns' => $towns,
             'point' => $point,
+            'gradignan' => $gradignan,
         ]);
     }
 }
