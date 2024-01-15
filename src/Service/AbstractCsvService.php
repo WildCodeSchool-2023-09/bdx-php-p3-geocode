@@ -16,6 +16,8 @@ abstract class AbstractCsvService
      * @throws Exception
      */
     public function __construct(
+        protected string $sortingIndex1,
+        protected string $sortingIndex2,
         protected string $filename,
         protected EntityManagerInterface $entityManager,
         protected PrepareTown $prepareTown = new PrepareTown()
@@ -50,9 +52,30 @@ abstract class AbstractCsvService
     public function saveInDatabase(): void
     {
         $rows = $this->read();
+
+            usort($rows, fn($row1, $row2) => strcmp(
+                $row1[$this->sortingIndex1] . $row1[$this->sortingIndex2],
+                $row2[$this->sortingIndex1] . $row2[$this->sortingIndex2]
+            ));
+
+        $previousObject = null;
+        $counter = 0;
         foreach ($rows as $row) {
-            $object = $this->verifyData($row);
-            $this->entityManager->persist($object);
+            try {
+                $object = $this->verifyData($row);
+                if ($previousObject != $object) {
+                    $this->entityManager->persist($object);
+                    $counter += 1;
+                    $previousObject = $object;
+                }
+            } catch (Exception $exception) {
+                echo($exception->getMessage());
+            }
+            if ($counter > 1000) {
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+                $counter = 0;
+            }
         }
         $this->entityManager->flush();
     }
