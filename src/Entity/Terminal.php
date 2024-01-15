@@ -6,6 +6,7 @@ use App\Repository\TerminalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 #[ORM\Entity(repositoryClass: TerminalRepository::class)]
 class Terminal
@@ -15,11 +16,14 @@ class Terminal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?float $latitudeY = null;
+    #[ORM\Column(type: 'point', options: ['SRID' => 4326])]
+    private ?Point $point = null;
 
-    #[ORM\Column]
-    private ?float $longitudeX = null;
+//    #[ORM\Column]
+//    private ?float $latitudeY = null;
+//
+//    #[ORM\Column]
+//    private ?float $longitudeX = null;
 
     #[ORM\Column(length: 255)]
     private ?string $address = null;
@@ -37,14 +41,14 @@ class Terminal
     private ?Town $town = null;
 
     #[ORM\ManyToMany(targetEntity: Opened::class, mappedBy: 'terminal')]
-    private Collection $openeds;
+    private Collection $opened;
 
     #[ORM\OneToMany(mappedBy: 'terminal', targetEntity: Booking::class)]
     private Collection $bookings;
 
     public function __construct()
     {
-        $this->openeds = new ArrayCollection();
+        $this->opened = new ArrayCollection();
         $this->bookings = new ArrayCollection();
     }
 
@@ -53,29 +57,39 @@ class Terminal
         return $this->id;
     }
 
-    public function getLatitudeY(): ?float
+    public function getPoint(): ?Point
     {
-        return $this->latitudeY;
+        return $this->point;
     }
 
-    public function setLatitudeY(float $latitudeY): static
+    public function setPoint(?Point $point): void
     {
-        $this->latitudeY = $latitudeY;
-
-        return $this;
+        $this->point = $point;
     }
 
-    public function getLongitudeX(): ?float
-    {
-        return $this->longitudeX;
-    }
-
-    public function setLongitudeX(float $longitudeX): static
-    {
-        $this->longitudeX = $longitudeX;
-
-        return $this;
-    }
+//    public function getLatitudeY(): ?float
+//    {
+//        return $this->latitudeY;
+//    }
+//
+//    public function setLatitudeY(float $latitudeY): static
+//    {
+//        $this->latitudeY = $latitudeY;
+//
+//        return $this;
+//    }
+//
+//    public function getLongitudeX(): ?float
+//    {
+//        return $this->longitudeX;
+//    }
+//
+//    public function setLongitudeX(float $longitudeX): static
+//    {
+//        $this->longitudeX = $longitudeX;
+//
+//        return $this;
+//    }
 
     public function getAddress(): ?string
     {
@@ -140,15 +154,15 @@ class Terminal
     /**
      * @return Collection<int, Opened>
      */
-    public function getOpeneds(): Collection
+    public function getOpened(): Collection
     {
-        return $this->openeds;
+        return $this->opened;
     }
 
     public function addOpened(Opened $opened): static
     {
-        if (!$this->openeds->contains($opened)) {
-            $this->openeds->add($opened);
+        if (!$this->opened->contains($opened)) {
+            $this->opened->add($opened);
             $opened->addTerminal($this);
         }
 
@@ -157,7 +171,7 @@ class Terminal
 
     public function removeOpened(Opened $opened): static
     {
-        if ($this->openeds->removeElement($opened)) {
+        if ($this->opened->removeElement($opened)) {
             $opened->removeTerminal($this);
         }
 
