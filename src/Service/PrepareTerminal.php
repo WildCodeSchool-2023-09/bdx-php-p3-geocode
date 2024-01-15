@@ -6,6 +6,7 @@ use App\Repository\TownRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 use UnexpectedValueException;
+use Exception;
 
 class PrepareTerminal
 {
@@ -23,7 +24,15 @@ class PrepareTerminal
         $result = [];
         // 1 allée des demoiselles 33700 Gradignan
         $zipCode = $this->getZipCode($string);
-        [$address, $town] = explode(' ' . $zipCode . ' ', $string);
+
+        //[$address, $town] = explode(' ' . $zipCode . ' ', $string);
+        $array = explode(' ' . $zipCode . ' ', $string);
+        if (count($array) === 1) {
+            $town = $array[0];
+            $address = $array[0];
+        } else {
+            [$address, $town] = $array;
+        }
         $town = $this->prepareTown($town);
         $result['address'] = $address;
         $result['zip_code'] = $zipCode;
@@ -35,6 +44,9 @@ class PrepareTerminal
     {
         $pattern = '/\d{5}/';
         preg_match_all($pattern, $string, $zipArray);
+        if (count($zipArray[0]) === 0) {
+            throw new Exception('address "' . $string . '" does not match');
+        }
         return $zipArray[0][count($zipArray[0]) - 1];
     }
 
@@ -57,12 +69,10 @@ class PrepareTerminal
             return str_replace($search, $replace, $string);
     }
 
-    public function preparePositiveNumber(string $string): int
+    public function prepareNumber(string $string): int
     {
         $number = intval($string);
-        if ($number <= 0) {
-            throw new UnexpectedValueException('It seems the value ' . $string . ' isn\'t positive');
-        }
+
         return $number;
     }
 //    ELECTRA;891624884;help@electra.com;ELECTRA;help@electra.com;;ELECTRA;FRELCPGRAHC;;
@@ -72,4 +82,14 @@ class PrepareTerminal
 //    Télécharger l'application ELECTRA pour réserver et payer sur go-electra.com;2023-08-02;;
 //    2023-08-02T03:05:18.427000+00:00;623ca46c13130c3228abd018;e9bb3424-77cd-40ba-8bbd-5a19362d0365;
 //    electra;-0.602809;44.790293;33700;Mérignac;False;True
+    public function prepareOutletType(array $data): string
+    {
+        $outletType = '';
+        foreach ($data as $key => $column) {
+            if ($column === 'true') {
+                $outletType .= $key . ' ';
+            }
+        }
+        return trim($outletType);
+    }
 }
