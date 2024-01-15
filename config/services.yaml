@@ -7,7 +7,11 @@ parameters:
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
     upload_directory: '%kernel.project_dir%/public/uploads/images/pictures/'
     app.town_csv: '/sources/cities.csv'
+    app.town_sorting_index1 : 'city_code'
+    app.town_sorting_index2 : 'zip_code'
     app.terminal_csv: '/sources/bornes0801.csv'
+    app.terminal_sorting_index1: 'coordonneesXY'
+    app.terminal_sorting_index2: 'coordonneesXY'
 
 services:
     # default configuration for services in *this* file
@@ -34,10 +38,14 @@ services:
         parent: App\Service\AbstractGeoCsvService
         arguments:
             $filename: '%app.town_csv%'
+            $sortingIndex1: '%app.town_sorting_index1%'
+            $sortingIndex2: '%app.town_sorting_index2%'
     App\Service\CsvTerminalService:
         public: true
         parent: App\Service\AbstractGeoCsvService
         arguments:
             $filename: '%app.terminal_csv%'
+            $sortingIndex1: '%app.terminal_sorting_index1%'
+            $sortingIndex2: '%app.terminal_sorting_index2%'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
