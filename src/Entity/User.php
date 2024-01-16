@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\Column(length: 20)]
     private ?string $gender = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Car::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Car::class, cascade: ["remove"])]
     private Collection $cars;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
