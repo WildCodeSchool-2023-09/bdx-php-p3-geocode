@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import modalForm_controller from "./modal-form_controller";
 
 /*
  * This is an example Stimulus controller!
@@ -16,10 +17,15 @@ export default class extends Controller {
         console.log('click');
         this.listTargets.forEach((item) => item.classList.remove("active"))
         e.currentTarget.closest('li').classList.add("active");
+        if (e.currentTarget.closest('li').id === 'navbar-search') {
+            console.log('search');
+            const trigger = new CustomEvent('trigger-search');
+            window.dispatchEvent(trigger);
+        }
     }
 
     connect()
     {
-      console.log('navbar connect')
+        console.log('navbar connect')
     }
 }

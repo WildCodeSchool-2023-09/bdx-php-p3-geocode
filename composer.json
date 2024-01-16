@@ -39,6 +39,8 @@
         "symfony/translation": "6.4.*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/ux-autocomplete": "^2.13",
+        "symfony/ux-live-component": "^2.13",
+        "symfony/ux-twig-component": "^2.13",
         "symfony/validator": "6.4.*",
         "symfony/web-link": "6.4.*",
         "symfony/webapp-meta": "^1.0",
