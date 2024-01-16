@@ -1089,6 +1089,11 @@
 "@symfony/ux-autocomplete@file:vendor/symfony/ux-autocomplete/assets":
   version "1.0.0"
 
+"@symfony/ux-live-component@file:vendor/symfony/ux-live-component/assets":
+  version "1.0.0"
+  dependencies:
+    morphdom "^2.6.1"
+
 "@symfony/webpack-encore@^4.0.0":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-4.1.1.tgz#6cf86d5438378f076136ddedbae132e3d82a0280"
@@ -3253,6 +3258,11 @@ minimatch@^3.0.4, minimatch@^3.1.1, minimatch@^3.1.2:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
+
+morphdom@^2.6.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/morphdom/-/morphdom-2.7.1.tgz#c843fb0c812c943f70dd315fc92c4e169bad512c"
+  integrity sha512-LwrrjplMolniWtOGluKF1EHZ0y78Fa4sq7f/MXCydyNkDof+POf+ruCn+k08l7H7b/JISfRo8Zd0HazuqySY9w==
 
 ms@2.0.0:
   version "2.0.0"
