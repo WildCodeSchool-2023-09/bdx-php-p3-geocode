@@ -43,6 +43,9 @@
     --navbar-background: var(--color-quaternary);
     --navbar-active: var(--color-secondary);
     --color-body-background: var(--color-quinternary);
+
+    /*main*/
+    --main-border-bottom: 13px;
 }
 
 @media screen and (width > 576px) {
@@ -78,7 +81,7 @@ main {
     min-height: var(--map-heigth);
     border-radius: 20px;
     border: 6px solid var(--color-body-background);
-    border-bottom: 13px solid var(--color-body-background);
+    border-bottom: var(--main-border-bottom) solid var(--color-body-background);
     padding-top: 2rem;
     padding-bottom: 2rem;
 }

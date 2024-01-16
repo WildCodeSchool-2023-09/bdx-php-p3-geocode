@@ -25,9 +25,11 @@
                 <span class="text">Itinéraire</span>
             </a>
         </li>
-        <li id='navbar-search' class="list"  {{ stimulus_target('navbar', 'list') }} {{ stimulus_controller('modal-form') }}>
+        <li id='navbar-search' class="list {{ (app.request.attributes.get('_route') == 'app_map_search_town'
+
+        ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }} {{ stimulus_controller('modal-form') }}>
             <div class="modal" data-action="trigger-search@window->modal-form#openModal"></div>
-            <a href="#" {{ stimulus_action('navbar', 'openActive') }}>
+            <a href="{{ path('app_map_search_town') }}" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
