@@ -25,7 +25,8 @@
                 <span class="text">Itinéraire</span>
             </a>
         </li>
-        <li class="list"  {{ stimulus_target('navbar', 'list') }}>
+        <li id='navbar-search' class="list"  {{ stimulus_target('navbar', 'list') }} {{ stimulus_controller('modal-form') }}>
+            <div class="modal" data-action="trigger-search@window->modal-form#openModal"></div>
             <a href="#" {{ stimulus_action('navbar', 'openActive') }}>
         <span class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
