@@ -4,32 +4,9 @@
 
 {% block body %}
 <main>
-{#    <h1>Car</h1>#}
+    <div>
 
-{#    <table class="table">#}
-{#        <tbody>#}
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ car.id }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Brand</th>#}
-{#                <td>{{ car.brand }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Model</th>#}
-{#                <td>{{ car.model }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>OutletType</th>#}
-{#                <td>{{ car.outletType }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Picture</th>#}
-{#                <td>{{ car.picture }}</td>#}
-{#            </tr>#}
-{#        </tbody>#}
-{#    </table>#}
+{#        TODO bug pictures #}
 
     <div class="pictureCar">
         {% if car.picture %}
@@ -56,10 +33,6 @@
         </a>
 
 
-{#    <a href="{{ path('app_car_list') }}">retour à la liste</a>#}
-
-{#    <a href="{{ path('app_car_edit', {'id': car.id}) }}">Modifier</a>#}
-
         <div class="sideBySide">
 
             <a href="{{ path('app_car_edit', {'id': car.id}) }}">
@@ -78,5 +51,6 @@
 
 
 {#    {{ include('car/_delete_form.html.twig') }}#}
+    </div>
 </main>
 {% endblock %}

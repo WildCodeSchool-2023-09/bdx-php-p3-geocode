@@ -63,7 +63,7 @@ class CarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_car_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('car/edit.html.twig', [

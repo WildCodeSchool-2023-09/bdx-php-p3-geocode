@@ -342,31 +342,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // Resolution message erreur : Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
-
-    // Ce message d'erreur indique que la sérialisation de cet objet n'est pas autorisée.
-    // La sérialisation est le processus de conversion d'un objet en une représentation de chaîne de caractères,
-    // généralement dans le but de stocker cet objet dans une base de données,
-    // de le transmettre via un réseau ou de le sauvegarder d'une manière ou d'une autre.
-
-//    public function serialize()
-//    {
-//        return serialize(array(
-//            $this->id,
-//            $this->email,
-//            $this->password,
-//        ));
-//    }
-//
-//    public function unserialize($serialized)
-//    {
-//        list (
-//            $this->id,
-//            $this->email,
-//            $this->password,
-//            ) = unserialize($serialized);
-//    }
-
     /**
      * @return string
      */
@@ -384,6 +359,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // Resolution message erreur : Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
+
+    // Ce message d'erreur indique que la sérialisation de cet objet n'est pas autorisée.
+    // La sérialisation est le processus de conversion d'un objet en une représentation de chaîne de caractères,
+    // généralement dans le but de stocker cet objet dans une base de données,
+    // de le transmettre via un réseau ou de le sauvegarder d'une manière ou d'une autre.
     public function __serialize(): array
     {
         return [

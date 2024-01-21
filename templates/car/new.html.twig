@@ -3,9 +3,14 @@
 {% block title %}New Car{% endblock %}
 
 {% block body %}
-    <h1>Create new Car</h1>
+    <main>
+        <div>
 
-    {{ include('car/_form.html.twig') }}
+            <h1 class="title">Ajouter une voiture</h1>
 
-    <a href="{{ path('app_car_index') }}">back to list</a>
+            {{ include('car/_form.html.twig') }}
+
+            <a href="{{ path('app_car_index') }}">retour à la list</a>
+        </div>
+    </main>
 {% endblock %}
