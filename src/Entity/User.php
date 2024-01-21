@@ -19,8 +19,8 @@ use DateTime;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
-class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
-//class User implements UserInterface, PasswordAuthenticatedUserInterface
+//class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -349,23 +349,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     // généralement dans le but de stocker cet objet dans une base de données,
     // de le transmettre via un réseau ou de le sauvegarder d'une manière ou d'une autre.
 
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->email,
-            $this->password,
-        ));
-    }
-
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->email,
-            $this->password,
-            ) = unserialize($serialized);
-    }
+//    public function serialize()
+//    {
+//        return serialize(array(
+//            $this->id,
+//            $this->email,
+//            $this->password,
+//        ));
+//    }
+//
+//    public function unserialize($serialized)
+//    {
+//        list (
+//            $this->id,
+//            $this->email,
+//            $this->password,
+//            ) = unserialize($serialized);
+//    }
 
     /**
      * @return string
@@ -382,5 +382,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     {
         $this->resetToken = $resetToken;
         return $this;
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'password' => $this->password,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'birthday' => $this->birthday,
+            'gender' => $this->gender,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'] ?? null;
+        $this->email = $data['email'] ?? null;
+        $this->roles = $data['roles'] ?? [];
+        $this->password = $data['password'] ?? null;
+        $this->firstname = $data['firstname'] ?? null;
+        $this->lastname = $data['lastname'] ?? null;
+        $this->birthday = $data['birthday'] ?? null;
+        $this->gender = $data['gender'] ?? null;
     }
 }
