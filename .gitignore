@@ -35,3 +35,4 @@ yarn-error.log
 ###< phpunit/phpunit ###
 nicosmaker.php
 AdminFixtures.php
+UserFixtures.php

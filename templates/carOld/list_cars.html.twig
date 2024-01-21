@@ -5,11 +5,11 @@
 {% block body %}
 <main>
     <div>
-        <h1 class="title">Mes voitures</h1> <a href="{{ path('app_car_new') }}">+</a>
+        <h1 class="title">Mes voitures</h1>
         {%for car in cars %}
 
         <div>
-            <a href="{{ path("app_car_show", {'id': car.id}) }}">{{ car.brand }} - {{ car.model }}</a>
+            <a href="{{ path("app_car", {'id': car.id}) }}">{{ car.brand }} - {{ car.model }}</a>
         </div>
         {% endfor %}
     </div>
