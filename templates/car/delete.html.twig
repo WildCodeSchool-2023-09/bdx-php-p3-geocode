@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Car{% endblock %}
+
+{% block body %}
+<main>
+    <div >
+        <h1 class="title">Supprimer mon véhicule</h1>
+{#        {% if car.id is not empty %}#}
+            <form method="post" action="{{ path('app_car_delete', {'id': car.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre véhicule ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.id) }}">
+                <button class="button">Supprimer</button>
+            </form>
+{#        {% else %}#}
+{#            <p>L'identifiant de la voiture est vide.</p>#}
+{#        {% endif %}#}
+    </div>
+</main>
+{% endblock %}
