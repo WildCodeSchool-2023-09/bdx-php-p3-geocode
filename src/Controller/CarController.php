@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Car;
 //use App\Form\Car1Type;
+use App\Entity\User;
 use App\Form\CarType;
+use App\Form\PictureCarType;
+use App\Form\PictureUserType;
 use App\Repository\CarRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +83,31 @@ class CarController extends AbstractController
 
         return $this->render('car/list_cars.html.twig', [
             'cars' => $cars,
+        ]);
+    }
+
+    #[Route('/{id}/picture', name: 'app_car_picture', methods: ['GET', 'POST'])]
+    public function modifyPicture(
+        Request $request,
+        Car $car,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $pictureForm = $this->createForm(PictureCarType::class, $car);
+        $pictureForm->handleRequest($request);
+
+        if ($pictureForm->isSubmitted() && $pictureForm->isValid()) {
+            $entityManager->persist($car);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre image à été modifié');
+
+//            return $this->redirectToRoute('app_car_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_car_list');
+        }
+
+        return $this->render('car/pictureCar.html.twig', [
+            'car' => $car,
+            'pictureForm' => $pictureForm,
         ]);
     }
 

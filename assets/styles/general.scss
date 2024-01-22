@@ -309,6 +309,7 @@ main svg{
 .pictureCar{
     display: flex;
     justify-content: center;
+    align-items: flex-end;
 }
 
 .firstInfo{
@@ -382,6 +383,10 @@ p {
 .sideBySide{
     display: flex;
     align-items: center;
+}
+
+.add{
+    text-align: end;
 }
 
 

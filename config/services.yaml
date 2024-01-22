@@ -6,6 +6,7 @@
 parameters:
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
     upload_directory: '%kernel.project_dir%/public/uploads/images/pictures/'
+    upload_directory_car: '%kernel.project_dir%/public/uploads/images/carsPictures/'
     app.town_csv: '/sources/cities.csv'
     app.town_sorting_index1 : 'city_code'
     app.town_sorting_index2 : 'zip_code'

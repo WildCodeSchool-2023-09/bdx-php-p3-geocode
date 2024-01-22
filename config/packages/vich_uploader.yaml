@@ -10,3 +10,7 @@ vich_uploader:
             uri_prefix: /uploads/images/pictures
             upload_destination: '%upload_directory%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        car_picture:
+            uri_prefix: /uploads/images/carsPictures
+            upload_destination: '%upload_directory_car%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

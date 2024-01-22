@@ -87,11 +87,9 @@ class ProfileUserController extends AbstractController
 
         $form = $this->createForm(ProfileUserType::class, $user);
         $townForm = $this->createForm(TownType::class);
-//        $pictureForm = $this->createForm(PictureUserType::class);
 
         $form->handleRequest($request);
         $townForm->handleRequest($request);
-//        $pictureForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
