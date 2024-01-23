@@ -82,7 +82,7 @@ main {
     border-radius: 20px;
     border: 6px solid var(--color-body-background);
     border-bottom: var(--main-border-bottom) solid var(--color-body-background);
-    padding-top: 2rem;
+    padding-top: 4rem;
     padding-bottom: 2rem;
 }
 main.map {
@@ -114,10 +114,20 @@ nav svg {
     display: flex;
     width: var(--navbar-ul-width);
 }
+.navigation ul.admin {
+    display: flex;
+    width: var(--navbar-li-width);
+}
 .navigation ul li {
     position: relative;
     list-style: none;
     width: var(--navbar-li-width);
+    height: var(--navbar-indicator-size);
+    z-index: 1;
+}
+.navigation ul.admin li {
+
+    width: var(--navbar-indicator-size);
     height: var(--navbar-indicator-size);
     z-index: 1;
 }
@@ -187,6 +197,9 @@ a:hover svg {
     border: 6px solid var(--color-body-background);
     transition: 0.5s;
 }
+#indicator-admin{
+    display: none;
+}
 .indicator::before {
     content: "";
     position: absolute;
@@ -225,6 +238,7 @@ a:hover svg {
 .navigation ul li:nth-child(5).active ~ .indicator {
     transform: translateX(calc(var(--navbar-indicator-size) * 4));
 }
+
 
 header {
     width: 100%;

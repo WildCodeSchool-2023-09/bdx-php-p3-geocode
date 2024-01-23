@@ -3,6 +3,7 @@
 
     .aside-main{
         width: 100%;
+        flex-direction: column;
     }
     .sidebar {
         min-height: var(--map-heigth);
