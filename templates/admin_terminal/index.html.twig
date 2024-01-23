@@ -3,41 +3,17 @@
 {% block title %}Terminal index{% endblock %}
 
 {% block body %}
-    <h1>Terminal index</h1>
+    <div class="main-aside">
+    {% include 'components/_adminsidebar.html.twig' %}
+    <main class="aside-main">
+        <h1>Terminal index</h1>
+        <section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Point</th>
-                <th>Address</th>
-                <th>OutletType</th>
-                <th>NumberOutlet</th>
-                <th>MaxPower</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for terminal in terminals %}
-            <tr>
-                <td>{{ terminal.id }}</td>
-                <td>{{ terminal.point }}</td>
-                <td>{{ terminal.address }}</td>
-                <td>{{ terminal.outletType }}</td>
-                <td>{{ terminal.numberOutlet }}</td>
-                <td>{{ terminal.maxPower }}</td>
-                <td>
-                    <a href="{{ path('app_admin_terminal_show', {'id': terminal.id}) }}">show</a>
-                    <a href="{{ path('app_admin_terminal_edit', {'id': terminal.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_admin_terminal_new') }}">Create new</a>
+            {% include 'components/_terminal_pagination.html.twig' %}
+        </section>
+
+        <a href="{{ path('app_admin_terminal_new') }}">Create new</a>
+    </main>
+    </div>
 {% endblock %}
