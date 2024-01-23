@@ -1,0 +1,13 @@
+table{
+    border: 1px solid black;
+}
+tr:nth-child(odd){
+    background-color: var(--color-primary);
+}
+tr:nth-child(even){
+    background-color: var(--color-quaternary);
+}
+tr:hover{
+    color: var(--color-quinternary);
+    background-color: var(--color-secondary);
+}
