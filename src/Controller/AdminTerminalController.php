@@ -17,8 +17,23 @@ class AdminTerminalController extends AbstractController
     #[Route('/', name: 'app_admin_terminal_index', methods: ['GET'])]
     public function index(TerminalRepository $terminalRepository): Response
     {
+        $nbTerminalByPage = $this->getParameter('app.nbTerminalByPage');
+        $totalPages = intval(ceil($terminalRepository->getNbTerminals() / $nbTerminalByPage));
         return $this->render('admin_terminal/index.html.twig', [
-            'terminals' => $terminalRepository->findAll(),
+            'nbPages' => $totalPages,
+        ]);
+    }
+
+    #[Route('/page/{page}', name: 'app_admin_terminal_page', methods: ['GET'])]
+    public function displayPage(int $page, TerminalRepository $terminalRepository): Response
+    {
+        $nbTerminalByPage = $this->getParameter('app.nbTerminalByPage');
+        $paginatedResult = $terminalRepository->getTerminals($page, $this->getParameter('app.nbTerminalByPage'));
+        $nbPages = intval(ceil($terminalRepository->getNbTerminals() / $nbTerminalByPage));
+        return $this->render('admin_terminal/page.html.twig', [
+            'terminals' => $paginatedResult,
+            'nbPages' => $nbPages,
+            'page' => $page,
         ]);
     }
 
