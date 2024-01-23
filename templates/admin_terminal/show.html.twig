@@ -3,40 +3,45 @@
 {% block title %}Terminal{% endblock %}
 
 {% block body %}
-    <h1>Terminal</h1>
+<div class="main-aside">
+    {% include 'components/_adminsidebar.html.twig' %}
+    <main class="aside-main">
+        <h1>Terminal</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ terminal.id }}</td>
-            </tr>
-            <tr>
-                <th>Point</th>
-                <td>{{ terminal.point }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ terminal.address }}</td>
-            </tr>
-            <tr>
-                <th>OutletType</th>
-                <td>{{ terminal.outletType }}</td>
-            </tr>
-            <tr>
-                <th>NumberOutlet</th>
-                <td>{{ terminal.numberOutlet }}</td>
-            </tr>
-            <tr>
-                <th>MaxPower</th>
-                <td>{{ terminal.maxPower }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ terminal.id }}</td>
+                </tr>
+                <tr>
+                    <th>Point</th>
+                    <td>{{ terminal.point }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ terminal.address }}</td>
+                </tr>
+                <tr>
+                    <th>OutletType</th>
+                    <td>{{ terminal.outletType }}</td>
+                </tr>
+                <tr>
+                    <th>NumberOutlet</th>
+                    <td>{{ terminal.numberOutlet }}</td>
+                </tr>
+                <tr>
+                    <th>MaxPower</th>
+                    <td>{{ terminal.maxPower }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_admin_terminal_index') }}">back to list</a>
+        <a href="{{ path('app_admin_terminal_index') }}">back to list</a>
 
-    <a href="{{ path('app_admin_terminal_edit', {'id': terminal.id}) }}">edit</a>
+        <a href="{{ path('app_admin_terminal_edit', {'id': terminal.id}) }}">edit</a>
 
-    {{ include('admin_terminal/_delete_form.html.twig') }}
+        {{ include('admin_terminal/_delete_form.html.twig') }}
+    </main>
+</div>
 {% endblock %}
