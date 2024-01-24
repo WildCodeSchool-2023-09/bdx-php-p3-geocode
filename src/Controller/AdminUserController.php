@@ -86,5 +86,4 @@ class AdminUserController extends AbstractController
             'user' => $user,
         ]);
     }
-
 }
