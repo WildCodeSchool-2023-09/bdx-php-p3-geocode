@@ -3,7 +3,10 @@
 namespace App\Service;
 
 use App\Repository\BookingRepository;
+use DateInterval;
 use DateTime;
+use App\Entity\Terminal;
+use DateTimeZone;
 
 class BookingService
 {
@@ -13,8 +16,6 @@ class BookingService
     {
         $this->bookingRepository = $bookingRepository;
     }
-
-//    public function isBookingAllowed(\DateTime $start, \DateTime $end): bool
 
 //    public function isBookingAllowed(\DateTime $start, \DateTime $end): bool
     public function isBookingAllowed(\DateTimeInterface $start, \DateTimeInterface $end): bool
@@ -41,5 +42,86 @@ class BookingService
         }
 
         return $isStartValid && $isEndValid && $isNotOverlapping;
+    }
+
+    public function getAvailableTimeSlots(Terminal $terminal): array
+    {
+        // Récupérer toutes les réservations pour la borne spécifiée
+        $bookings = $this->bookingRepository->findBy(['terminal' => $terminal]);
+
+        // Générer tous les créneaux horaires pour une journée (par exemple)
+        $allTimeSlots = $this->generateAllTimeSlots();
+
+        // Supprimer les créneaux horaires déjà réservés
+        $availableTimeSlots = $this->removeBookedTimeSlots($allTimeSlots, $bookings);
+
+        // Enlever les créneaux horaires passés
+        $availableTimeSlots = $this->removePastTimeSlots($availableTimeSlots);
+
+        return $availableTimeSlots;
+    }
+
+    private function generateAllTimeSlots(): array
+    {
+        // Logique pour générer tous les créneaux horaires pour une journée
+        // Retourne un tableau de \DateTimeInterface représentant les créneaux.
+
+        $currentTime = new DateTime('now', new DateTimeZone('Europe/Paris'));
+
+        // Affiche l'heure actuelle avec le fuseau horaire dans la console
+        dump('Heure actuelle : ' . $currentTime->format('Y-m-d H:i:s e'));
+
+        $startTime = new DateTime();
+//        $startTime->setTime($currentTime->format('H'), 0, 0);
+        $startTime->setTime((int)$currentTime->format('H'), 0, 0);
+
+        // Si l'heure actuelle est après la demi-heure, avancer d'une demi-heure supplémentaire
+        if ($currentTime->format('i') > 30) {
+            $startTime->add(new DateInterval('PT1H')); // Avancer d'une heure pour commencer à la demi-heure suivante
+        } else {
+            $startTime->add(new DateInterval('PT30M')); // Commencer à la demi-heure actuelle
+        }
+
+        $endTime = new DateTime('23:30:00');
+        $interval = new DateInterval('PT30M');
+
+        $allTimeSlots = [];
+
+        while ($startTime <= $endTime) {
+            $allTimeSlots[] = clone $startTime;
+            $startTime->add($interval);
+        }
+
+        return $allTimeSlots;
+    }
+
+    private function removeBookedTimeSlots(array $allTimeSlots, array $bookings): array
+    {
+        // Supprimer les créneaux horaires déjà réservés
+        foreach ($bookings as $booking) {
+            $start = $booking->getDatetimeStart();
+            $end = $booking->getDateTimeEnd();
+
+            foreach ($allTimeSlots as $key => $timeSlot) {
+                if ($timeSlot >= $start && $timeSlot < $end) {
+                    unset($allTimeSlots[$key]);
+                }
+            }
+        }
+
+        return array_values($allTimeSlots); // Réindexer le tableau après la suppression
+    }
+
+    private function removePastTimeSlots(array $timeSlots): array
+    {
+        // Enlever les créneaux horaires passés
+        $currentTime = new DateTime();
+        foreach ($timeSlots as $key => $timeSlot) {
+            if ($timeSlot < $currentTime) {
+                unset($timeSlots[$key]);
+            }
+        }
+
+        return array_values($timeSlots); // Réindexer le tableau après la suppression
     }
 }

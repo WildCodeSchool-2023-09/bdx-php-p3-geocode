@@ -67,9 +67,13 @@ class BookingController extends AbstractController
             }
         }
 
+        // Récupérez les créneaux horaires disponibles depuis le service
+        $availableTimeSlots = $bookingService->getAvailableTimeSlots($terminal);
+
         return $this->render('booking/register.html.twig', [
             'form' => $form,
             'book' => $booking,
+            'availableTimeSlots' => $availableTimeSlots,
         ]);
     }
 }

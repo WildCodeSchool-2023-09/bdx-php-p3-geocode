@@ -17,6 +17,9 @@ class BookingType extends AbstractType
         $builder
             ->add('datetimeStart', DateTimeType::class, [
                 'label' => 'Date et heure de la réservation',
+                'attr' => [
+                    'class' => 'datetimeStart',
+                ],
                 'widget' => 'single_text',
                 'constraints' => [
                     new NotBlank([
@@ -29,6 +32,9 @@ class BookingType extends AbstractType
 //            ->add('dateTimeEnd', TimeType::class, [
             ->add('dateTimeEnd', DateTimeType::class, [
                 'label' => 'Fin de réservation',
+                'attr' => [
+                    'class' => 'datetimeEnd',
+                ],
                 'widget' => 'single_text',
                 'constraints' => [
                     new NotBlank([
