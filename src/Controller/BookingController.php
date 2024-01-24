@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
+use App\Entity\User;
 use DateTime;
 use App\Form\BookingType;
 use App\Repository\BookingRepository;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class BookingController extends AbstractController
 {
@@ -75,5 +77,56 @@ class BookingController extends AbstractController
             'book' => $booking,
             'availableTimeSlots' => $availableTimeSlots,
         ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    #[Route('/booking/show/{id}', name: 'app_booking_show', methods: ['GET'])]
+    public function show(
+        BookingService $bookingService
+    ): Response {
+
+        if (!$this->isGranted('ROLE_USER')) {
+            $this->addFlash('danger', 'Vous devez être connecté en tant qu\'utilisateur.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        $user = $this->getUser();
+        $activeBookings = $bookingService->getActiveBookings($user);
+
+        return $this->render('booking/show.html.twig', [
+            'activeBookings' => $activeBookings,
+        ]);
+    }
+
+    #[Route('/booking/history/{id}', name: 'app_booking_history', methods: ['GET'])]
+    public function history(Booking $booking): Response
+    {
+        $bookings = $this->getUser()->getBookings();
+
+        return $this->render('booking/history.html.twig', [
+            'bookings' => $bookings,
+        ]);
+    }
+
+    #[Route('/booking/delete/{id}', name: 'app_booking_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        int $id,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $booking = $entityManager->getRepository(Booking::class)->find($id);
+
+        if (!$booking) {
+            throw $this->createNotFoundException('Réservation non trouvée');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($booking);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_profile_user', [], Response::HTTP_SEE_OTHER);
     }
 }

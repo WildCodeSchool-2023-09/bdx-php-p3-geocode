@@ -34,14 +34,26 @@
                     {{ form_start(form) }}
                     <button type="submit" class="button" id="validate-search">Reserver</button>
                     {{ form_end(form) }}
-                            <div class="timetable">
-                                <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
-                                    <div class="booking">
-                                        {% for timeSlot in availableTimeSlots %}
-                                            <p>{{ timeSlot|date('H:i') }}</p>
-                                        {% endfor %}
-                                    </div>
+
+                    <div class="timetable">
+                        <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
+{#                            <div class="booking">#}
+{#                                {% for timeSlot in availableTimeSlots %}#}
+{#                                    <p>{{ timeSlot|date('H:i') }}</p>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+                            <div class="booking">
+                                {% for timeSlot in availableTimeSlots %}
+                                    {% if timeSlot.booked is not defined or not timeSlot.booked %}
+                                        <p>{{ timeSlot|date('H:i') }}</p>
+                                    {% else %}
+                                        <p class="booked">{{ timeSlot|date('H:i') }}</p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
+                    </div>
+
+
                 </div>
 
 {#    </div>#}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block body %}
+    <main>
+        <div>
+            <h1 class="title">Mes réservations</h1>
+            {% if activeBookings is not empty %}
+                    {% for booking in activeBookings %}
+                        <div class="form">
+                            <div class="reservationList ">
+                                <p>Date de début : {{ booking.datetimeStart|date('d/m/Y H:i') }}</p>
+                                <p>Date de fin : {{ booking.dateTimeEnd|date('d/m/Y H:i') }}</p>
+                                <p>{{ booking.terminal.address }}</p>
+                            </div>
+                            <form method="post" action="{{ path('app_booking_delete', {'id': booking.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre réservation ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
+                                <button class="button">Supprimer</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <p>Aucune réservation active pour le moment.</p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}

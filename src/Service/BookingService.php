@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use App\Entity\User;
 use App\Repository\BookingRepository;
 use DateInterval;
 use DateTime;
 use App\Entity\Terminal;
 use DateTimeZone;
+use Exception;
 
 class BookingService
 {
@@ -37,7 +39,8 @@ class BookingService
 
         // Vérifie si la nouvelle réservation ne chevauche pas d'autres réservations existantes
         if ($isNotOverlapping) {
-            $overlappingBookings = $this->bookingRepository->findOverlappingBookings($start, $end);
+//            $overlappingBookings = $this->bookingRepository->findOverlappingBookings($start, $end);
+            $overlappingBookings = $this->bookingRepository->findOverlapsBookings($start, $end);
             $isNotOverlapping = empty($overlappingBookings);
         }
 
@@ -53,10 +56,13 @@ class BookingService
         $allTimeSlots = $this->generateAllTimeSlots();
 
         // Supprimer les créneaux horaires déjà réservés
-        $availableTimeSlots = $this->removeBookedTimeSlots($allTimeSlots, $bookings);
+//        $availableTimeSlots = $this->removeBookedTimeSlots($allTimeSlots, $bookings);
 
-        // Enlever les créneaux horaires passés
-        $availableTimeSlots = $this->removePastTimeSlots($availableTimeSlots);
+        //marquer les créneaux horaires déjà réservés
+        $availableTimeSlots = $this->markBookedTimeSlots($allTimeSlots, $bookings);
+
+//        // Enlever les créneaux horaires passés
+//        $availableTimeSlots = $this->removePastTimeSlots($availableTimeSlots);
 
         return $availableTimeSlots;
     }
@@ -67,9 +73,6 @@ class BookingService
         // Retourne un tableau de \DateTimeInterface représentant les créneaux.
 
         $currentTime = new DateTime('now', new DateTimeZone('Europe/Paris'));
-
-        // Affiche l'heure actuelle avec le fuseau horaire dans la console
-        dump('Heure actuelle : ' . $currentTime->format('Y-m-d H:i:s e'));
 
         $startTime = new DateTime();
 //        $startTime->setTime($currentTime->format('H'), 0, 0);
@@ -95,33 +98,61 @@ class BookingService
         return $allTimeSlots;
     }
 
-    private function removeBookedTimeSlots(array $allTimeSlots, array $bookings): array
+//    private function removeBookedTimeSlots(array $allTimeSlots, array $bookings): array
+//    {
+//        // Supprimer les créneaux horaires déjà réservés
+//        foreach ($bookings as $booking) {
+//            $start = $booking->getDatetimeStart();
+//            $end = $booking->getDateTimeEnd();
+//
+//            foreach ($allTimeSlots as $key => $timeSlot) {
+//                if ($timeSlot >= $start && $timeSlot < $end) {
+//                    unset($allTimeSlots[$key]);
+//                }
+//            }
+//        }
+//
+//        return array_values($allTimeSlots); // Réindexer le tableau après la suppression
+//    }
+
+    private function markBookedTimeSlots(array $allTimeSlots, array $bookings): array
     {
-        // Supprimer les créneaux horaires déjà réservés
+        // Marquer les créneaux horaires déjà réservés
         foreach ($bookings as $booking) {
             $start = $booking->getDatetimeStart();
             $end = $booking->getDateTimeEnd();
 
-            foreach ($allTimeSlots as $key => $timeSlot) {
+            foreach ($allTimeSlots as &$timeSlot) {
                 if ($timeSlot >= $start && $timeSlot < $end) {
-                    unset($allTimeSlots[$key]);
+                    $timeSlot->booked = true; // Marquer l'objet DateTime directement
                 }
             }
         }
 
-        return array_values($allTimeSlots); // Réindexer le tableau après la suppression
+        return $allTimeSlots;
     }
 
-    private function removePastTimeSlots(array $timeSlots): array
-    {
-        // Enlever les créneaux horaires passés
-        $currentTime = new DateTime();
-        foreach ($timeSlots as $key => $timeSlot) {
-            if ($timeSlot < $currentTime) {
-                unset($timeSlots[$key]);
-            }
-        }
+//    private function removePastTimeSlots(array $timeSlots): array
+//    {
+//        // Enlever les créneaux horaires passés
+//        $currentTime = new DateTime();
+//        foreach ($timeSlots as $key => $timeSlot) {
+//            if ($timeSlot < $currentTime) {
+//                unset($timeSlots[$key]);
+//            }
+//        }
+//
+//        return array_values($timeSlots); // Réindexer le tableau après la suppression
+//    }
 
-        return array_values($timeSlots); // Réindexer le tableau après la suppression
+    /**
+     * @throws \Exception
+     */
+    public function getActiveBookings(?User $user): array
+    {
+        if ($user === null) {
+            throw new Exception();
+        }
+        return $this->bookingRepository->activeBookings($user);
     }
 }
