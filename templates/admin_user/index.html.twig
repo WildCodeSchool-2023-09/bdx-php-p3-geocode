@@ -3,15 +3,14 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <div class="main-aside">
         {% include 'components/_adminsidebar.html.twig' %}
-        <main id='content' class="aside-main">
+        <main class="main-vertical">
 
 
 
     <table class="table">
         <thead>
-            <form>
+
                 <tr>
                     <th>Id</th>
                     <th>Firstname</th>
@@ -19,23 +18,23 @@
                     <th>Birthday</th>
                     <th>Gender</th>
                     <th>Email</th>
-                    <th>Cars</th>
+                    <th>Actions</th>
                 </tr>
-            </form>
+
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                {{ user.id }}
+                <td>{{ user.id }}</td>
                 {# {{ user.roles ? user.roles|json_encode : '' }} #}
-                {{ user.firstname }}
-                {{ user.lastname }}
-                {{ user.birthday ? user.birthday|date('Y-m-d') : '' }}
-                {{ user.gender }}
-                {{  user.email }}
-                {{ user.picture }}
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{  user.email }}</td>
+{#                {{ user.picture }}#}
                 {# {{ user.resetToken }} #}
-                 <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}"></>
+{#                 <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}"></>#}
                 <td>
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
@@ -50,6 +49,6 @@
     </table>
             <a href="{{ path('app_admin_user_new') }}">Create new</a>
         </main>
-    </div>
+
 
 {% endblock %}

@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 
 export default class extends Controller {
-    static targets =  ['sidebar'];
+    static targets =  ['sidebar', 'button'];
     connect()
     {
         //this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
@@ -10,11 +10,8 @@ export default class extends Controller {
 
     toggle(event)
     {
-      console.log(event.target.id);
-        if (event.target.id === 'button-toggle-sidebar') {
-            event.target.parentNode.classList.toggle('sidebar-hidden');
-        }else{
-          event.target.parentNode.parentNode.classList.toggle('sidebar-hidden');
-        }
+        this.sidebarTarget.classList.toggle('sidebar-hidden');
+        this.buttonTargets.forEach((elt) => elt.classList.toggle('hidden'));
+        document.getElementsByTagName('main')[0].classList.toggle('with-aside');
     }
 }

@@ -3,9 +3,8 @@
 {% block title %}Terminal index{% endblock %}
 
 {% block body %}
-    <div class="main-aside">
     {% include 'components/_adminsidebar.html.twig' %}
-    <main class="aside-main">
+    <main>
         <h1>Terminal index</h1>
         <section>
 
@@ -15,5 +14,4 @@
 
         <a href="{{ path('app_admin_terminal_new') }}">Create new</a>
     </main>
-    </div>
 {% endblock %}
