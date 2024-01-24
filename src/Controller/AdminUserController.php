@@ -78,4 +78,12 @@ class AdminUserController extends AbstractController
 
         return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/profile', name: 'app_admin_user_profile', methods: ['GET'])]
+    public function profile(User $user): Response
+    {
+        return $this->render('admin_user/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }

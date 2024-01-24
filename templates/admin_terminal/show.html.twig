@@ -3,9 +3,8 @@
 {% block title %}Terminal{% endblock %}
 
 {% block body %}
-<div class="main-aside">
     {% include 'components/_adminsidebar.html.twig' %}
-    <main class="aside-main">
+    <main>
         <h1>Terminal</h1>
 
         <table class="table">
@@ -43,5 +42,5 @@
 
         {{ include('admin_terminal/_delete_form.html.twig') }}
     </main>
-</div>
+
 {% endblock %}
