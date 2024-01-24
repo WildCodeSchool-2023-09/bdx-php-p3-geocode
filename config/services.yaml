@@ -6,19 +6,20 @@
 parameters:
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
     upload_directory: '%kernel.project_dir%/public/uploads/images/pictures/'
+    upload_directory_car: '%kernel.project_dir%/public/uploads/images/carsPictures/'
     app.town_csv: '/sources/cities.csv'
     app.town_sorting_index1 : 'city_code'
     app.town_sorting_index2 : 'zip_code'
     app.terminal_csv: '/sources/bornes0801.csv'
     app.terminal_sorting_index1: 'coordonneesXY'
     app.terminal_sorting_index2: 'coordonneesXY'
+    app.nbTerminalByPage : 200
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:

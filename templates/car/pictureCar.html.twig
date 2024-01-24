@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Picture{% endblock %}
+
+{% block body %}
+    <main>
+        <div >
+            <h1 class="title">Modifier l'image</h1>
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(pictureForm) }}
+            {{ form_errors(pictureForm) }}
+
+            {% if car.picture %}
+                <img class="pictures" src="{{ vich_uploader_asset(car) }}" alt="{{ car.model }} picture">
+            {% else %}
+                <img class="picturesCar" src="{{ asset('build/images/electricCar.png') }}" alt="Default Picture car">
+            {% endif %}
+
+            {{ form_row(pictureForm.pictureFile, {'attr' : {'class' : 'divColumn'}}) }}
+
+            <button class="button" type="submit">Modifier</button>
+            {{ form_end(pictureForm) }}
+
+            <a class="svgText mt-3" href="{{ path("app_car_show", {'id': car.id}) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="marg1" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                </svg> Retour
+            </a>
+        </div>
+    </main>
+{% endblock %}

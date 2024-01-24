@@ -12,6 +12,9 @@ import './styles/app.scss';
 import './bootstrap';
 
 import profilePictureDefault  from './images/Default.pfp.png';
+import carPictureDefault  from './images/electricCar.png';
 
-let html = `<img src="${profilePictureDefault}" alt="profile Picture Default">`;
+let html;
+html = ` < img src = "${profilePictureDefault}" alt = "profile Picture Default" > `;
+html = ` < img src = "${carPictureDefault}" alt = "car Picture Default" > `;
 

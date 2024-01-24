@@ -85,17 +85,11 @@ class ProfileUserController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
 
-//        if (($this->getUser() !== $user->getOwner()) && (!$this->isGranted('ROLE_ADMIN'))) {
-//            // If not the owner, throws a 403 Access Denied exception
-//            throw $this->createAccessDeniedException('Seul le propriétaire peut modifier la série!');
-//        }
         $form = $this->createForm(ProfileUserType::class, $user);
         $townForm = $this->createForm(TownType::class);
-//        $pictureForm = $this->createForm(PictureUserType::class);
 
         $form->handleRequest($request);
         $townForm->handleRequest($request);
-//        $pictureForm->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
@@ -109,7 +103,6 @@ class ProfileUserController extends AbstractController
         return $this->render('profile_user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
-//            'pictureForm' => $pictureForm,
             'townForm' => $townForm->createView(),
         ]);
     }
@@ -140,13 +133,12 @@ class ProfileUserController extends AbstractController
     }
 
 
-    #[Route('/profile/user/{id}/modify-password', name: 'app_modify_password', methods: ['GET', 'POST'])]
+    #[Route('/profile/user/{id}/modify-password', name: 'app_profile_user_modify_password', methods: ['GET', 'POST'])]
     public function modifyPassword(
         Request $request,
         User $user,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        AuthenticationUtils $authenticationUtils,
     ): Response {
 
         $form = $this->createForm(ModifyPasswordConnectType::class);

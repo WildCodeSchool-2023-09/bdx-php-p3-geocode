@@ -15,7 +15,8 @@ class CarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('marque', null, [
+            ->add('brand', null, [
+                'label' => 'Marque',
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de remplir le champ de la marque du véhicule']),
                     new Length([
@@ -24,7 +25,8 @@ class CarType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('modèle', null, [
+            ->add('model', null, [
+                'label' => 'Modèle',
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de remplir le champ du modèle du véhicule']),
                     new Length([
@@ -33,13 +35,14 @@ class CarType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('typePrise', ChoiceType::class, [
+            ->add('outletType', ChoiceType::class, [
+                'label' => 'Type de prise',
                 'choices' => [
-                    'Type 1' => 'Type EF',
+                    'Type EF' => 'Type 1',
                     'Type 2' => 'Type 2',
-                    'Type 3' => 'Type Combo CCS',
-                    'Type 4' => 'Type CHAdeMO',
-                    'Type 5' => 'Autres',
+                    'Type Combo CCS' => 'Type 3',
+                    'Type CHAdeMO' => 'Type 4',
+                    'Autres' => 'Type 5',
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez selectionner un type de prise.']),

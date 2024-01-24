@@ -1,0 +1,26 @@
+{#{{ form_start(form) }}#}
+{#    {{ form_widget(form) }}#}
+{#    <button class="button">{{ button_label|default('Enregistrer') }}</button>#}
+{#{{ form_end(form) }}#}
+
+
+{{ form_start(form) }}
+{{ form_row(form.brand) }}
+{{ form_row(form.model) }}
+{#{{ form_row(form.outletType) }}#}
+<div class="select-list" >
+    {{ form_errors(form.outletType) }}
+    <input type="radio" name="{{ field_name(form.outletType) }}">
+    <span class="placeholder">{{ field_label(form.outletType) }}</span>
+
+    {% for label, value in field_choices(form.outletType) %}
+
+        <label class="option">
+            <input class='reset-radio' type="radio" name="{{ field_name(form.outletType) }}" value='{{ value }}'>
+            <span class="list-title">{{ label }}</span>
+        </label>
+    {% endfor %}
+</div>
+
+<button class="button" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
