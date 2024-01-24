@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookingController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script>
+        let userLon;
+        let userLat;
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                userLat = Number(position.coords.latitude.toFixed(4));
+                userLon = Number(position.coords.longitude.toFixed(4));
+            })}
+        else{
+            userLat = 45;
+            userLon = 0;
+        }
+    </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+{% endblock %}
+
+{% block body %}
+    <main class="map">
+        <div id="map" {{ stimulus_controller('map_search') }}></div>
+    </main>
+{#    <div class="map-modal">#}
+{#        <div class='modal-grid-container'>#}
+{#            <div class='modal-card-bg'>#}
+{#            </div>#}
+{#            <div class='modal-card-border'>#}
+{#                <div class='modal-card'>#}
+{#                    {{ form_start(form) }}#}
+{#                    <button type="submit" class="button" id="validate-search">Reserver</button>#}
+{#                    {{ form_end(form) }}#}
+{#                </div>#}
+{#            </div>#}
+
+{#        </div>#}
+{#    </div>#}
+
+
+
+    {% set setButton = 'Réserver' %}
+    {% include 'components/_modal-search.html.twig' %}
+
+{% endblock %}

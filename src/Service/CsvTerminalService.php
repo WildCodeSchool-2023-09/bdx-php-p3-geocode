@@ -125,6 +125,7 @@ class CsvTerminalService extends AbstractGeoCsvService
 //        $terminal->setOutletType($this->verifyOutletType($data));
         $terminal->setOutletType('inconnu');
 
+
         return $terminal;
     }
 

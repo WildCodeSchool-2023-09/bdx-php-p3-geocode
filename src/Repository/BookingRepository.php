@@ -21,6 +21,17 @@ class BookingRepository extends ServiceEntityRepository
         parent::__construct($registry, Booking::class);
     }
 
+    public function findOverlappingBookings(\DateTimeInterface $start, \DateTimeInterface $end): array
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.datetimeStart < :end')
+            ->andWhere('b.dateTimeEnd > :start')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
 //     */

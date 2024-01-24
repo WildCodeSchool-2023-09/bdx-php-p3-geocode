@@ -68,7 +68,7 @@ class ProfileUserController extends AbstractController
 
         if (!$user) {
             throw $this->createNotFoundException(
-                'No program with id : ' . $id . ' found in program\'s table.'
+                'Utilisateur introuvable'
             );
         }
 
