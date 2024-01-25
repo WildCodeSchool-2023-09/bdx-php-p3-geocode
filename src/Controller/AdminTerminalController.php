@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Terminal;
+use App\Entity\TownSearched;
+use App\Form\SearchTownType;
 use App\Form\TerminalType;
 use App\Repository\TerminalRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -92,5 +94,22 @@ class AdminTerminalController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_terminal_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/search', name: 'app_map_search_town')]
+    public function searchTown(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $townSearched = new TownSearched();
+        $form = $this->createForm(SearchTownType::class, $townSearched);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$entityManager->persist($town);
+            //$entityManager->flush();
+            return $this->render('map/show_town.html.twig', ['town' => $townSearched->getTown()]);
+        }
+        return $this->render('map/search_town.html.twig', [
+            'form' => $form,
+            'town' => $townSearched,
+        ]);
     }
 }
