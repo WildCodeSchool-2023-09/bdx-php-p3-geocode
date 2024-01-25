@@ -3,12 +3,12 @@
 @import 'general';
 @import 'formulaires';
 @import 'boutons';
-
+@import "table";
 @import 'switch';
-
 @import 'listederoulante';
-@import 'adminsidebar';
-
+@import 'admin_sidebar';
 @import "map";
+@import 'admin_user';
 @import "modal";
 @import "booking";
+@import "admin";

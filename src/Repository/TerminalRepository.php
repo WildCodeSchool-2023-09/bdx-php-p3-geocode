@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Terminal;
 use App\Entity\Town;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,7 +22,6 @@ class TerminalRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Terminal::class);
     }
-
     public function findNearTown(Town $town, int $distance = 10000): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -78,4 +78,26 @@ class TerminalRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function getTerminals(int $page, int $pageSize): Paginator
+    {
+        //$pageSize = 200;
+        $firstResult = ($page - 1) * $pageSize;
+
+        $queryBuilder = $this->createQueryBuilder('t');
+        $queryBuilder->setFirstResult($firstResult);
+        $queryBuilder->setMaxResults($pageSize);
+
+        $query = $queryBuilder->getQuery();
+
+        return new Paginator($query);
+    }
+
+    public function getNbTerminals(): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id) as total')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

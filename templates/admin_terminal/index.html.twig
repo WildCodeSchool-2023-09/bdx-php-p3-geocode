@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terminal index{% endblock %}
+
+{% block body %}
+    {% include 'components/_adminsidebar.html.twig' %}
+    <main class="main-vertical">
+        <h1>Terminal index</h1>
+        <section>
+
+
+            {% include 'components/_terminal_pagination.html.twig' %}
+        </section>
+
+        <a href="{{ path('app_admin_terminal_new') }}">Create new</a>
+    </main>
+{% endblock %}

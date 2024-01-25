@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Terminal{% endblock %}
+
+{% block body %}
+    {% include 'components/_adminsidebar.html.twig' %}
+    <main class="main-vertical">
+        <h1>Edit Terminal</h1>
+
+        {{ include('admin_terminal/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_admin_terminal_index') }}">back to list</a>
+
+        {{ include('admin_terminal/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

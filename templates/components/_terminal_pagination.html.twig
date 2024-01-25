@@ -1,0 +1,36 @@
+{% if page is not defined %}
+    {% set page = 0 %}
+{% endif %}
+
+{% if nbPages > 16 %}
+    {% if page <= 10 %}
+        {% for i in 1..10 %}
+            {% include 'components/_actual_page.html.twig' %}
+        {% endfor %}
+    {% else %}
+        {% for i in 1..3 %}
+            {% include 'components/_actual_page.html.twig' %}
+        {% endfor %}
+    {% endif %}
+        ...
+    {% if page >= 10 and page <= (nbPages - 8) %}
+
+        {% for i in max(page-5, 11)..min((nbPages - 9), page+5) %}
+            {% include 'components/_actual_page.html.twig' %}
+        {% endfor %}
+    {% endif %}
+        ...
+    {% if page >= (nbPages - 10) %}
+        {% for i in (nbPages - 8)..nbPages %}
+            {% include 'components/_actual_page.html.twig' %}
+        {% endfor %}
+    {% else %}
+        {% for i in (nbPages-2)..nbPages %}
+            {% include 'components/_actual_page.html.twig' %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% for i in 1..16 %}
+        <a href="{{ path('app_admin_terminal_page', {'page' : i}) }}">{{ i }}</a>
+    {% endfor %}
+{% endif %}
