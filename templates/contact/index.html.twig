@@ -1,0 +1,26 @@
+{# templates/contact/contact.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <h1>Pour nous contacter</h1>
+
+    <form method="post">
+        <label for="email">Votre adresse e-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Demande:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <p>Coordonnées de l'entreprise:</p>
+    <ul>
+        <li>05.56.67.78.89</li>
+        <li>geocode@wild.com</li>
+        <li>171 Rue Lucien Faure, 33300 BORDEAUX</li>
+    </ul>
+{% endblock %}
