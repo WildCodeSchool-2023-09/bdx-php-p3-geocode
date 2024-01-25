@@ -90,7 +90,7 @@ export default class extends Controller {
                     window.location.href = '/booking/register/' + elt.id;
                 });
 
-            marker.bindPopup(elt.id + ' <br> ' + elt.address + ' <br> ' + '<button class="reservation-button" data-terminal-id="' + elt.id + '">Reservation</button>');
+            marker.bindPopup(elt.id + ' <br> ' + elt.address + ' <br> ' + '<button class="button" data-terminal-id="' + elt.id + '">Reservation</button>');
             console.log(elt);
             });
         }

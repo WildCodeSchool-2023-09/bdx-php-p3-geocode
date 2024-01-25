@@ -6,14 +6,15 @@
     <main>
         <div>
             <h1 class="title">Mon historique de réservations</h1>
-
+            <div class="form">
             {% for booking in bookings %}
                 <div class="reservationList">
-                    <p>Date de début : {{ booking.datetimeStart|date('Y-m-d H:i:s') }}</p>
-                    <p>Date de fin : {{ booking.dateTimeEnd|date('Y-m-d H:i:s') }}</p>
+                    <p>Le : {{ booking.datetimeStart|date('Y-m-d') }}</p>
+                    <p>De : {{ booking.datetimeStart|date('H:i') }} à {{ booking.dateTimeEnd|date('H:i') }}</p>
                     <p>Adresse : {{ booking.terminal.address }}</p>
                 </div>
             {% endfor %}
+            </div>
         </div>
     </main>
 {% endblock %}

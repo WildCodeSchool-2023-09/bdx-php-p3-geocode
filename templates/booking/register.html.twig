@@ -30,9 +30,11 @@
     </main>
 {#    <div class="map-modal">#}
 
-                <div class='map-modal modal-bg'>
+                <div class='map-modal modal-bg map-modal-booking'>
                     {{ form_start(form) }}
-                    <button type="submit" class="button" id="validate-search">Reserver</button>
+                    {{ form_row(form.datetimeStart) }}
+                    {{ form_row(form.dateTimeEnd) }}
+                    <button type="submit" class="button mt1" id="validate-search">Reserver</button>
                     {{ form_end(form) }}
 
                     <div class="timetable">

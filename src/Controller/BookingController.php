@@ -101,8 +101,9 @@ class BookingController extends AbstractController
     }
 
     #[Route('/booking/history/{id}', name: 'app_booking_history', methods: ['GET'])]
-    public function history(Booking $booking): Response
-    {
+    public function history(
+        User $user
+    ): Response {
         $bookings = $this->getUser()->getBookings();
 
         return $this->render('booking/history.html.twig', [
