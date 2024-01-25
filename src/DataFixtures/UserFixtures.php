@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $user->setLastname('Toto');
         $user->setBirthday(DateTime::createFromFormat('d/m/Y', '12/12/2002'));
         $user->setEmail('toto@toto.fr');
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_CONTRIBUTOR']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             'azertyui'

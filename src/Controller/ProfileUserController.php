@@ -186,7 +186,14 @@ class ProfileUserController extends AbstractController
         TokenStorageInterface $tokenStorage,
     ): Response {
 
-        $tokenStorage->setToken(null);
+        $tokenStorage->getToken()->getUser();
+//        $currentUser = $tokenStorage->getToken()->getUser();
+
+//        if ($currentUser !== $user && !$this->isGranted('ROLE_ADMIN')) {
+//            throw $this->createAccessDeniedException(
+//                'Vous n\'avez pas les autorisations nécessaires pour supprimer ce profil.'
+//            );
+//        }
 
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);

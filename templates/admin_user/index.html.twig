@@ -6,11 +6,8 @@
         {% include 'components/_adminsidebar.html.twig' %}
         <main class="main-vertical">
 
-
-
     <table class="table">
         <thead>
-
                 <tr>
                     <th>Id</th>
                     <th>Firstname</th>
@@ -18,28 +15,36 @@
                     <th>Birthday</th>
                     <th>Gender</th>
                     <th>Email</th>
+                    <th>Roles</th>
                     <th>Actions</th>
                 </tr>
-
-        </thead>
+            </thead>
         <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                {# {{ user.roles ? user.roles|json_encode : '' }} #}
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
-                <td>{{ user.gender }}</td>
-                <td>{{  user.email }}</td>
-{#                {{ user.picture }}#}
-                {# {{ user.resetToken }} #}
-{#                 <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}"></>#}
-                <td>
-                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{  user.email }}</td>
+
+                    <td>
+                        {% if user.roles %}
+                            {% for role in user.roles %}
+                                {{ role }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            No roles
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">Vue </a>
+                        <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}"> Modifier</a>
+                    </td>
+                </tr>
         {% else %}
             <tr>
                 <td colspan="12">no records found</td>
@@ -47,8 +52,7 @@
         {% endfor %}
         </tbody>
     </table>
-            <a href="{{ path('app_admin_user_new') }}">Create new</a>
+            <a href="{{ path('app_admin_user_new') }}">Nouvel utilisateur</a>
         </main>
-
 
 {% endblock %}
