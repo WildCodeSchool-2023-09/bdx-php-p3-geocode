@@ -341,6 +341,14 @@ main svg{
     text-align: center;
 }
 
+@media screen and (width > 576px) {
+    .title{
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+}
+
 a{
     text-decoration: none;
     color: var(--color-ternary);
@@ -359,6 +367,10 @@ a{
 
 .marg2{
     margin-right: 16px;
+}
+
+.mt1{
+    margin-top: 8px;
 }
 
 svg.bi.bi-power {

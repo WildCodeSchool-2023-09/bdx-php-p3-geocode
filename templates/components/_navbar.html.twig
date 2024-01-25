@@ -1,7 +1,8 @@
 <nav class="navigation" {{ stimulus_controller('navbar') }}>
-    <ul >
-        <li class="list {{ (app.request.attributes.get('_route') == 'app_home' or
-                            app.request.attributes.get('_route') == 'app_map'
+    <ul>
+        <li class="list {{ ((app.request.attributes.get('_route') == 'app_home') or
+                            (app.request.attributes.get('_route') starts with 'app_booking') or
+                            (app.request.attributes.get('_route') == 'app_map')
                             ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
             <a href="{{ path('app_map') }}" {{ stimulus_action('navbar', 'openActive') }} >
         <span class="icon">
