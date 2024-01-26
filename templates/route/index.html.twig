@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RouteController!{% endblock %}
+{% block title %}Géocode - Trajet{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script>let data = '';</script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+{#    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>#}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+{#    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />#}
+
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div>
+            <div id="map" {{ stimulus_controller('route') }}></div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/nlero/Documents/WCS/projects/bdx-php-p3-geocode/src/Controller/RouteController.php'|file_link(0) }}">src/Controller/RouteController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/nlero/Documents/WCS/projects/bdx-php-p3-geocode/templates/route/index.html.twig'|file_link(0) }}">templates/route/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}
