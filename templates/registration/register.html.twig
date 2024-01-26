@@ -9,17 +9,17 @@
 
         <h1 class="titleUnderLogo">S'inscrire</h1>
 
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
+{#            {% for message in app.flashes('success') %}#}
+{#                <div class="alert alert-success" role="alert">#}
+{#                    {{ message }}#}
+{#                </div>#}
+{#            {% endfor %}#}
 
-            {% for message in app.flashes('error') %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
+{#            {% for message in app.flashes('error') %}#}
+{#                <div class="alert alert-danger" role="alert">#}
+{#                    {{ message }}#}
+{#                </div>#}
+{#            {% endfor %}#}
             {{ form_start(registrationForm) }}
 
             {{ form_errors(registrationForm) }}
@@ -54,8 +54,6 @@
 
                 {{ form_row(registrationForm.birthday) }}
                 {{ form_row(registrationForm.agreeTerms) }}
-
-
 
                 <button class="button" type="submit" >S'enregistrer</button>
 

@@ -3,12 +3,16 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    {% include 'components/_adminsidebar.html.twig' %}
-    <h1>Modifier l'utilisateur</h1>
+{#    {% include 'components/_adminsidebar.html.twig' %}#}
+    <main class="main-vertical">
 
-    {{ include('admin_user/_form.html.twig', {'button_label': 'Update'}) }}
+    <h1 class="title" >Modifier l'utilisateur</h1>
+
+    {{ include('admin_user/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+{#    {{ include('admin_user/_delete_form.html.twig') }}#}
 
     <a href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
 
-    {{ include('admin_user/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

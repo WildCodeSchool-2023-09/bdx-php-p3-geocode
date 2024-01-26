@@ -27,9 +27,10 @@
                     <td>{{ user.lastname }}</td>
                     <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
                     <td>{{ user.gender }}</td>
-                    <td>{{  user.email }}</td>
+                    <td>{{ user.email }}</td>
 
                     <td>
+{#                        {{ user.roles }}#}
                         {% if user.roles %}
                             {% for role in user.roles %}
                                 {{ role }}
