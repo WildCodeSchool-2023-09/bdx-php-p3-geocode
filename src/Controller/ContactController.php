@@ -15,6 +15,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
+    #[Route('/contact', name:'app_contact')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactType::class);
@@ -35,7 +36,7 @@ class ContactController extends AbstractController
 
             $this->addFlash('success', 'Votre message a été envoyé avec succès.');
 
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('app_contact');
         }
 
         return $this->render('contact/index.html.twig', [
