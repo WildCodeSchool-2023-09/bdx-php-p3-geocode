@@ -21,6 +21,26 @@
     border: solid 2px var(--color-ternary);
     top: initial;
     bottom: var(--navbar-height);
+    margin-left: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.bookAdress{
+    margin: 8px 0 0 8px;
+}
+
+.cancelBook{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+@media screen and (width > 576px) {
+    .map-modal-booking {
+        margin-left: 0;
+        margin-bottom: 0;
+    }
 }
 
 .reservationList{
