@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Car{% endblock %}
+
+{% block body %}
+    <main class="main-vertical">
+
+    <h1>Nouveau véhicule</h1>
+
+    {{ include('admin_car/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_car_index') }}">retour à la liste</a>
+    </main>
+{% endblock %}
