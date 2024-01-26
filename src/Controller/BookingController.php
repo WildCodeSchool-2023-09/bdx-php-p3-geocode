@@ -39,7 +39,7 @@ class BookingController extends AbstractController
         Request $request,
     ): Response {
 
-        if (!$this->isGranted('ROLE_USER')) {
+        if (!$this->isGranted('ROLE_CONTRIBUTOR')) {
             $this->addFlash('danger', 'Vous devez être connecté en tant qu\'utilisateur.');
             return $this->redirectToRoute('app_login');
         }
@@ -87,7 +87,7 @@ class BookingController extends AbstractController
         BookingService $bookingService
     ): Response {
 
-        if (!$this->isGranted('ROLE_USER')) {
+        if (!$this->isGranted('ROLE_CONTRIBUTOR')) {
             $this->addFlash('danger', 'Vous devez être connecté en tant qu\'utilisateur.');
             return $this->redirectToRoute('app_login');
         }

@@ -4,8 +4,10 @@
 
 {% block body %}
 
+<main>
+    <div class="form">
 
-    <h1>User</h1>
+    <h1 class="title">Utilisateur</h1>
 
     <table class="table">
         <tbody>
@@ -21,10 +23,7 @@
                 <th>Roles</th>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
+
             <tr>
                 <th>Firstname</th>
                 <td>{{ user.firstname }}</td>
@@ -41,26 +40,15 @@
                 <th>Gender</th>
                 <td>{{ user.gender }}</td>
             </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ user.picture }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>ResetToken</th>
-                <td>{{ user.resetToken }}</td>
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_user_index') }}">back to list</a>
+    <a href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
 
     {{ include('admin_user/_delete_form.html.twig') }}
 
-
+    </div>
+</main>
 {% endblock %}
