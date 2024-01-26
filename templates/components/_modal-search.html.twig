@@ -5,10 +5,15 @@
         <div class='modal-card-border'>
             <div class='modal-card'>
                 {{ form_start(form) }}
-                <button class="button" id="validate-search">Chercher</button>
+                <button class="button" id="validate-search">
+                    {% if setButton is defined %}
+                    {{ setButton }}
+                    {% else %}
+                    Chercher
+                    {% endif %}
+                </button>
                 {{ form_end(form) }}
             </div>
         </div>
-
     </div>
 </div>

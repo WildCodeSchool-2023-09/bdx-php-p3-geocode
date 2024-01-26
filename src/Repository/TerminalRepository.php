@@ -43,7 +43,7 @@ class TerminalRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $target = 'POINT(' . $longitude . ' ' . $latitude . ')';
         $sql = '
-        SELECT address, ST_X(point) as longitude, ST_Y(point) as latitude, number_outlet,
+        SELECT id, address, ST_X(point) as longitude, ST_Y(point) as latitude, number_outlet,
                ST_Distance_Sphere(point, ST_GeomFromText(:target)) AS distance_m
         FROM terminal HAVING distance_m <= :distance';
 

@@ -5,10 +5,12 @@
 {% block body %}
     {% include 'components/_adminsidebar.html.twig' %}
     <main class="main-vertical">
-        <h1>Terminal index</h1>
+        <h1>Terminal index - pour test</h1>
         <section>
+            {{ dump }}
 
-            {% include 'components/_terminal_pagination.html.twig' %}
+
+{#            {% include 'components/_terminal_pagination.html.twig' %}#}
         </section>
 
         <a href="{{ path('app_admin_terminal_new') }}">Create new</a>

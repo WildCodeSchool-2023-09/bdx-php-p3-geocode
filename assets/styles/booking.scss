@@ -1,0 +1,37 @@
+.booking {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.mediumTitle {
+    font-size: medium;
+    margin-bottom: 8px;
+}
+
+.timetable{
+    padding: 0 1.25rem 1.25rem 1.25rem;
+}
+
+.map-modal-booking {
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    border: solid 2px var(--color-ternary);
+    top: initial;
+    bottom: var(--navbar-height);
+}
+
+.reservationList{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.booked{
+   color: #8080806b;
+}

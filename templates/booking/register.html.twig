@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BookingController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script>
+        let userLon;
+        let userLat;
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                userLat = Number(position.coords.latitude.toFixed(4));
+                userLon = Number(position.coords.longitude.toFixed(4));
+            })}
+        else{
+            userLat = 45;
+            userLon = 0;
+        }
+    </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+{% endblock %}
+
+{% block body %}
+    <main class="map">
+        <div id="map" {{ stimulus_controller('map_search') }}></div>
+    </main>
+{#    <div class="map-modal">#}
+
+                <div class='map-modal modal-bg map-modal-booking'>
+                    {{ form_start(form) }}
+                    {{ form_row(form.datetimeStart) }}
+                    {{ form_row(form.dateTimeEnd) }}
+                    <button type="submit" class="button mt1" id="validate-search">Reserver</button>
+                    {{ form_end(form) }}
+
+                    <div class="timetable">
+                        <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
+{#                            <div class="booking">#}
+{#                                {% for timeSlot in availableTimeSlots %}#}
+{#                                    <p>{{ timeSlot|date('H:i') }}</p>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+                            <div class="booking">
+                                {% for timeSlot in availableTimeSlots %}
+                                    {% if timeSlot.booked is not defined or not timeSlot.booked %}
+                                        <p>{{ timeSlot|date('H:i') }}</p>
+                                    {% else %}
+                                        <p class="booked">{{ timeSlot|date('H:i') }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                    </div>
+
+
+                </div>
+
+{#    </div>#}
+
+
+
+    {% set setButton = 'Réserver' %}
+{#    {% include 'components/_modal-search.html.twig' %}#}
+
+{#    <div class="modal-card">#}
+{#        <div class="timetable">#}
+{#            <h2>Créneaux horaires disponibles :</h2>#}
+{#            <ul>#}
+{#                {% for timeSlot in availableTimeSlots %}#}
+{#                    <li>{{ timeSlot|date('H:i') }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+
+{% endblock %}
