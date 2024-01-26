@@ -1,0 +1,60 @@
+li {
+    list-style: none;
+    font-style: italic;
+    text-align: center;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem;
+}
+
+textarea {
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100px;
+    width: 330px;
+}
+
+input {
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    height: 30px;
+    width: 330px;
+}
+
+.Coordon {
+    background-color: var(--color-ternary);
+    color: var(--color-quinternary);
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    text-align: center;
+    width: 35%;
+    margin: auto;
+}
+
+.Links {
+    color: var(--color-secondary);
+    padding: 0.5rem 3rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+.Links span {
+    font-style: italic;
+    color: var(--color-quaternary);
+}

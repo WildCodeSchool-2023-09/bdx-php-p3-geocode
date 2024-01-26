@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Car{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="form">
+
+    <h1>Véhicule</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ car.id }}</td>
+            </tr>
+            <tr>
+                <th>Marque</th>
+                <td>{{ car.brand }}</td>
+            </tr>
+            <tr>
+                <th>Modèle</th>
+                <td>{{ car.model }}</td>
+            </tr>
+            <tr>
+                <th>Type des prises</th>
+                <td>{{ car.outletType }}</td>
+            </tr>
+            <tr>
+                <th>Utilisateur</th>
+                <td>id : {{ car.user.id }} - Nom : {{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
+            </tr>
+{#            <tr>#}
+{#                <th>Picture</th>#}
+{#                <td>{{ car.picture }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>UpdatedAt</th>#}
+{#                <td>{{ car.updatedAt ? car.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+{#            </tr>#}
+        </tbody>
+    </table>
+
+    {{ include('admin_car/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_admin_car_edit', {'id': car.id}) }}">Modifier</a>
+            <br>
+    <a href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
+
+        </div>
+    </main>
+{% endblock %}

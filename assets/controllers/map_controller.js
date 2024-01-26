@@ -75,13 +75,37 @@ export default class extends Controller {
             //     shadowSize: [68, 95],
             //     shadowAnchor: [22, 94]
             // });
-            data.forEach(elt => {
-                L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map)
-                .bindPopup(elt.address)
-                console.log(elt);
 
-            })
+            // data.forEach(elt => {
+            //     L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map)
+            //     .bindPopup(elt.id + ' <br> ' + elt.address + ' <br> ' + '<button>Reservation</button>')
+            //     console.log(elt);
+            //
+            // })
+
+            data.forEach(elt => {
+                let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
+
+                marker.on('click', function () {
+                    window.location.href = '/booking/register/' + elt.id;
+                });
+
+            marker.bindPopup(elt.id + ' <br> ' + elt.address + ' <br> ' + '<button class="button" data-terminal-id="' + elt.id + '">Reservation</button>');
+            console.log(elt);
+            });
         }
 
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('reservation-button')) {
+              // Récupérez l'ID du terminal à partir de l'attribut data-terminal-id
+                let id = event.target.getAttribute('data-terminal-id');
+
+              // Générer l'URL vers la page de réservation avec l'ID du terminal
+                let url = Routing.generate('app_booking_register', { id: id });
+
+              // Redirigez l'utilisateur vers la page de réservation
+                window.location.href = url;
+            }
+        });
     }
 }

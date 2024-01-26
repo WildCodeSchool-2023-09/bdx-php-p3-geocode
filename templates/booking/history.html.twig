@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block body %}
+    <main>
+        <div>
+            <h1 class="title">Mon historique de réservations</h1>
+            <div class="form">
+            {% for booking in bookings %}
+                <div class="reservationList">
+                    <p>Le : {{ booking.datetimeStart|date('Y-m-d') }}</p>
+                    <p>De : {{ booking.datetimeStart|date('H:i') }} à {{ booking.dateTimeEnd|date('H:i') }}</p>
+                    <p>Adresse : {{ booking.terminal.address }}</p>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

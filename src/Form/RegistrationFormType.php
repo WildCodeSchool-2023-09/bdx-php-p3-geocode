@@ -146,7 +146,6 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
-
     private function addAgreeTermsField(FormBuilderInterface $builder): void
     {
         $builder
