@@ -7,9 +7,11 @@ use App\Form\Car1Type;
 use App\Repository\CarRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/admin/car')]
 class AdminCarController extends AbstractController
@@ -77,5 +79,32 @@ class AdminCarController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_car_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/delete-picture', name: 'app_admin_car_delete_picture', methods: ['POST'])]
+    public function deletePicture(
+        Car $car,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UploaderHelper $uploaderHelper
+    ): Response {
+        if ($this->isCsrfTokenValid('delete_picture' . $car->getId(), $request->request->get('_token'))) {
+            // Supprimer le fichier physique en utilisant le service UploaderHelper
+            $picturePath = $uploaderHelper->asset($car, 'pictureFile');
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($picturePath);
+
+            // Supprimer le nom du fichier de la base de données
+            $car->setPicture(null);
+
+            $entityManager->persist($car);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La photo de profil a été supprimée avec succès.');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression de la photo de profil.');
+        }
+
+        return $this->redirectToRoute('app_admin_user_index', ['id' => $car->getId()], Response::HTTP_SEE_OTHER);
     }
 }
