@@ -7,9 +7,11 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
@@ -86,5 +88,32 @@ class AdminUserController extends AbstractController
         return $this->render('admin_user/profile.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    #[Route('/{id}/delete-picture', name: 'app_admin_user_delete_picture', methods: ['POST'])]
+    public function deletePicture(
+        User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UploaderHelper $uploaderHelper
+    ): Response {
+        if ($this->isCsrfTokenValid('delete_picture' . $user->getId(), $request->request->get('_token'))) {
+            // Supprimer le fichier physique en utilisant le service UploaderHelper
+            $picturePath = $uploaderHelper->asset($user, 'pictureFile');
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($picturePath);
+
+            // Supprimer le nom du fichier de la base de données
+            $user->setPicture(null);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La photo de profil a été supprimée avec succès.');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression de la photo de profil.');
+        }
+
+        return $this->redirectToRoute('app_admin_user_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
     }
 }
