@@ -35,5 +35,4 @@ yarn-error.log
 ###< phpunit/phpunit ###
 /public/uploads/
 nicosmaker.php
-AdminFixtures.php
-UserFixtures.php
+
