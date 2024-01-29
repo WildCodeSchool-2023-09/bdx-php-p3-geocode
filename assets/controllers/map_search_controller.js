@@ -57,8 +57,9 @@ export default class extends Controller {
 
         function getTerminals()
         {
-            console.log('from map_search', longitude, latitude);
-            fetch('getterminal/' + longitude + '/' + latitude)
+            const protocol = window.location.protocol;
+            const host = window.location.host;
+            const terminals = fetch(protocol + '//' + host + '/getterminal/' + longitude + '/' + latitude)
               .then((resp) => {return resp.json()})
               .then((data) => displayDataMap(data))
               .catch((err) => console.log(err));
