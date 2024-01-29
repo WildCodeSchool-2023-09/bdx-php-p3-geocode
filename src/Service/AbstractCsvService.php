@@ -63,6 +63,7 @@ abstract class AbstractCsvService
         foreach ($rows as $row) {
             try {
                 $object = $this->verifyData($row);
+
                 if ($previousObject != $object) {
                     $this->entityManager->persist($object);
                     $counter += 1;
@@ -71,8 +72,9 @@ abstract class AbstractCsvService
             } catch (Exception $exception) {
                 echo($exception->getMessage());
             }
-            if ($counter > 1000) {
+            if ($counter > 100) {
                 $this->entityManager->flush();
+                usleep(500);
                 $this->entityManager->clear();
                 $counter = 0;
             }
