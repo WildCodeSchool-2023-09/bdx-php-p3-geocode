@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Géocode - Trajet{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+    </main>
+{% endblock %}
