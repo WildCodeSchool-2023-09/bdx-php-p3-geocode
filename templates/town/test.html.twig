@@ -5,6 +5,11 @@
 {% block body %}
     <main>
         <div>
+            {% if departure is defined %}
+                {{ dump(departure) }}
+            {% endif %}
+        </div>
+        <div>
         {% if gradignan is defined %}
             {{ dump(gradignan) }}
         {% endif %}
