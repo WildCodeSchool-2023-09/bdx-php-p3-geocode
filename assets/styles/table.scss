@@ -1,16 +1,23 @@
-table{
+table {
     border: 1px solid black;
-}
-tr:nth-child(odd){
-    background-color: var(--color-primary);
-}
-tr:nth-child(even){
-    background-color: var(--color-quaternary);
-}
-tr:hover{
-    color: var(--color-quinternary);
-    background-color: var(--color-secondary);
-}
-th,td{
-    padding: 0.5rem;
+
+    tr:nth-child(odd) {
+        background-color: var(--color-primary);
+    }
+
+    tr:nth-child(even) {
+        background-color: #D1DCCFFF;
+    }
+
+    tr:hover {
+        color: var(--color-quinternary);
+        background-color: var(--color-secondary);
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+    svg {
+        margin: 0 0.5rem;
+    }
 }
