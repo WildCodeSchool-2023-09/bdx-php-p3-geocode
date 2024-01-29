@@ -5,7 +5,7 @@
 {% block body %}
     <main>
         <div>
-    <h1 class="title">Réinitialiser votre mot de passe</h1>
+            <h1 class="title">Réinitialiser votre mot de passe</h1>
 
             {% for message in app.flashes('success') %}
                 <div class="alert alert-success" role="alert">
@@ -19,10 +19,10 @@
                 </div>
             {% endfor %}
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="button">Réinitialiser votre mot de passe</button>
-    {{ form_end(resetForm) }}
+            {{ form_start(resetForm) }}
+            {{ form_row(resetForm.plainPassword) }}
+            <button class="button">Réinitialiser votre mot de passe</button>
+            {{ form_end(resetForm) }}
         </div>
     </main>
 {% endblock %}

@@ -7,8 +7,6 @@
     <main>
         <div>
 
-{#    <h1>Car index</h1>#}
-
     <table class="table">
         <thead>
             <tr>
@@ -16,8 +14,6 @@
                 <th>Marque</th>
                 <th>Modèle</th>
                 <th>Type de prise</th>
-{#                <th>Picture</th>#}
-{#                <th>UpdatedAt</th>#}
                 <th>Utilisateur (id/Nom)</th>
                 <th>actions</th>
             </tr>
@@ -29,10 +25,7 @@
                 <td>{{ car.brand }}</td>
                 <td>{{ car.model }}</td>
                 <td>{{ car.outletType }}</td>
-                <td>id : {{ car.user.id }} - Nom : {{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
-
-{#                <td>{{ car.picture }}</td>#}
-{#                <td>{{ car.updatedAt ? car.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+                <td>{{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
                 <td>
                     <a href="{{ path('app_admin_car_show', {'id': car.id}) }}">Vue</a>
                     <a href="{{ path('app_admin_car_edit', {'id': car.id}) }}">Modifier</a>
