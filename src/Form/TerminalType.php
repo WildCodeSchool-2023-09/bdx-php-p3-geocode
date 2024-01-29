@@ -5,8 +5,11 @@ namespace App\Form;
 use App\Entity\Opened;
 use App\Entity\Terminal;
 use App\Entity\Town;
+use LongitudeOne\Spatial\DBAL\Types\Geometry\PointType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,19 +18,18 @@ class TerminalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('point')
-            ->add('address')
-            ->add('outletType')
-            ->add('numberOutlet')
-            ->add('maxPower')
-            ->add('town', EntityType::class, [
-                'class' => Town::class,
-        'choice_label' => 'id',
+            //->add('point', PointType::class)
+            ->add('address', TextType::class, [
+                'label' => 'Adresse'
             ])
-            ->add('opened', EntityType::class, [
-                'class' => Opened::class,
-        'choice_label' => 'id',
-        'multiple' => true,
+            ->add('outletType', TextType::class, [
+                'label' => 'Type de prise'
+            ])
+            ->add('numberOutlet', NumberType::class, [
+                'label' => 'Nombre de prises'
+            ])
+            ->add('maxPower', NumberType::class, [
+                'label' => 'Puissance maximum'
             ])
         ;
     }
