@@ -31,7 +31,7 @@ class RouteType extends AbstractType
                 ],
             ])
             ->add('step', NumberType::class, [
-                'label' => 'Longueur des étapes',
+                'label' => 'Nombre de kilomètres entre chaque recharge',
                 'mapped' => false
             ])
             ->add('save', SubmitType::class, [
