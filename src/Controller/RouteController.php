@@ -2,33 +2,44 @@
 
 namespace App\Controller;
 
+use App\Entity\Town;
+use App\Form\RouteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RouteController extends AbstractController
 {
     #[Route('/route', name: 'app_route')]
-    public function index(): Response
+    public function ask(Request $request): Response
     {
-        return $this->render('route/index.html.twig');
+        $result = [];
+        $form = $this->createForm(RouteType::class, $result);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $departure = $form->get('departure')->getData()->getId();
+            $arrival = $form->get('arrival')->getData()->getId();
+            $step = $form->get('step')->getData();
+            return $this->redirectToRoute('app_route_show', ['departure' => $departure,
+                                                           'arrival' => $arrival,
+                                                            'step' => $step]);
+        }
+        return $this->render('route/ask.html.twig', [
+            'form' => $form,
+        ]);
     }
 
-    #[Route('/route2', name: 'app_route2')]
-    public function index2(): Response
-    {
-        return $this->render('route/index2.html.twig');
-    }
-
-    #[Route('/route5', name: 'app_route5')]
-    public function index5(): Response
-    {
-        return $this->render('route/index5.html.twig');
-    }
-
-    #[Route('/route4', name: 'app_route4')]
-    public function index4(): Response
-    {
-        return $this->render('route/index4.html.twig');
+    #[Route('/routeshow/{departure}/{arrival}/{step}', name: 'app_route_show')]
+    public function show(
+        Town $departure,
+        Town $arrival,
+        int $step
+    ): Response {
+        return $this->render('route/goTo.html.twig', [
+            'departure' => $departure,
+            'arrival' => $arrival,
+            'step' => $step,
+        ]);
     }
 }
