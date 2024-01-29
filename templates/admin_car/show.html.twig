@@ -46,16 +46,8 @@
                     </tr>
                     <tr>
                         <th>Utilisateur</th>
-                        <td>id : {{ car.user.id }} - Nom : {{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
+                        <td>{{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
                     </tr>
-            {#            <tr>#}
-            {#                <th>Picture</th>#}
-            {#                <td>{{ car.picture }}</td>#}
-            {#            </tr>#}
-            {#            <tr>#}
-            {#                <th>UpdatedAt</th>#}
-            {#                <td>{{ car.updatedAt ? car.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
-            {#            </tr>#}
                 </tbody>
             </table>
         </div>
