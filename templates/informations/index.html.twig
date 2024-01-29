@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations{% endblock %}
+
+{% block body %}
+<main>
+    <div>
+        <h1 class="title">Informations</h1>
+            <div class="bulle">
+                <div class="prise">
+                    Le processus de recharge des véhicules électriques implique deux types de courant - le courant alternatif (AC), principalement utilisé pour la recharge lente et accélérée, et le courant continu (DC), réservé à la haute puissance pour la charge rapide. <br>
+                    Avant de discuter des différentes prises, il est essentiel de comprendre ces deux types de courant.
+                </div>
+                    <div class="ef">
+                        La prise domestique, également appelée prise E/F, est couramment utilisée pour la recharge des voitures électriques à domicile. La plupart des véhicules électriques incluent un câble compatible avec cette prise universelle. <br>
+                        Cependant, il est recommandé de faire vérifier l'installation par un électricien et d'utiliser une prise reliée à son propre disjoncteur. Bien que cette méthode soit la plus simple et économique, la recharge sur une prise domestique est relativement lente, limitée à 10A (environ 2 kW). Pour accélérer le processus, certains optent pour une prise renforcée "Green’Up", permettant une charge à 14A (environ 3 kW).
+                    </div>
+                <div class="type2">
+                    La prise Type 2
+                    Spécifique aux véhicules électriques, la prise Type 2 est aujourd’hui le standard européen pour la charge en courant alternatif. Considérée comme un intermédiaire entre la prise domestique et les différentes prises rapides, la Type 2 accepte davantage de puissance ce qui permet de réduire le temps de recharge. <br>
+                    Présente sur les Wallbox, ces bornes de recharge à installer chez soi, elle est aussi utilisée sur une grande partie des bornes publiques.
+                    La puissance acceptée va dépendre de la configuration côté borne, mais aussi du chargeur embarqué à bord du véhicule. <br>
+                    Aujourd’hui, la plupart des voitures électriques intègrent un chargeur de 7 kW de série. D’autres, comme la Renault ZOE, acceptent jusqu’à 22 kW.
+                    Si elle est aujourd’hui majoritairement utilisée pour la charge lente et accélérée, la prise Type 2 sert aussi à la charge rapide. <br>
+                    C’était notamment le cas sur les premières générations de ZOE, dont la puissance de charge grimpait à 43 kW.
+                    Tesla utilise également une configuration propriétaire du standard sur son réseau de superchargeurs. Utilisée pour les Model S et Model X, celle-ci délivre plus de 100 kW.
+                </div>
+            </div>
+    </div>
+</main>
+
+{% endblock %}
