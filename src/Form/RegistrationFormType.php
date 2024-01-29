@@ -36,7 +36,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('town', TownNameAutocompleteField::class, [
                 'class' => Town::class,
-                'label' => 'Ville',
+                'label' => ' Ville',
                 'attr' => [
                     'class' => 'input'
                 ],
