@@ -44,10 +44,9 @@ export default class extends Controller {
 
         function getTerminals(step)
         {
-            const host = window.location.host;
             const protocol = window.location.protocol;
-            const url = protocol + host + '/getterminal/'
-            const terminals = fetch('https://localhost:8000/getterminal/' + step.longitude + '/' + step.latitude)
+            const host = window.location.host;
+            const terminals = fetch(protocol + '//' + host + '/getterminal/' + step.longitude + '/' + step.latitude)
             .then((resp) => {return resp.json()})
             .then((data) => displayDataMap(data))
             .catch((err) => console.error(err));
@@ -55,8 +54,6 @@ export default class extends Controller {
 
         function displayDataMap(data)
         {
-            const host = window.location.host;
-
             data.forEach(elt => {
                 let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
                 const url = '/booking/register/' + elt.id;

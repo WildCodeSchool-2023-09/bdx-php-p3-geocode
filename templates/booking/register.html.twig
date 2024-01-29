@@ -4,19 +4,19 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <script>
-        let userLon;
-        let userLat;
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                userLat = Number(position.coords.latitude.toFixed(4));
-                userLon = Number(position.coords.longitude.toFixed(4));
-            })}
-        else{
-            userLat = 45;
-            userLon = 0;
-        }
-    </script>
+{#    <script>#}
+{#        let userLon;#}
+{#        let userLat;#}
+{#        if ("geolocation" in navigator) {#}
+{#            navigator.geolocation.getCurrentPosition((position) => {#}
+{#                userLat = Number(position.coords.latitude.toFixed(4));#}
+{#                userLon = Number(position.coords.longitude.toFixed(4));#}
+{#            })}#}
+{#        else{#}
+{#            userLat = 45;#}
+{#            userLon = 0;#}
+{#        }#}
+{#    </script>#}
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link
         rel="stylesheet"
@@ -26,7 +26,10 @@
 
 {% block body %}
     <main class="map">
-        <div id="map" {{ stimulus_controller('map_search') }}></div>
+        <div id="map" {{ stimulus_controller('map_search') }}
+             data-longitude = '{{ book.terminal.point.longitude }}'
+             data-latitude = '{{ book.terminal.point.latitude }}'
+        ></div>
     </main>
 {#    <div class="map-modal">#}
 
