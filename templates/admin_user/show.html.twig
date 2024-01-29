@@ -7,57 +7,72 @@
 <main>
     <div class="form">
 
-    <h1 class="title">Utilisateur</h1>
+        <h1 class="title">Utilisateur</h1>
+        <div class="Admin">
+            {% if user.picture %}
+                <div class="buttonDelete">
+                    <img class="pictures AdminPictures" src="{{ vich_uploader_asset(user) }}" alt="{{ user.firstname }} picture">
+                    <form class="delete" method="post" action="{{ path('app_admin_user_delete_picture', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete the profile picture?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_picture' ~ user.id) }}">
+                        <button type="submit" class="deletePicture"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                    <img class="pictures AdminPictures" src="{{ asset('build/images/Default.pfp.png') }}" alt="Default Picture">
+            {% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-{#                <td>{{ user.roles }}</td>#}
-                <td>
-                    {% if user.roles %}
-                        {% for role in user.roles %}
-                            {{ role }}<br>
-                        {% endfor %}
-                    {% else %}
-                        No roles
-                    {% endif %}
-                </td>
-            </tr>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Roles</th>
+                        <td>
+                            {% if user.roles %}
+                                {% for role in user.roles %}
+                                    {{ role }}<br>
+                                {% endfor %}
+                            {% else %}
+                                No roles
+                            {% endif %}
+                        </td>
+                    </tr>
 
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Birthday</th>
-                <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ user.gender }}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Birthday</th>
+                        <td>{{ user.birthday ? user.birthday|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ user.gender }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
+        <a class="AdminText" href="{{ path('app_admin_user_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
+        <a class="AdminText" href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
 
-    {{ include('admin_user/_delete_form.html.twig') }}
-
+        {{ include('admin_user/_delete_form.html.twig') }}
     </div>
 </main>
 {% endblock %}

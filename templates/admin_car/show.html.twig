@@ -3,50 +3,69 @@
 {% block title %}Car{% endblock %}
 
 {% block body %}
-    <main>
-        <div class="form">
+<main>
+    <div class="form">
+        <h1 class="title">Véhicule</h1>
 
-    <h1>Véhicule</h1>
+        <div class="Admin">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ car.id }}</td>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ car.brand }}</td>
-            </tr>
-            <tr>
-                <th>Modèle</th>
-                <td>{{ car.model }}</td>
-            </tr>
-            <tr>
-                <th>Type des prises</th>
-                <td>{{ car.outletType }}</td>
-            </tr>
-            <tr>
-                <th>Utilisateur</th>
-                <td>id : {{ car.user.id }} - Nom : {{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
-            </tr>
-{#            <tr>#}
-{#                <th>Picture</th>#}
-{#                <td>{{ car.picture }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>UpdatedAt</th>#}
-{#                <td>{{ car.updatedAt ? car.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
-{#            </tr>#}
-        </tbody>
-    </table>
+            {% if car.picture %}
+                <div class="buttonDelete">
+                    <img class="picturesCar AdminPictures" src="{{ vich_uploader_asset(car) }}" alt="{{ car.model }} picture">
+                    <form class="delete" method="post" action="{{ path('app_admin_car_delete_picture', {'id': car.id}) }}" onsubmit="return confirm('Are you sure you want to delete the profile picture?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_picture' ~ user.id) }}">
+                        <button type="submit" class="deletePicture"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <img class="picturesCar AdminPictures" src="{{ asset('build/images/electricCar.png') }}" alt="Default Picture car">
+            {% endif %}
 
-    {{ include('admin_car/_delete_form.html.twig') }}
 
-    <a href="{{ path('app_admin_car_edit', {'id': car.id}) }}">Modifier</a>
-            <br>
-    <a href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
-
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ car.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Marque</th>
+                        <td>{{ car.brand }}</td>
+                    </tr>
+                    <tr>
+                        <th>Modèle</th>
+                        <td>{{ car.model }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type de prise</th>
+                        <td>{{ car.outletType }}</td>
+                    </tr>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <td>id : {{ car.user.id }} - Nom : {{ car.user.Lastname }} - {{ car.user.Firstname }}</td>
+                    </tr>
+            {#            <tr>#}
+            {#                <th>Picture</th>#}
+            {#                <td>{{ car.picture }}</td>#}
+            {#            </tr>#}
+            {#            <tr>#}
+            {#                <th>UpdatedAt</th>#}
+            {#                <td>{{ car.updatedAt ? car.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
+            {#            </tr>#}
+                </tbody>
+            </table>
         </div>
-    </main>
+
+        <a class="AdminText" href="{{ path('app_admin_car_edit', {'id': car.id}) }}">Modifier</a>
+                <br>
+        <a class="AdminText" href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
+
+        {{ include('admin_car/_delete_form.html.twig') }}
+
+    </div>
+</main>
 {% endblock %}

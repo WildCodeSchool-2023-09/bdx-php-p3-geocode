@@ -27,9 +27,10 @@ class TerminalRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-        SELECT address, ST_X(point), ST_Y(point), number_outlet,
+        SELECT address, ST_X(point) as x, ST_Y(point) as y, number_outlet,
                ST_Distance_Sphere(point, ST_GeomFromText(:townlocation)) AS distance_m
-        FROM terminal HAVING distance_m <= :distance';
+        FROM terminal HAVING distance_m <= :distance AND x != 0';
+
 
         $resultSet = $conn->executeQuery($sql, [
             'townlocation' => $town->getPointAsString(),
@@ -45,7 +46,7 @@ class TerminalRepository extends ServiceEntityRepository
         $sql = '
         SELECT id, address, ST_X(point) as longitude, ST_Y(point) as latitude, number_outlet,
                ST_Distance_Sphere(point, ST_GeomFromText(:target)) AS distance_m
-        FROM terminal HAVING distance_m <= :distance';
+        FROM terminal HAVING distance_m <= :distance and longitude != 0';
 
         $resultSet = $conn->executeQuery($sql, [
             'target' => $target,

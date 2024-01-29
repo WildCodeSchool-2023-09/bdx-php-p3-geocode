@@ -85,7 +85,15 @@ main {
     padding-top: 4rem;
     padding-bottom: 2rem;
 }
-main.map {
+.main {
+    min-height: var(--map-heigth);
+    border-radius: 20px;
+    border: 6px solid var(--color-body-background);
+    border-bottom: var(--main-border-bottom) solid var(--color-body-background);
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+}
+.map {
     padding: 0;
 }
 #map {
