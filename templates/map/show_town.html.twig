@@ -3,11 +3,6 @@
 {% block title %}Geocode - Carte{% endblock %}
 
 {% block stylesheets %}
-    <script>
-        let userLon = {{ town.point.x }};
-        let userLat = {{ town.point.y }};
-
-    </script>
     {{ parent() }}
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -19,7 +14,9 @@
 
 {% block body %}
     <main class="map">
-        <div id="map" {{ stimulus_controller('map_search') }}></div>
+        <div id="map" {{ stimulus_controller('map_search') }}
+             data-longitude = '{{ town.point.longitude }}'
+             data-latitude = '{{ town.point.latitude }}'></div>
     </main>
     <div class="map-modal">
 {#        {{ dump(town) }}#}
