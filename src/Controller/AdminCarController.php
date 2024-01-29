@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Car;
-use App\Form\Car1Type;
+use App\Form\CarAdminType;
 use App\Repository\CarRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +28,7 @@ class AdminCarController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $car = new Car();
-        $form = $this->createForm(Car1Type::class, $car);
+        $form = $this->createForm(CarAdminType::class, $car);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +55,7 @@ class AdminCarController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_car_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Car $car, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Car1Type::class, $car);
+        $form = $this->createForm(CarAdminType::class, $car);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

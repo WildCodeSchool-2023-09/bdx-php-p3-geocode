@@ -9,14 +9,13 @@
             <h1 class="title">Mes voitures</h1>
         </div>
         {%for car in cars %}
-        <div>
-            <a href="{{ path("app_car_show", {'id': car.id}) }}">{{ car.brand }} - {{ car.model }}</a>
-        </div>
+            <div>
+                <a href="{{ path("app_car_show", {'id': car.id}) }}">{{ car.brand }} - {{ car.model }}</a>
+            </div>
         {% endfor %}
-
         <br>
         <div class="add" >
-            <a href="{{ path('app_car_new') }}">Ajouter une nouvelle voitures</a>
+            <a href="{{ path('app_car_new') }}">Ajouter une nouvelle voiture</a>
         </div>
     </div>
 </main>
