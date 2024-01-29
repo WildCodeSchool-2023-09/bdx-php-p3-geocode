@@ -1,3 +1,42 @@
+.title {
+    font-size: 2.6rem;
+}
+
+.sub-title {
+    font-size: 2.3rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline !important;
+    background: linear-gradient(0deg, #21a89a, #5cd858);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 1vw;
+}
+
+.intro {
+    font-size: 1.5em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.text-intro {
+    text-align: center;
+}
+
+.intro2 {
+    text-decoration: underline;
+    font-weight: bold;
+    color: var(--color-secondary);
+    justify-content: center;
+    font-size: 1.3rem;
+    text-align: center;
+
+}
+
 .bulle {
     display: flex;
     flex-direction: column;
@@ -5,24 +44,39 @@
     background-color: var(--color-primary);
     border-radius: 1.25rem;
     padding:  1.25rem 1.25rem 0 1.25rem ;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-bottom: 5vw;
 }
 
-
-
-.prise {
-}
-
-.ef {
-
-
-
-}
-
+.prise,
+.ef,
 .type2 {
-
-
-
+    text-align: center;
+    color: var(--color-secondary);
 }
 
+.aide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-primary);
+    border-radius: 1.25rem;
+    padding:  1.25rem 1.25rem 0 1.25rem ;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-bottom: 5vw;
+    color: var(--color-secondary);
+    text-align: center;
+}
+
+.aide span {
+    text-decoration: underline;
+    font-weight: bold;
+    color: var(--color-secondary);
+    justify-content: center;
+    font-size: 1.3rem;
+    text-align: center;
+}
 
 
