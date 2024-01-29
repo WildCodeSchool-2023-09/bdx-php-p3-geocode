@@ -3,9 +3,10 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <main>
+    <main class="main-vertical">
+{#    <main>#}
 
-        <div >
+{#        <div >#}
 
         <h1 class="titleUnderLogo">S'inscrire</h1>
 
@@ -47,7 +48,9 @@
                     label: 'Password'
                 }) }}
 
+            <div class="inputTown">
                 {{ form_row(registrationForm.town) }}
+            </div>
 
 {#                {{ form_row(townForm.zipCode) }}#}
 {#                    {{ form_row(townForm.name) }}#}
@@ -59,7 +62,7 @@
 
             {{ form_end(registrationForm) }}
 
-        </div>
+{#        </div>#}
 
     </main>
 {% endblock %}
