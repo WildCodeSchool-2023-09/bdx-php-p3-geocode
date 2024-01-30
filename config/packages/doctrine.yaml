@@ -1,6 +1,5 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
         types:
             geometry: LongitudeOne\Spatial\DBAL\Types\GeometryType
             point: LongitudeOne\Spatial\DBAL\Types\Geometry\PointType
