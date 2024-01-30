@@ -64,5 +64,8 @@ export function findAllSteps(pointList, stepLength = 100, marginOfError = 10)
         pointList = pointList.slice(index, -1);
     }
     steps.push(stepPoint);
+    if (stepPoint.calcDistanceWith(pointList[pointList.length - 1]) > 50) {
+        steps.push(new Point(pointList[pointList.length - 1]));
+    }
     return steps;
 }
