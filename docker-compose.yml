@@ -6,7 +6,7 @@ services:
     ports:
       - "127.0.0.1:8000:80"
     environment:
-      DATABASE_URL: mysql://user:password@database:3306/2023_09_PHP_Bordeaux_P3_Geocode?serverVersion=8&charset=utf8mb4
+      DATABASE_URL: "mysql://user:password@database:3306/2023_09_PHP_Bordeaux_P3_Geocode?serverVersion=8&charset=utf8mb4"
     depends_on:
       database:
         condition: service_healthy
