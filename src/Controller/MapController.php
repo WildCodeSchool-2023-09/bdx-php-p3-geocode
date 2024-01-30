@@ -19,8 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapController extends AbstractController
 {
     #[Route('/', name: 'app_map')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $request->getSession()->clear();
         return $this->render('map/index.html.twig', [
             'controller_name' => 'MapController',
         ]);
@@ -40,6 +41,7 @@ class MapController extends AbstractController
     #[Route('/search', name: 'app_map_search_town')]
     public function searchTown(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $request->getSession()->clear();
         $townSearched = new TownSearched();
         $form = $this->createForm(SearchTownType::class, $townSearched);
         $form->handleRequest($request);
