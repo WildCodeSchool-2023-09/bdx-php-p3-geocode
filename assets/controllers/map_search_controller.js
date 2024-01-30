@@ -59,7 +59,7 @@ export default class extends Controller {
         {
             const protocol = window.location.protocol;
             const host = window.location.host;
-            const terminals = fetch(protocol + '//' + host + '/getterminal/' + longitude + '/' + latitude)
+            const terminals = fetch(protocol + '//' + host + '/getterminal/' + longitude + '/' + latitude + '/10000')
               .then((resp) => {return resp.json()})
               .then((data) => displayDataMap(data))
               .catch((err) => console.log(err));

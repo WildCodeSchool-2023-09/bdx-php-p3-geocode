@@ -51,7 +51,7 @@ export default class extends Controller {
         function getTerminals()
         {
             console.log(userLon, userLat);
-            const terminals = fetch('getterminal/' + userLon + '/' + userLat)
+            const terminals = fetch('getterminal/' + userLon + '/' + userLat + '/10000')
             .then((resp) => {return resp.json()})
               .then((data) => displayDataMap(data));
         }

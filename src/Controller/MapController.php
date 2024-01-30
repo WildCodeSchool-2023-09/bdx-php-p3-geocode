@@ -26,13 +26,14 @@ class MapController extends AbstractController
         ]);
     }
 
-    #[Route('/getterminal/{longitude}/{latitude}', name:'app_map_get_terminals', methods: ['GET'])]
+    #[Route('/getterminal/{longitude}/{latitude}/{distance}', name:'app_map_get_terminals', methods: ['GET'])]
     public function sendTerminals(
         float $longitude,
         float $latitude,
-        TerminalRepository $terminalRepository
+        TerminalRepository $terminalRepository,
+        int $distance = 10,
     ): JsonResponse {
-        $terminals = $terminalRepository->findNearPosition($longitude, $latitude);
+        $terminals = $terminalRepository->findNearPosition($longitude, $latitude, $distance);
         return $this->json($terminals);
     }
 
