@@ -34,8 +34,13 @@ class RouteController extends AbstractController
     public function show(
         Town $departure,
         Town $arrival,
-        int $step
+        int $step,
+        Request $request
     ): Response {
+        $session = $request->getSession();
+        $session->set('departure', $departure->getId());
+        $session->set('arrival', $arrival->getId());
+        $session->set('step', $step);
         return $this->render('route/goTo.html.twig', [
             'departure' => $departure,
             'arrival' => $arrival,
