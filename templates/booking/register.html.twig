@@ -19,50 +19,43 @@
         ></div>
     </main>
 
-
-                <div class='map-modal modal-bg map-modal-booking'>
-                    <div class="cancelBook">
-                        <p class="bookAdress">{{ book.terminal.address }}</p>
-                        <a class="svgCancel" href="{{ path('app_map') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                            </svg>
-                        </a>
-                    </div>
-                    {{ form_start(form) }}
-                    {{ form_row(form.datetimeStart) }}
-                    {{ form_row(form.dateTimeEnd) }}
-                    <button type="submit" class="button mt1" id="validate-search">Reserver</button>
-                    {{ form_end(form) }}
-
-                    <div class="timetable">
-                        <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
-                            <div class="booking">
-                                {% for timeSlot in availableTimeSlots %}
-                                    {% if timeSlot.booked is not defined or not timeSlot.booked %}
-                                        <p>{{ timeSlot|date('H:i') }}</p>
-                                    {% else %}
-                                        <p class="booked">{{ timeSlot|date('H:i') }}</p>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                    </div>
-
-        <div class="timetable">
-            <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
-
-                <div class="booking">
-                    {% for timeSlot in availableTimeSlots %}
-                        {% if timeSlot.booked is not defined or not timeSlot.booked %}
-                            <p>{{ timeSlot|date('H:i') }}</p>
-                        {% else %}
-                            <p class="booked">{{ timeSlot|date('H:i') }}</p>
-                        {% endif %}
-                    {% endfor %}
+        <div class='map-modal modal-bg map-modal-booking'>
+            <div class="cancelBook">
+                <p class="bookAdress">{{ book.terminal.address }}</p>
+                <a class="svgCancel" href="{{ path('app_map') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </a>
+            </div>
+            {{ form_start(form) }}
+            {{ form_row(form.datetimeStart) }}
+            {{ form_row(form.dateTimeEnd) }}
+            {% if form_errors(form) %}
+                <div class="alert alert-danger">
+                    {{ form_errors(form) }}
                 </div>
-        </div>
+            {% endif %}
+            <button type="submit" class="button mt1" id="validate-search">Reserver</button>
+            {{ form_end(form) }}
+
+            <div class="timetable">
+                <h2 class="mediumTitle">Créneaux horaires disponibles ce jour:</h2>
+                    <div class="booking">
+                        {% for timeSlot in availableTimeSlots %}
+                            {% if timeSlot.booked is not defined or not timeSlot.booked %}
+                                <p>{{ timeSlot|date('H:i') }}</p>
+                            {% else %}
+                                <p class="booked">{{ timeSlot|date('H:i') }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+            </div>
+
+
     </div>
+
 
     {% set setButton = 'Réserver' %}
 {#    {% include 'components/_modal-search.html.twig' %}#}
@@ -77,5 +70,7 @@
 {#            </ul>#}
 {#        </div>#}
 {#    </div>#}
+
+
 
 {% endblock %}
