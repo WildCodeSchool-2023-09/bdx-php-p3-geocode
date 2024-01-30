@@ -63,6 +63,18 @@ class BookingController extends AbstractController
                 $entityManager->persist($booking);
                 $entityManager->flush();
 
+                $session = $request->getSession();
+                if (!empty($session->get('departure'))) {
+                    $departure = $session->get('departure');
+                    $arrival = $session->get('arrival');
+                    $step = $session->get('step');
+                    return $this->redirectToRoute('app_route_show', [
+                        'departure' => $departure,
+                        'arrival' => $arrival,
+                        'step' => $step
+                        ]);
+                }
+
                 return $this->redirectToRoute('app_map');
             } else {
                 $this->addFlash('danger', 'La date et l\'heure sélectionnées ne sont pas valides.');
