@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ app.user.firstname }} Profile {% endblock %}
+
+{% block body %}
+
+<main>
+    <div class="form">
+        <h1 class="title">Mes informations</h1>
+
+        <div class="firstInfo">
+            <div class="pictureProfil">
+                {% if app.user.picture %}
+                <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}">
+                    <img class="pictures" src="{{ vich_uploader_asset(app.user) }}" alt="{{ app.user.firstname }} picture">
+                </a>
+                {% else %}
+                <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}">
+                    <img class="pictures" src="{{ asset('build/images/Default.pfp.png') }}" alt="Default Picture">
+                </a>
+                {% endif %}
+
+            </div>
+            <div>
+                <p>{{ app.user.firstname }}</p>
+                <p>{{ app.user.lastname }}</p>
+                <p>{{ app.user.email }}</p>
+                <p>{{ app.user.town }}</p>
+            </div>
+        </div>
+
+        <div class="secondInfo">
+            <div>
+                <a href="{{ path('app_profile_user_edit', {'id': app.user.id}) }}">Modifier mes informations personnelles </a>
+            </div>
+
+            <div>
+                <a href="{{ path('app_profile_user_modify_password', {'id': app.user.id}) }}"> Modifier mon mot de passe </a>
+            </div>
+
+            <div>
+                <a href="{{ path('app_profile_user_picture', {'id': app.user.id}) }}"> Modifier mon image </a>
+            </div>
+            <div>
+                <a href="{{ path('app_profile_user_confirm_delete', {'id': app.user.id}) }}"> Supprimer mon profil </a>
+            </div>
+        </div>
+        <div class="endPage">
+            <a class="svgText mt-3" href="{{ path('app_profile_user') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="marg1" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                </svg> Retour
+            </a>
+        </div>
+    </div>
+</main>
+{% endblock %}

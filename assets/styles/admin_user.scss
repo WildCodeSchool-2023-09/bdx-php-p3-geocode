@@ -1,0 +1,72 @@
+//.table,
+//.tbody,
+//.tr {
+//    width: 100%;
+//    border-collapse: collapse;
+//    margin-top: 20px;
+//}
+//
+//th, td {
+//    border: 1px solid;
+//    text-align: left;
+//    padding: 8px;
+//}
+//
+//th {
+//    background-color:  var(--color-quinternary);
+//}
+//
+//tr:hover {
+//    background-color: var(--color-quinternary);
+//}
+//
+//a {
+//    text-decoration: none;
+//}
+//
+//a:hover {
+//    color: var(--color-ternary);
+//}
+
+.Admin{
+    display: flex;
+    align-items: center;
+    width: 45rem;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
+@media screen and (width > 576px) {
+    .Admin {
+        margin: 2rem;
+    }
+    table.table {
+        font-size: larger;
+    }
+    .AdminText{
+        font-size: larger;
+    }
+    .deletePicture{
+        border: none;
+        color: red;
+    }
+    .buttonDelete {
+        display: flex;
+    }
+    .delete{
+        padding: 0;
+    }
+
+}
+
+.AdminPictures{
+    display: none;
+}
+
+@media screen and (width > 576px) {
+    .AdminPictures{
+        display: block;
+        width: 200px;
+        height: 200px;
+    }
+}

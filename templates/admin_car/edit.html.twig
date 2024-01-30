@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Car{% endblock %}
+
+{% block body %}
+    <main class="main-vertical">
+
+    <h1 class="title" >Modifier les véhicules</h1>
+
+    {{ include('admin_car/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
+
+    </main>
+{% endblock %}

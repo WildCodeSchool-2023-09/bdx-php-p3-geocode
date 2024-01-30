@@ -1,0 +1,116 @@
+:root{
+    --size-card: calc(100vw - calc(2 * calc(var(--card-border-padding) + var(--card-border))));
+    --size-card-height: var(--map-heigth);
+    --card-border: 1px;
+    --card-border-padding: 10px;
+    --card-border-radius : 10px;
+    @media screen and (width > 572px) {
+        --size-card: 500px;
+        --size-card-height: 300px;
+        --card-border: 1px;
+        --card-border-padding: 10px;
+        --card-border-radius : 10px;
+    }
+
+
+    --animation-duration: 60s;
+
+    --card-border-border-radius: calc(var(--card-border-radius) + var(--card-border-padding));
+    --size-card-border: calc(var(--size-card) + calc(var(--card-border) + 2 * calc(var(--card-border-padding) + var(--card-border))));
+    --size-card-border-height: calc(var(--size-card-height) + calc(var(--card-border) + 2 * calc(var(--card-border-padding) + var(--card-border))));
+
+    --translate-bg: calc(var(--size-card) / -2);
+    /*--translate-bg: -150px;*/
+
+    //--bg-gradient: repeating-conic-gradient(black 0%, white 15%, black 33%);
+    --bg-gradient: repeating-conic-gradient(var(--color-ternary) 0%, var(--color-quaternary) 15%, var(--color-ternary) 33%);
+}
+
+.map-modal{
+    position: absolute;
+    z-index: 1000;
+    top: calc(var(--header-height) - 20px);
+    left: 0;
+    animation: 2s;
+    animation-name: modal-appear;
+    @media screen and (width > 572px){
+        left: calc(calc(100vw/2) - calc(var(--size-card-border))/2);
+
+    }
+
+    @keyframes modal-appear {
+        from {
+            transform: translateY(-100vh);
+        }
+        to {
+            transform: translate(0);
+        }
+    }
+
+    form{
+        border-radius: var(--card-border-radius);
+        //background-color: var(--color-quinternary);
+        height: 100%;
+        background: none;
+
+    }
+    .modal-grid-contenair{
+        display: grid;
+        border: 1px solid black;
+        overflow: hidden;
+        width: var(--size-card-border);
+        height: var(--size-card-border-height);
+        border-radius : var(--card-border-border-radius);
+    }
+    .modal-grid-contenair:hover{
+        --animation-duration: 10s;
+    }
+    .modal-card-bg{
+        /*position:absolute;
+        top:0;
+        left:0;*/
+        position: relative;
+        background-size: cover;
+        grid-column: 1;
+        grid-row: 1;
+        z-index: -1;
+        width: calc(var(--size-card-border) * 2);
+        height: calc(var(--size-card-border) * 2);
+        border-radius: var(--card-border-border-radius);
+
+
+        background: var(--bg-gradient);
+        animation: var(--animation-duration) linear infinite;;
+        animation-name: rotation;
+
+    }
+    .modal-card-border{
+        grid-column: 1;
+        grid-row: 1;
+        width: calc( 1px + var(--size-card-border));
+        padding: var(--card-border-padding);
+        border-radius: var(--card-border-border-radius);
+
+
+    }
+    .modal-card{
+        width: var(--size-card);
+        height: var(--size-card-height);
+        border: 1px solid black;
+        border-radius: var(--card-border-radius);
+        background: var(--color-primary);
+
+    }
+    @keyframes rotation{
+        from{
+            transform: translate(var(--translate-bg), var(--translate-bg)) rotateZ(0);
+        }
+        to{
+            transform: translate(var(--translate-bg),  var(--translate-bg)) rotateZ(360deg);
+        }
+    }
+}
+.modal-bg{
+    background: var(--color-primary);
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<main>
+    <div >
+        <h1 class="title">Supprimer mon profil</h1>
+        <form method="post" action="{{ path('app_profile_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre profil ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+            <button class="button ">Supprimer</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

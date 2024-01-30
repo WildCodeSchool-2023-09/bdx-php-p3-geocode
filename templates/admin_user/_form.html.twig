@@ -1,0 +1,39 @@
+{{ form_start(form) }}
+
+<div class="select-list" >
+    {{ form_errors(form.roles) }}
+    <input type="radio" name="{{ field_name(form.roles) }}">
+    <span class="placeholder">{{ field_label(form.roles) }}</span>
+
+    {% for label, value in field_choices(form.roles) %}
+
+        <label class="option">
+            <input class='reset-radio' type="radio" name="{{ field_name(form.roles) }}" value='{{ value }}'>
+            <span class="list-title">{{ label }}</span>
+        </label>
+    {% endfor %}
+</div>
+
+<div class="select-list" >
+    {{ form_errors(form.gender) }}
+    <input type="radio" name="{{ field_name(form.gender) }}">
+    <span class="placeholder">{{ field_label(form.gender) }}</span>
+
+    {% for label, value in field_choices(form.gender) %}
+
+        <label class="option">
+            <input class='reset-radio' type="radio" name="{{ field_name(form.gender) }}" value='{{ value }}'>
+            <span class="list-title">{{ label }}</span>
+        </label>
+    {% endfor %}
+</div>
+{{ form_row(form.firstname) }}
+{{ form_row(form.lastname) }}
+{{ form_row(form.email) }}
+
+{{ form_row(form.town) }}
+
+{{ form_row(form.birthday) }}
+
+    <button class="button">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

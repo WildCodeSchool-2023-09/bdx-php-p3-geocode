@@ -7,10 +7,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
+//class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -42,10 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20)]
     private ?string $gender = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Car::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Car::class, cascade: ["remove"])]
     private Collection $cars;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
+    #[ORM\JoinColumn(name:"town_id", referencedColumnName:"id")]
     private ?Town $town = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Booking::class)]
@@ -53,6 +63,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Message::class)]
     private Collection $messages;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
+    #[Vich\UploadableField(mapping: 'user_picture', fileNameProperty: 'picture')]
+    #[Assert\File(maxSize: '1M', mimeTypes: ['image/jpeg','image/jpg', 'image/png', 'image/webp'],)]
+    private ?File $pictureFile = null;
+
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    private string $resetToken;
 
     public function __construct()
     {
@@ -95,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_CONTRIBUTOR';
 
         return array_unique($roles);
     }
@@ -279,5 +303,91 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(File $image = null): User
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+        return $this;
+    }
+
+    // Resolution message erreur : Serialization of 'Symfony\Component\HttpFoundation\File\UploadedFile' is not allowed
+
+    // Ce message d'erreur indique que la sérialisation de cet objet n'est pas autorisée.
+    // La sérialisation est le processus de conversion d'un objet en une représentation de chaîne de caractères,
+    // généralement dans le but de stocker cet objet dans une base de données,
+    // de le transmettre via un réseau ou de le sauvegarder d'une manière ou d'une autre.
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'roles' => $this->roles,
+            'password' => $this->password,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'birthday' => $this->birthday,
+            'gender' => $this->gender,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'] ?? null;
+        $this->email = $data['email'] ?? null;
+        $this->roles = $data['roles'] ?? [];
+        $this->password = $data['password'] ?? null;
+        $this->firstname = $data['firstname'] ?? null;
+        $this->lastname = $data['lastname'] ?? null;
+        $this->birthday = $data['birthday'] ?? null;
+        $this->gender = $data['gender'] ?? null;
     }
 }

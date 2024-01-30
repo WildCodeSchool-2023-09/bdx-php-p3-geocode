@@ -1,0 +1,62 @@
+{# templates/contact/contact.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <main>
+       {# <div class="contact">#}
+        <div>
+
+
+    <h1 class="title">Pour nous contacter</h1>
+
+   {#  <form method="post">
+        <label for="email">Votre adresse e-mail:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Demande:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <button type="submit">Envoyer</button>
+    </form> #}
+    <div class="contact">
+
+    {{ form_start(form) }}
+            <div class="select-list" >
+                {{ form_errors(form.demande) }}
+                <input type="radio" name="{{ field_name(form.demande) }}">
+                <span class="placeholder">{{ field_label(form.demande) }}</span>
+
+                {% for label, value in field_choices(form.demande) %}
+
+                    <label class="option">
+                        <input class='reset-radio' type="radio" name="{{ field_name(form.demande) }}" value='{{ value }}'>
+                        <span class="list-title">{{ label }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+    {{ form_row(form.email) }}
+    {{ form_row(form.message) }}
+    <button class="button" type="submit">Envoyer</button>
+    {{ form_end(form) }}
+    </div>
+
+<div class="Coordon">
+    <p>Coordonnées de l'entreprise:</p><br>
+    <ul>
+        <li>05.56.67.78.89</li>
+        <li>geocode@wild.com</li>
+        <li>171 Rue Lucien Faure, 33300 BORDEAUX</li>
+    </ul>
+        </div>
+
+    <div class="Links">
+        <br>
+        Vous avez une question ? Retrouvez notre page conseils avec toutes les informations nécessaires par <span>ICI</span>.<br><br>
+        Vous souhaitez voir les derniers articles publiés par nos administrateurs ? Retrouvez notre page articles par <span>ICI</span>.<br>
+    </div>
+        </div>
+    </main>
+{% endblock %}

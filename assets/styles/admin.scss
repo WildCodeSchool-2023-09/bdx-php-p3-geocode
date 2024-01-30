@@ -1,0 +1,11 @@
+.two-parts {
+    width: 100%;
+    display : flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    #map{
+        width: 400px;
+        height: 400px;
+    }
+}

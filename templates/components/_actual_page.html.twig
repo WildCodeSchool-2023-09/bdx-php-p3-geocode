@@ -1,0 +1,5 @@
+{% if i == page %}
+    <strong>{{ i }}</strong>
+{% else %}
+    <a href="{{ path('app_admin_terminal_page', {'page' : i}) }}">{{ i }}</a>
+{% endif %}

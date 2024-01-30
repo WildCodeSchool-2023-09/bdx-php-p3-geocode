@@ -2,40 +2,100 @@
 
 {% block title %}Hello CssController!{% endblock %}
 
-{% block main %}
-<div>
-    <h1>Tests Css</h1>
-    <h2>test svg</h2>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-engines" viewBox="0 0 16 16">
-        <path d="M8 0c-.787 0-1.292.592-1.572 1.151A4.347 4.347 0 0 0 6 3v3.691l-2 1V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.191l-1.17.585A1.5 1.5 0 0 0 0 10.618V12a.5.5 0 0 0 .582.493l1.631-.272.313.937a.5.5 0 0 0 .948 0l.405-1.214 2.21-.369.375 2.253-1.318 1.318A.5.5 0 0 0 5.5 16h5a.5.5 0 0 0 .354-.854l-1.318-1.318.375-2.253 2.21.369.405 1.214a.5.5 0 0 0 .948 0l.313-.937 1.63.272A.5.5 0 0 0 16 12v-1.382a1.5 1.5 0 0 0-.83-1.342L14 8.691V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v.191l-2-1V3c0-.568-.14-1.271-.428-1.849C9.292.591 8.787 0 8 0M7 3c0-.432.11-.979.322-1.401C7.542 1.159 7.787 1 8 1c.213 0 .458.158.678.599C8.889 2.02 9 2.569 9 3v4a.5.5 0 0 0 .276.447l5.448 2.724a.5.5 0 0 1 .276.447v.792l-5.418-.903a.5.5 0 0 0-.575.41l-.5 3a.5.5 0 0 0 .14.437l.646.646H6.707l.647-.646a.5.5 0 0 0 .14-.436l-.5-3a.5.5 0 0 0-.576-.411L1 11.41v-.792a.5.5 0 0 1 .276-.447l5.448-2.724A.5.5 0 0 0 7 7z"/>
-    </svg>
+{% block body %}
+    <main>
+        <div>
+            <h1>Tests Css</h1>
+            <h2>test svg</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-airplane-engines" viewBox="0 0 16 16">
+                <path d="M8 0c-.787 0-1.292.592-1.572 1.151A4.347 4.347 0 0 0 6 3v3.691l-2 1V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.191l-1.17.585A1.5 1.5 0 0 0 0 10.618V12a.5.5 0 0 0 .582.493l1.631-.272.313.937a.5.5 0 0 0 .948 0l.405-1.214 2.21-.369.375 2.253-1.318 1.318A.5.5 0 0 0 5.5 16h5a.5.5 0 0 0 .354-.854l-1.318-1.318.375-2.253 2.21.369.405 1.214a.5.5 0 0 0 .948 0l.313-.937 1.63.272A.5.5 0 0 0 16 12v-1.382a1.5 1.5 0 0 0-.83-1.342L14 8.691V7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v.191l-2-1V3c0-.568-.14-1.271-.428-1.849C9.292.591 8.787 0 8 0M7 3c0-.432.11-.979.322-1.401C7.542 1.159 7.787 1 8 1c.213 0 .458.158.678.599C8.889 2.02 9 2.569 9 3v4a.5.5 0 0 0 .276.447l5.448 2.724a.5.5 0 0 1 .276.447v.792l-5.418-.903a.5.5 0 0 0-.575.41l-.5 3a.5.5 0 0 0 .14.437l.646.646H6.707l.647-.646a.5.5 0 0 0 .14-.436l-.5-3a.5.5 0 0 0-.576-.411L1 11.41v-.792a.5.5 0 0 1 .276-.447l5.448-2.724A.5.5 0 0 0 7 7z"/>
+            </svg>
 
-    {% if form is defined %}
-        {% include 'components/_form.html.twig' %}
-    {% endif %}
+            {% if form is defined %}
+                {% include 'components/_form.html.twig' %}
+            {% endif %}
 
-      <button class="button">Confirmer</button>
-      <div class="formulaire-container">
-    <form action="#" method="post">
-      <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="nom" placeholder="Votre nom">
-    </form>
-        <form>
-        <!-- <label for="nom">NAME :</label>
-        <input type="text" id="nom" name="nom" required>
+              <button class="button">Confirmer</button>
+        {#      <div class="formulaire-container">#}
+                <form action="#" method="post">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom">
+                    <label for="number">numéro</label>
+                    <input type="number" id="number" name="number" placeholder="0">
+                    <label for="date">date</label>
+                    <input type="date" id="date" name="date">
+                    <div class="checkbox">
+                        <label for="checkbox">checkbox</label>
+                        <input type="checkbox" id="checkbox" name="checkbox">
+                    </div>
 
-        <label for="email">LASTNAME :</label>
-        <input type="email" id="email" name="email" required> -->
+                    <h2>Switch</h2>
 
-        <label for="infos"> Demande :</label>
-        <select id="infos" name="infos"  class="custom-select">>
-            <option value="informantions">Demande d'informations</option>
-            <option value="partenariats">Demande de partenariats</option>
-            <option value="autres">Autres</option>
-        </select>
+                    <label for="file" hidden>image</label>
+                    <input type="file" id="file" name="file">
 
-    </form>
-  </div>
+                </form>
 
-</div>
+                <label class="switch long-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round"><span>ON</span><span>OFF</span></span>
+                </label>
+                  <label class="switch ">
+                    <input type="checkbox" checked>
+                    <span class="slider round"><span>ON</span><span>OFF</span></span>
+                </label>
+                  <div>
+                      <label class="switch long-switch">
+                          <input type="checkbox" checked>
+                          <span class="slider round"><span>Kms</span><span>Miles</span></span>
+                      </label>
+                  </div>
+
+                <div class="alert alert-danger" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                    <p>ALERTE GENERALE !!!</p>
+                </div>
+
+                <div class="alert alert-success" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                    <p> SUPER !</p>
+                </div>
+
+                <form>
+                <!-- <label for="nom">NAME :</label>
+                <input type="text" id="nom" name="nom" required>
+
+                <label for="email">LASTNAME :</label>
+                <input type="email" id="email" name="email" required> -->
+                <div class="liste">
+                        <label for="infos"> Demande :</label>
+                        <select id="infos" name="infos"  class="custom-select">>
+                            <option value="informantions">Demande d'informations</option>
+                            <option value="partenariats">Demande de partenariats</option>
+                            <option value="autres">Autres</option>
+                        </select>
+                </div>
+
+            </form>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                      <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                      </symbol>
+                      <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                      </symbol>
+                      <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                      </symbol>
+                  </svg>
+
+
+
+        {#  </div>#}
+
+
+        </div>
+    </main>
+
 {% endblock %}

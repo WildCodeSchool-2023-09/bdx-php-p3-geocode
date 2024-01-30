@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+
+#[Route('/admin/user')]
+class AdminUserController extends AbstractController
+{
+    #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
+    public function index(UserRepository $userRepository): Response
+    {
+        return $this->render('admin_user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin_user/new.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_admin_user_show', methods: ['GET'])]
+    public function show(User $user): Response
+    {
+        return $this->render('admin_user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('admin_user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'app_admin_user_delete', methods: ['POST'])]
+    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/profile', name: 'app_admin_user_profile', methods: ['GET'])]
+    public function profile(User $user): Response
+    {
+        return $this->render('admin_user/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/{id}/delete-picture', name: 'app_admin_user_delete_picture', methods: ['POST'])]
+    public function deletePicture(
+        User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UploaderHelper $uploaderHelper
+    ): Response {
+        if ($this->isCsrfTokenValid('delete_picture' . $user->getId(), $request->request->get('_token'))) {
+            // Supprimer le fichier physique en utilisant le service UploaderHelper
+            $picturePath = $uploaderHelper->asset($user, 'pictureFile');
+            $fileSystem = new Filesystem();
+            $fileSystem->remove($picturePath);
+
+            // Supprimer le nom du fichier de la base de données
+            $user->setPicture(null);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La photo de profil a été supprimée avec succès.');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression de la photo de profil.');
+        }
+
+        return $this->redirectToRoute('app_admin_user_index', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+    }
+}

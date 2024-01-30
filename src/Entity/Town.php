@@ -6,6 +6,7 @@ use App\Repository\TownRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 
 #[ORM\Entity(repositoryClass: TownRepository::class)]
 class Town
@@ -19,13 +20,17 @@ class Town
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $postalCode = null;
+    private ?string $zipCode = null;
 
-    #[ORM\Column]
-    private ?float $latitude = null;
+    #[ORM\Column(type: 'point', options: ['SRID' => 4326])]
+    private ?Point $point = null;
 
-    #[ORM\Column]
-    private ?float $longitude = null;
+
+//    #[ORM\Column]
+//    private ?float $latitude = null;
+//
+//    #[ORM\Column]
+//    private ?float $longitude = null;
 
     #[ORM\OneToMany(mappedBy: 'town', targetEntity: User::class)]
     private Collection $user;
@@ -56,41 +61,57 @@ class Town
         return $this;
     }
 
-    public function getPostalCode(): ?int
+    public function getZipCode(): ?string
     {
-        return $this->postalCode;
+        return $this->zipCode;
     }
 
-    public function setPostalCode(int $postalCode): static
+    public function setZipCode(string $zipCode): static
     {
-        $this->postalCode = $postalCode;
+        $this->zipCode = $zipCode;
 
         return $this;
     }
 
-    public function getLatitude(): ?float
+    public function getPoint(): ?Point
     {
-        return $this->latitude;
+        return $this->point;
     }
 
-    public function setLatitude(float $latitude): static
+    public function setPoint(?Point $point): void
     {
-        $this->latitude = $latitude;
-
-        return $this;
+        $this->point = $point;
     }
 
-    public function getLongitude(): ?float
+    public function getPointAsString(): string
     {
-        return $this->longitude;
+        return 'POINT(' . $this->point->getLongitude()
+            . ' ' . $this->point->getLatitude() . ')';
     }
 
-    public function setLongitude(float $longitude): static
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
+//    public function getLatitude(): ?float
+//    {
+//        return $this->latitude;
+//    }
+//
+//    public function setLatitude(float $latitude): static
+//    {
+//        $this->latitude = $latitude;
+//
+//        return $this;
+//    }
+//
+//    public function getLongitude(): ?float
+//    {
+//        return $this->longitude;
+//    }
+//
+//    public function setLongitude(float $longitude): static
+//    {
+//        $this->longitude = $longitude;
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection<int, User>
@@ -150,5 +171,15 @@ class Town
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    public function getNameZipcode(): string
+    {
+        return $this->name . ' ' . $this->zipCode;
     }
 }

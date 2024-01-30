@@ -18,10 +18,24 @@
         {% endblock %}
     </head>
     <body>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                {{ message }}
+            </div>
+        {% endfor %}
+
         {% include 'components/_header.html.twig' %}
-        <main>
-            {% block main %}{% endblock %}
-        </main>
+        {% block body %}
+        {% endblock %}
+
         {% include 'components/_footer.html.twig' %}
     </body>
 </html>
