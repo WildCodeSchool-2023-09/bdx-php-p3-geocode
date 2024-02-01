@@ -19,26 +19,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapController extends AbstractController
 {
     #[Route('/', name: 'app_map')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $request->getSession()->clear();
         return $this->render('map/index.html.twig', [
             'controller_name' => 'MapController',
         ]);
     }
 
-    #[Route('/getterminal/{longitude}/{latitude}', name:'app_map_get_terminals', methods: ['GET'])]
+    #[Route('/getterminal/{longitude}/{latitude}/{distance}', name:'app_map_get_terminals', methods: ['GET'])]
     public function sendTerminals(
         float $longitude,
         float $latitude,
-        TerminalRepository $terminalRepository
+        TerminalRepository $terminalRepository,
+        int $distance = 10,
     ): JsonResponse {
-        $terminals = $terminalRepository->findNearPosition($longitude, $latitude);
+        $terminals = $terminalRepository->findNearPosition($longitude, $latitude, $distance);
         return $this->json($terminals);
     }
 
     #[Route('/search', name: 'app_map_search_town')]
     public function searchTown(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $request->getSession()->clear();
         $townSearched = new TownSearched();
         $form = $this->createForm(SearchTownType::class, $townSearched);
         $form->handleRequest($request);

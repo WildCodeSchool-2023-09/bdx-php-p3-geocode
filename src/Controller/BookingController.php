@@ -58,10 +58,22 @@ class BookingController extends AbstractController
             $startDateTime = $booking->getDatetimeStart();
             $endDateTime = $booking->getDatetimeEnd();
 
-            // Vérifie si la création du rendez-vous est autorisée
-            if ($bookingService->isBookingAllowed($startDateTime, $endDateTime)) {
+            // Vérifie si la création de la reservation est autorisée
+            if ($bookingService->isBookingAllowed($startDateTime, $endDateTime, $terminal)) {
                 $entityManager->persist($booking);
                 $entityManager->flush();
+
+                $session = $request->getSession();
+                if (!empty($session->get('departure'))) {
+                    $departure = $session->get('departure');
+                    $arrival = $session->get('arrival');
+                    $step = $session->get('step');
+                    return $this->redirectToRoute('app_route_show', [
+                        'departure' => $departure,
+                        'arrival' => $arrival,
+                        'step' => $step
+                        ]);
+                }
 
                 return $this->redirectToRoute('app_map');
             } else {

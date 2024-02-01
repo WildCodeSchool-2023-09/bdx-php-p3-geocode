@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Booking;
+use App\Entity\Terminal;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -25,13 +26,15 @@ class BookingRepository extends ServiceEntityRepository
 
 
 //    public function findOverlappingBookings(\DateTimeInterface $start, \DateTimeInterface $end): array
-    public function findOverlapsBookings(\DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findOverlapsBookings(\DateTimeInterface $start, \DateTimeInterface $end, ?Terminal $terminal): array
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.datetimeStart < :end')
             ->andWhere('b.dateTimeEnd > :start')
+            ->andWhere('b.terminal = :terminal')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
+            ->setParameter('terminal', $terminal)
             ->getQuery()
             ->getResult();
     }
