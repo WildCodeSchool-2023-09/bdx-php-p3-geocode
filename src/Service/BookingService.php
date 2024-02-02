@@ -20,12 +20,13 @@ class BookingService
     }
 
 //    public function isBookingAllowed(\DateTime $start, \DateTime $end): bool
-    public function isBookingAllowed(\DateTimeInterface $start, \DateTimeInterface $end): bool
+    public function isBookingAllowed(\DateTimeInterface $start, \DateTimeInterface $end, ?Terminal $terminal): bool
     {
         // Vérifie si un rendez-vous existe déjà à la date et l'heure spécifiées
         $existingBooking = $this->bookingRepository->findOneBy([
             'datetimeStart' => $start,
             'dateTimeEnd' => $end,
+            'terminal' => $terminal,
         ]);
 
         // Vérifie si la date de début est postérieure à maintenant
@@ -34,17 +35,11 @@ class BookingService
         // Vérifie si la date de fin est postérieure à la date de début
         $isEndValid = $end > $start;
 
-        // Vérifie si la nouvelle réservation ne chevauche pas une réservation existante
-        $isNotOverlapping = !$existingBooking;
+        // Vérifie si la nouvelle réservation ne chevauche pas d'autres réservations existantes sur la même borne
+        $overlappingBookings = $this->bookingRepository->findOverlapsBookings($start, $end, $terminal);
+        $isNotOverlapping = empty($overlappingBookings);
 
-        // Vérifie si la nouvelle réservation ne chevauche pas d'autres réservations existantes
-        if ($isNotOverlapping) {
-//            $overlappingBookings = $this->bookingRepository->findOverlappingBookings($start, $end);
-            $overlappingBookings = $this->bookingRepository->findOverlapsBookings($start, $end);
-            $isNotOverlapping = empty($overlappingBookings);
-        }
-
-        return $isStartValid && $isEndValid && $isNotOverlapping;
+        return $isStartValid && $isEndValid && $isNotOverlapping && !$existingBooking;
     }
 
     public function getAvailableTimeSlots(Terminal $terminal): array

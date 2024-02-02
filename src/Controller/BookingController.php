@@ -58,8 +58,8 @@ class BookingController extends AbstractController
             $startDateTime = $booking->getDatetimeStart();
             $endDateTime = $booking->getDatetimeEnd();
 
-            // Vérifie si la création du rendez-vous est autorisée
-            if ($bookingService->isBookingAllowed($startDateTime, $endDateTime)) {
+            // Vérifie si la création de la reservation est autorisée
+            if ($bookingService->isBookingAllowed($startDateTime, $endDateTime, $terminal)) {
                 $entityManager->persist($booking);
                 $entityManager->flush();
 

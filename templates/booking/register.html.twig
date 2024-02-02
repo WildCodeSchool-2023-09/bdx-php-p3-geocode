@@ -32,11 +32,11 @@
             {{ form_start(form) }}
             {{ form_row(form.datetimeStart) }}
             {{ form_row(form.dateTimeEnd) }}
-            {% if form_errors(form) %}
-                <div class="alert alert-danger">
-                    {{ form_errors(form) }}
-                </div>
-            {% endif %}
+{#            {% if form_errors(form) %}#}
+{#                <div class="alert alert-danger">#}
+{#                    {{ form_errors(form) }}#}
+{#                </div>#}
+{#            {% endif %}#}
             <button type="submit" class="button mt1" id="validate-search">Reserver</button>
             {{ form_end(form) }}
 
@@ -50,6 +50,7 @@
                                 <p class="booked">{{ timeSlot|date('H:i') }}</p>
                             {% endif %}
                         {% endfor %}
+
                     </div>
             </div>
 
