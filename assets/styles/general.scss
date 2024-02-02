@@ -13,7 +13,7 @@
     --color-quaternary: #5cd858;
     --color-quinternary: #FFFFFF;
 
-    --map-heigth: calc(100vh - calc(2 * var(--navbar-height) + 6px));
+    --map-heigth: calc(97svh - calc(2 * var(--navbar-height) + 6px));
 
     --navbar-height: 70px;
 
@@ -50,7 +50,7 @@
 
 @media screen and (width > 576px) {
     :root {
-        --map-heigth: calc(100vh - calc(2 * var(--navbar-height) - 19px));
+        --map-heigth: calc(97svh - calc(2 * var(--navbar-height) - 19px));
 
         --navbar-height: 100px;
         --navbar-svg-size: calc(var(--navbar-height) / 2.1875);
