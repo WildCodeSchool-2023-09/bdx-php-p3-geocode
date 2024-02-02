@@ -41,18 +41,23 @@ class MapController extends AbstractController
     #[Route('/search', name: 'app_map_search_town')]
     public function searchTown(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $request->getSession()->clear();
         $townSearched = new TownSearched();
         $form = $this->createForm(SearchTownType::class, $townSearched);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //$entityManager->persist($town);
             //$entityManager->flush();
-            return $this->render('map/show_town.html.twig', ['town' => $townSearched->getTown()]);
+            return $this->redirectToRoute('app_map_show_town', ['id' => $townSearched->getTown()->getId()]);
         }
         return $this->render('map/search_town.html.twig', [
             'form' => $form,
             'town' => $townSearched,
         ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_map_show_town')]
+    public function viewTown(Town $town): Response
+    {
+        return $this->render('map/show_town.html.twig', ['town' => $town]);
     }
 }

@@ -25,8 +25,8 @@
                 <span class="text">Itinéraire</span>
             </a>
         </li>
-        <li id='navbar-search' class="list {{ (app.request.attributes.get('_route') == 'app_map_search_town'
-
+        <li id='navbar-search' class="list {{ (app.request.attributes.get('_route') == 'app_map_search_town' or
+        app.request.attributes.get('_route') == 'app_map_show_town'
         ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }} {{ stimulus_controller('modal-form') }}>
             <div class="modal" data-action="trigger-search@window->modal-form#openModal"></div>
             <a href="{{ path('app_map_search_town') }}" {{ stimulus_action('navbar', 'openActive') }}>
