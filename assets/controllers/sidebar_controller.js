@@ -5,10 +5,12 @@ export default class extends Controller {
     static targets =  ['sidebar', 'button'];
     connect()
     {
-        //this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
+        if (window.location.pathname === '/admin/panel') {
+            this.toggle();
+        }
     }
 
-    toggle(event)
+    toggle()
     {
         this.sidebarTarget.classList.toggle('sidebar-hidden');
         this.buttonTargets.forEach((elt) => elt.classList.toggle('hidden'));
