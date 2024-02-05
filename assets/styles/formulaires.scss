@@ -60,6 +60,7 @@ input[type=checkbox] {
     width: 15px;
     background: var(--color-quinternary);
     border: 1px solid #ccc;
+    margin-bottom: -0.1rem;
 }
 
 input[type="checkbox"]:checked {
