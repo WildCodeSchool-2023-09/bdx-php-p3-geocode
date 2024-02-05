@@ -139,7 +139,8 @@ label#registration_form_town-ts-label {
     #route_departure,
     #route_arrival,
     #registration_form_town,
-    #search_town_town-ts-control{
-        width: 26vw;
+    #search_town_town-ts-control,
+    .ts-control{
+        width: 50vw;
     }
 }
