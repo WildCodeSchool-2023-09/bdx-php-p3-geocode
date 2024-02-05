@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LessThan;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -104,6 +105,10 @@ class RegistrationFormType extends AbstractType
                     new LessThan([
                         'value' => 'now',
                         'message' => "La date d'anniversaire doit être antérieure à aujourd'hui.",
+                    ]),
+                    new LessThanOrEqual([
+                        'value' => '-18 years',
+                        'message' => "Vous devez avoir au moins 18 ans.",
                     ]),
                 ],
             ])
