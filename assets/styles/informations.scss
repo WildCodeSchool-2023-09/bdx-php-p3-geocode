@@ -79,4 +79,19 @@
     text-align: center;
 }
 
+.rgpdText{
+    margin: 2rem;
+    background-color: var(--color-primary);
+    border-radius: 1.25rem;
+    padding:  1.25rem 1.25rem 0 1.25rem ;
+}
 
+.rgpdText h3,
+.rgpdText p{
+    margin-bottom: 1rem;
+}
+
+.rgpdLink{
+    text-align: center;
+    margin-bottom: 2.5rem;
+}

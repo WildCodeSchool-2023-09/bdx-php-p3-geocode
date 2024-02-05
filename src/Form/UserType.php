@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -25,7 +26,7 @@ class UserType extends AbstractType
                     'class' => 'input'
                 ],
             ])
-////            ->add('roles')
+
             ->add('roles', ChoiceType::class, [
                 'label' => 'role',
                 'choices' => [
@@ -35,7 +36,7 @@ class UserType extends AbstractType
                 ],
                 'expanded' => true,
             ])
-//            ->add('password')
+
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
@@ -46,7 +47,7 @@ class UserType extends AbstractType
                 'label' => 'Nom',
                 'attr' => [
                     'class' => 'input'
-                ]
+                ],
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
@@ -71,11 +72,14 @@ class UserType extends AbstractType
                     'class' => 'input'
                 ],
             ]);
-        ;
+//        ;
+
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
+            //transformer un tableau en une chaîne.
             function (array $arrayToString): ?string {
                 return count($arrayToString) ? $arrayToString[0] : null;
             },
+            //transformer une chaîne en tableau.
             function (string $strToArray): array {
                 return ($strToArray) ? [$strToArray] : [];
             }

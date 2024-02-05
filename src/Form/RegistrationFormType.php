@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LessThan;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -105,6 +106,10 @@ class RegistrationFormType extends AbstractType
                         'value' => 'now',
                         'message' => "La date d'anniversaire doit être antérieure à aujourd'hui.",
                     ]),
+                    new LessThanOrEqual([
+                        'value' => '-18 years',
+                        'message' => "Vous devez avoir au moins 18 ans.",
+                    ]),
                 ],
             ])
         ;
@@ -137,9 +142,10 @@ class RegistrationFormType extends AbstractType
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
                 'expanded' => true,
+                'invalid_message' => 'Veuillez remplir ce champ',
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Veuillez remplir ce champ.",
+                        'message' => 'Veuillez remplir ce champ.',
                     ]),
                 ]
             ])
@@ -182,15 +188,17 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'input'
+                    'class' => 'input',
+                    'pattern' => '.{8,}',
+                    'title' => 'Le mot de passe doit faire au moins 8 caractères.',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez saisir un mot de passe',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limite }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
