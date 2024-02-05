@@ -18,7 +18,6 @@ class TerminalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //->add('point', PointType::class)
             ->add('address', TextType::class, [
                 'label' => 'Adresse'
             ])
