@@ -15,4 +15,12 @@ class InformationsController extends AbstractController
             'controller_name' => 'InformationsController',
         ]);
     }
+
+    #[Route('/informations/rgpd', name: 'app_rgpd')]
+    public function rgpd(): Response
+    {
+        return $this->render('informations/rgpd.html.twig', [
+            'controller_name' => 'InformationsController',
+        ]);
+    }
 }

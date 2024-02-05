@@ -25,9 +25,6 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
-                new NotBlank([
-                    'message' => "Veuillez entrer un email.",
-                ]),
             ])
 
             ->add('roles', ChoiceType::class, [
@@ -38,9 +35,6 @@ class UserType extends AbstractType
                     'Administrateur' => '["ROLE_ADMIN"]',
                 ],
                 'expanded' => true,
-                new NotBlank([
-                    'message' => "Veuillez entrer un role.",
-                ]),
             ])
 
             ->add('firstname', TextType::class, [
@@ -48,25 +42,16 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
-                new NotBlank([
-                    'message' => "Veuillez entrer un prénom.",
-                ]),
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
                     'class' => 'input'
                 ],
-                new NotBlank([
-                    'message' => "Veuillez entrer un Nom.",
-                ]),
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
                 'widget' => 'single_text',
-                new NotBlank([
-                    'message' => "Veuillez entrer une date d'anniversaire.",
-                ]),
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
@@ -76,9 +61,6 @@ class UserType extends AbstractType
                     'Non binaire' => 'non_binaire',
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
-                new NotBlank([
-                    'message' => "Veuillez entrer un genre.",
-                ]),
             ])
 //            ->add('picture')
 //            ->add('updatedAt')
@@ -89,15 +71,15 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
-                new NotBlank([
-                    'message' => "Veuillez entrer une ville.",
-                ]),
             ]);
-        ;
+//        ;
+
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
+            //transformer un tableau en une chaîne.
             function (array $arrayToString): ?string {
                 return count($arrayToString) ? $arrayToString[0] : null;
             },
+            //transformer une chaîne en tableau.
             function (string $strToArray): array {
                 return ($strToArray) ? [$strToArray] : [];
             }
