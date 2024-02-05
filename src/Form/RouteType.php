@@ -34,7 +34,7 @@ class RouteType extends AbstractType
                 'label' => 'Nombre de kilomètres entre chaque recharge',
                 'mapped' => false
             ])
-            ->add('save', SubmitType::class, [
+            ->add('Enregistrer', SubmitType::class, [
                 'attr' => [
                   'class' => 'button'
                 ],
