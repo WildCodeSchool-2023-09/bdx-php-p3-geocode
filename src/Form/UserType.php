@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -24,8 +25,11 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
+                new NotBlank([
+                    'message' => "Veuillez entrer un email.",
+                ]),
             ])
-////            ->add('roles')
+
             ->add('roles', ChoiceType::class, [
                 'label' => 'role',
                 'choices' => [
@@ -34,23 +38,35 @@ class UserType extends AbstractType
                     'Administrateur' => '["ROLE_ADMIN"]',
                 ],
                 'expanded' => true,
+                new NotBlank([
+                    'message' => "Veuillez entrer un role.",
+                ]),
             ])
-//            ->add('password')
+
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
                     'class' => 'input'
                 ],
+                new NotBlank([
+                    'message' => "Veuillez entrer un prénom.",
+                ]),
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
                     'class' => 'input'
-                ]
+                ],
+                new NotBlank([
+                    'message' => "Veuillez entrer un Nom.",
+                ]),
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
                 'widget' => 'single_text',
+                new NotBlank([
+                    'message' => "Veuillez entrer une date d'anniversaire.",
+                ]),
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
@@ -60,6 +76,9 @@ class UserType extends AbstractType
                     'Non binaire' => 'non_binaire',
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
+                new NotBlank([
+                    'message' => "Veuillez entrer un genre.",
+                ]),
             ])
 //            ->add('picture')
 //            ->add('updatedAt')
@@ -70,6 +89,9 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
+                new NotBlank([
+                    'message' => "Veuillez entrer une ville.",
+                ]),
             ]);
         ;
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(

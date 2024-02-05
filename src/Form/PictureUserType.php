@@ -19,10 +19,9 @@ class PictureUserType extends AbstractType
             ->add('pictureFile', VichFileType::class, [
                 'label' => false,
                 'required'      => false,
-                'allow_delete'  => true, // not mandatory, default is true
-                'download_uri' => false, // not mandatory, default is true
-                'delete_label' => 'Supprimer l\'image ?', // Personnalisez l'étiquette de suppression
-//                'download_label' => 'Télécharger', // Personnalisez l'étiquette de téléchargement
+                'allow_delete'  => true,
+                'download_uri' => false,
+                'delete_label' => 'Supprimer l\'image ?',
             ])
         ;
     }
