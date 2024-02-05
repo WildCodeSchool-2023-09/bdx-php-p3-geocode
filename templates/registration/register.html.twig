@@ -5,7 +5,7 @@
 {% block body %}
     <main class="main-vertical">
 
-        <h1 class="titleUnderLogo">S'inscrire</h1>
+        <h1 class="title">S'inscrire</h1>
 
         {{ form_start(registrationForm) }}
 
@@ -39,8 +39,17 @@
         </div>
 
         {{ form_row(registrationForm.birthday) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        <a href="{{ path('app_rgpd') }}">Consulter notre Politique de confidentialité</a>
+
+        <div class="form-group">
+            <label>
+                En m'inscrivant à ce site j'accepte toutes les conditions
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </label>
+            <a class="rgpdLinkUp" href="{{ path('app_rgpd') }}">Consulter notre politique de confidentialité</a>
+        </div>
+
+{#        {{ form_row(registrationForm.agreeTerms)  }}#}
+{#        <a class="rgpdLinkUp" href="{{ path('app_rgpd') }}">Consulter notre politique de confidentialité</a>#}
 
         <button class="button" type="submit" >S'enregistrer</button>
 

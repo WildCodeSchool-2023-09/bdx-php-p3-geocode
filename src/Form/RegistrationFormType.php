@@ -157,7 +157,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions  ',
+                'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions ',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
