@@ -25,22 +25,35 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer un Email.",
+                    ]),
+                ],
             ])
-
             ->add('roles', ChoiceType::class, [
-                'label' => 'role',
+                'label' => 'rôle',
                 'choices' => [
                     'Visiteur' => '["ROLE_USER"]',
                     'Membre' => '["ROLE_CONTRIBUTOR"]',
                     'Administrateur' => '["ROLE_ADMIN"]',
                 ],
                 'expanded' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer un rôle.",
+                    ]),
+                ],
             ])
-
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
                     'class' => 'input'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer un prénom.",
+                    ]),
                 ],
             ])
             ->add('lastname', TextType::class, [
@@ -48,10 +61,20 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer un nom.",
+                    ]),
+                ],
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Anniversaire',
                 'widget' => 'single_text',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer une date d'anniversaire.",
+                    ]),
+                ],
             ])
             ->add('gender', ChoiceType::class, [
                 'label' => 'Genre',
@@ -61,19 +84,24 @@ class UserType extends AbstractType
                     'Non binaire' => 'non_binaire',
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer un genre",
+                    ]),
+                ],
             ])
-//            ->add('picture')
-//            ->add('updatedAt')
-
             ->add('town', TownNameAutocompleteField::class, [
                 'class' => Town::class,
                 'label' => 'Ville',
                 'attr' => [
                     'class' => 'input'
                 ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Veuillez entrer une ville.",
+                    ]),
+                ],
             ]);
-//        ;
-
         $builder->get('roles')->addModelTransformer(new CallbackTransformer(
             //transformer un tableau en une chaîne.
             function (array $arrayToString): ?string {
