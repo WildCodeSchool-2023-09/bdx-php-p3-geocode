@@ -60,6 +60,7 @@ input[type=checkbox] {
     width: 15px;
     background: var(--color-quinternary);
     border: 1px solid #ccc;
+    margin-bottom: -0.1rem;
 }
 
 input[type="checkbox"]:checked {
@@ -139,7 +140,8 @@ label#registration_form_town-ts-label {
     #route_departure,
     #route_arrival,
     #registration_form_town,
-    #search_town_town-ts-control{
-        width: 26vw;
+    #search_town_town-ts-control,
+    .ts-control{
+        width: 50vw;
     }
 }

@@ -28,8 +28,8 @@
 
 .map-modal{
     position: absolute;
-    z-index: 1000;
-    top: calc(var(--header-height) - 20px);
+    z-index: 2000;
+    top: 0;
     left: 0;
     animation: 2s;
     animation-name: modal-appear;

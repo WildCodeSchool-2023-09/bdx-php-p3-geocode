@@ -142,9 +142,10 @@ class RegistrationFormType extends AbstractType
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
                 'expanded' => true,
+                'invalid_message' => 'Veuillez remplir ce champ',
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Veuillez remplir ce champ.",
+                        'message' => 'Veuillez remplir ce champ.',
                     ]),
                 ]
             ])
@@ -156,7 +157,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions  ',
+                'label' => 'En m\'inscrivant à ce site j\'accepte toutes les conditions ',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
@@ -187,15 +188,17 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'input'
+                    'class' => 'input',
+                    'pattern' => '.{8,}',
+                    'title' => 'Le mot de passe doit faire au moins 8 caractères.',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez saisir un mot de passe',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limite }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
