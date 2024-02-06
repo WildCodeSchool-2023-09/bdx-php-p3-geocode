@@ -1,0 +1,42 @@
+.number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-primary);
+    border-radius: 1.25rem;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+    margin-left: 5vw;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 20vw;
+}
+
+.search-bar {
+    position: fixed;
+    top: 6vw;
+    right: 3vw;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    padding:  1.25rem 1.25rem 0 1.25rem ;
+    flex: 1;
+    font-size: 16px;
+}
+
+.search-icon {
+    padding: 1px;
+}
+
+.search-input:focus {
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.support {
+    position: fixed;
+    bottom: 11vw;
+    right: 3vw;
+
+}

@@ -13,8 +13,13 @@ import './bootstrap';
 
 import profilePictureDefault  from './images/Default.pfp.png';
 import carPictureDefault  from './images/electricCar.png';
+import nature  from './images/nature.jpeg';
+import plug  from './images/plug.jpeg';
+import bornes  from './images/bornes.jpeg';
 
 let html;
 html = ` < img src = "${profilePictureDefault}" alt = "profile Picture Default" > `;
 html = ` < img src = "${carPictureDefault}" alt = "car Picture Default" > `;
-
+html = ` < img src = "${nature}" alt = "ecology" > `;
+html = ` < img src = "${plug}" alt = "plugs recharge cars" > `;
+html = ` < img src = "${bornes}" alt = "recharge machine" > `;
