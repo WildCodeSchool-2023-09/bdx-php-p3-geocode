@@ -6,7 +6,7 @@ table {
     }
 
     tr:nth-child(even) {
-        background-color: #D1DCCFFF;
+        background-color: #97A29C;
     }
 
     tr:hover {
@@ -20,4 +20,20 @@ table {
     svg {
         margin: 0 0.5rem;
     }
+}
+
+.two-parts {
+    background-color: #5cd858;
+
+}
+
+.indexA {
+    font-size: 2.3rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline !important;
+    background: linear-gradient(0deg, #21a89a, #5cd858);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 1vw;
 }
