@@ -83,9 +83,11 @@ class ProfileUserType extends AbstractType
                 'attr' => [
                     'class' => 'input'
                 ],
-//                new NotBlank([
-//                    'message' => "Veuillez entrer votre Ville.",
-//                ]),
+                'constraints' => [
+                    new NotBlank([
+                    'message' => "Veuillez entrer votre Ville.",
+                    ]),
+                ],
             ]);
         ;
     }
