@@ -56,7 +56,6 @@ class ProfileUserController extends AbstractController
         ]);
     }
 
-
     #[Route('/profile/user/show/{id<^[0-9]+$>}', name: 'app_profile_user_show', methods: ['GET', 'POST'])]
     public function show(
         int $id,
