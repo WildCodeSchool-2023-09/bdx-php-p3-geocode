@@ -104,3 +104,8 @@
     //    margin: -2.85rem 0 1rem 1rem;
     //}
 }
+.scroll-div {
+    overflow: scroll;
+    height: var(--map-heigth);
+    padding-top: 3rem;
+}
