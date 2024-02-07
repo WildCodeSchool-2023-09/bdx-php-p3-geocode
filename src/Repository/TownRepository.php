@@ -23,6 +23,14 @@ class TownRepository extends ServiceEntityRepository
         parent::__construct($registry, Town::class);
     }
 
+    public function getNbTowns(): int
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id) as total')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 //    /**
 //     * @return Town[] Returns an array of Town objects

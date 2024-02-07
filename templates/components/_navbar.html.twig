@@ -42,8 +42,9 @@
         </li>
 
         <li class="list {{ ((app.request.attributes.get('_route') == 'app_informations') or
-                            (app.request.attributes.get('_route') == 'app_rgpd')
-        ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
+                            (app.request.attributes.get('_route') == 'app_rgpd') or
+                            (app.request.attributes.get('_route') == 'app_contact')
+            ) ? 'active' }}"  {{ stimulus_target('navbar', 'list') }}>
             <a href="{{ path('app_informations') }}" {{ stimulus_action('navbar', 'openActive') }}>
             <span class="icon">
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
