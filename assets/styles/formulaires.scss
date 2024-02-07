@@ -137,11 +137,7 @@ label#registration_form_town-ts-label {
 }
 
 @media only screen and (max-width: 600px) {
-    #route_departure,
-    #route_arrival,
-    #registration_form_town,
-    #search_town_town-ts-control,
     .ts-control{
-        width: 50vw;
+        width: 80vw;
     }
 }
