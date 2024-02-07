@@ -75,6 +75,8 @@ class BookingController extends AbstractController
                         ]);
                 }
 
+                $this->addFlash('success', 'Votre réservation a bien été prise en compte');
+
                 return $this->redirectToRoute('app_map');
             } else {
                 $this->addFlash('danger', 'La date et l\'heure sélectionnées ne sont pas valides.');
