@@ -5,30 +5,44 @@
 {% block body %}
 
     {% include 'components/_adminsidebar.html.twig' %}
-        <main>
-
+    <main class="main-vertical main-admin-panel">
+        <div class="utils">
+            <div class="number">
+                <li>Nombre d'utilisateurs : {{ nbUsers }}</li>
+                <li>Nombre de voitures : {{ nbCars }}</li>
+                <li>Nombre de villes : {{ nbTown }}</li>
+                <li>Nombre de bornes : {{ nbTerminals }}</li>
+            </div>
+            <div class="support">
+                Accédez au support technique
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
+                    <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
+                </svg>
+            </div>
             <div class="search-bar">
                 <div class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg></div>
+                    </svg>
+                </div>
                 <input type="text" class="search-input" placeholder="Rechercher...">
             </div>
+        </div>
+        <div class="images">
             <div class="images">
-                <div class="images">
 
-                    <div class="image-item">
-                        <img src="{{ asset('build/images/plug.jpeg') }}" alt="Ne soyez plus perdue avec les prises!">
-                        <div class="image-text">L'électricité verte pour les voitures électriques constitue un pivot essentiel vers un avenir plus durable. C'est bien plus qu'une simple source d'énergie ; c'est un choix qui modèle notre impact sur l'environnement. En optant pour une énergie propre, nous contribuons directement à réduire notre empreinte carbone et à préserver la qualité de l'air que nous respirons.
+                <div class="image-item">
+                    <img src="{{ asset('build/images/plug.jpeg') }}" alt="Ne soyez plus perdue avec les prises!">
+                    <div class="image-text">L'électricité verte pour les voitures électriques constitue un pivot essentiel vers un avenir plus durable. C'est bien plus qu'une simple source d'énergie ; c'est un choix qui modèle notre impact sur l'environnement. En optant pour une énergie propre, nous contribuons directement à réduire notre empreinte carbone et à préserver la qualité de l'air que nous respirons.
 
-                            Le passage aux voitures électriques alimentées par des sources d'électricité renouvelables représente un pas significatif vers une mobilité plus respectueuse de l'environnement. C'est un acte concret pour préserver les ressources naturelles et limiter notre dépendance aux combustibles fossiles. Chaque kilomètre parcouru devient ainsi une avancée vers un avenir où la technologie et la durabilité se conjuguent pour façonner un monde meilleur.</div>
-                    </div>
+                        Le passage aux voitures électriques alimentées par des sources d'électricité renouvelables représente un pas significatif vers une mobilité plus respectueuse de l'environnement. C'est un acte concret pour préserver les ressources naturelles et limiter notre dépendance aux combustibles fossiles. Chaque kilomètre parcouru devient ainsi une avancée vers un avenir où la technologie et la durabilité se conjuguent pour façonner un monde meilleur.</div>
+                </div>
 
-                    <div class="image-item">
-                        <img src="{{ asset('build/images/bornes.jpeg') }}" alt="Nouvelles bornes!">
-                        <div class="image-text">Les bornes électriques, en particulier celles alimentées par des sources d'énergie renouvelable, jouent un rôle clé dans notre transition vers une mobilité plus respectueuse de l'environnement. Bien au-delà d'un simple point de recharge, ces infrastructures incarnent notre engagement envers un avenir durable.
+                <div class="image-item">
+                    <img src="{{ asset('build/images/bornes.jpeg') }}" alt="Nouvelles bornes!">
+                    <div class="image-text">Les bornes électriques, en particulier celles alimentées par des sources d'énergie renouvelable, jouent un rôle clé dans notre transition vers une mobilité plus respectueuse de l'environnement. Bien au-delà d'un simple point de recharge, ces infrastructures incarnent notre engagement envers un avenir durable.
 
-                            En optant pour des bornes électriques vertes, nous investissons dans une énergie propre et réduisons notre empreinte carbone liée à la recharge des véhicules électriques. C'est un pas significatif vers la construction d'une infrastructure de recharge qui s'aligne sur les principes de durabilité, contribuant ainsi à la préservation de notre environnement et à la promotion d'une mobilité électrique responsable. Chaque borne électrique devient ainsi une étape vers un réseau énergétique plus propre et un mode de déplacement plus respectueux de la planète.</div>
-                    </div>
+                        En optant pour des bornes électriques vertes, nous investissons dans une énergie propre et réduisons notre empreinte carbone liée à la recharge des véhicules électriques. C'est un pas significatif vers la construction d'une infrastructure de recharge qui s'aligne sur les principes de durabilité, contribuant ainsi à la préservation de notre environnement et à la promotion d'une mobilité électrique responsable. Chaque borne électrique devient ainsi une étape vers un réseau énergétique plus propre et un mode de déplacement plus respectueux de la planète.</div>
+                </div>
 
 
 
@@ -40,19 +54,10 @@
 
             </div>
 
-            <div class="number">
-                <li>Nombre d'utilisateurs : {{ nbUsers }}</li>
-                <li>Nombre de voitures : {{ nbCars }}</li>
-                <li>Nombre de villes : {{ nbTown }}</li>
-                <li>Nombre de bornes : {{ nbTerminals }}</li>
-            </div>
 
-            <div class="support">
-                Accédez au support technique
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
-                    <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
-                </svg>
-            </div>
-        </main>
+
+
+        </div>
+    </main>
 
 {% endblock %}
