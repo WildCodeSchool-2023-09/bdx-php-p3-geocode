@@ -120,7 +120,7 @@ class ProfileUserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre image de profil à été modifié');
+            $this->addFlash('success', 'Votre image de profil a été modifié');
 
             return $this->redirectToRoute('app_profile_user');
         }
