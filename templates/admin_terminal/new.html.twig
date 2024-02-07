@@ -5,10 +5,10 @@
 {% block body %}
     {% include 'components/_adminsidebar.html.twig' %}
     <main class="main-vertical">
-        <h1>Create new Terminal</h1>
+        <h1>Créer un nouveau terminal</h1>
 
         {{ include('admin_terminal/_form.html.twig') }}
 
-        <a href="{{ path('app_admin_terminal_index') }}">back to list</a>
+        <a href="{{ path('app_admin_terminal_index') }}">Retour à la liste</a>
     </main>
 {% endblock %}
