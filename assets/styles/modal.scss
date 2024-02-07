@@ -74,14 +74,14 @@
         grid-column: 1;
         grid-row: 1;
         z-index: -1;
-        width: calc(var(--size-card-border) * 2);
-        height: calc(var(--size-card-border) * 2);
+        width: calc(var(--size-card-border) * 4);
+        height: calc(var(--size-card-border) * 4);
         border-radius: var(--card-border-border-radius);
 
 
         background: var(--bg-gradient);
-        animation: var(--animation-duration) linear infinite;;
-        animation-name: rotation;
+        //animation: var(--animation-duration) linear infinite;;
+        //animation-name: rotation;
 
     }
     .modal-card-border{

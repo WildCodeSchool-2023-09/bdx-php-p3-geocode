@@ -93,7 +93,7 @@
 
 .rgpdLink{
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
 }
 
 .rgpdLinkUp{
@@ -103,4 +103,13 @@
     //@media screen and (width > 576px){
     //    margin: -2.85rem 0 1rem 1rem;
     //}
+}
+.scroll-div {
+    overflow: scroll;
+    height: var(--map-heigth);
+    padding-top: 3rem;
+}
+
+.contactLink{
+    text-align: center;
 }
