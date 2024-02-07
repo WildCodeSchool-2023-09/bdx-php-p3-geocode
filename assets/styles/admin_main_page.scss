@@ -1,0 +1,87 @@
+.main-admin-panel {
+    padding: 0;
+    justify-content: initial;
+}
+.number {
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-primary);
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 20vw;
+    color: var(--color-secondary);
+}
+.utils {
+    align-self: flex-start;
+    justify-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width : 100%;
+}
+.search-bar {
+    display: flex;
+    width: 300px;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    padding: 1.25rem;
+    font-size: 16px;
+    color: var(--color-secondary);
+}
+
+.search-icon {
+    padding: 1px;
+    color: var(--color-secondary);
+}
+
+.search-input:focus {
+    outline: none;
+    border: 1px solid #ccc;
+}
+
+.support {
+    justify-self: flex-start;
+    align-self: center;
+    color: var(--color-secondary);
+}
+
+.images {
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Changement de la direction à column */
+    margin-top: 1.25rem;
+}
+
+.image-item {
+    margin-bottom: 1.25rem; /* Ajustement pour l'espace entre les images */
+    background-color: var(--color-primary);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    display: flex; /* Afficher les éléments en ligne */
+}
+
+.image-frame {
+    width: 50px;
+    height: 50px;
+    border-radius: 1.25rem;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-text {
+    margin-left: 1.25rem; /* Espacement entre l'image et le texte */
+    font-size: 0.9rem;
+    text-align: left;
+    background-color: var(--color-primary);
+    padding: 0.5rem;
+    color: var(--color-secondary);
+}

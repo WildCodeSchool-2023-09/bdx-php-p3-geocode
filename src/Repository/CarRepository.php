@@ -21,6 +21,14 @@ class CarRepository extends ServiceEntityRepository
         parent::__construct($registry, Car::class);
     }
 
+    public function getNbCars(): int
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id) as total')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Car[] Returns an array of Car objects
 //     */
