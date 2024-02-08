@@ -68,6 +68,7 @@ class BookingController extends AbstractController
                     $departure = $session->get('departure');
                     $arrival = $session->get('arrival');
                     $step = $session->get('step');
+                    $this->addFlash('success', 'Votre réservation a bien été prise en compte');
                     return $this->redirectToRoute('app_route_show', [
                         'departure' => $departure,
                         'arrival' => $arrival,

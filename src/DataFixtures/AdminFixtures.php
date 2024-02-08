@@ -21,8 +21,8 @@ class AdminFixtures extends Fixture
     {
         $admin = new User();
         $admin->setGender('Autre');
-        $admin->setFirstname('Poussin');
-        $admin->setLastname('KFC');
+        $admin->setFirstname('Admin');
+        $admin->setLastname('Geocode');
         $admin->setBirthday(DateTime::createFromFormat('d/m/Y', '24/09/1952'));
         $admin->setEmail('admin@geocode.com');
         $admin->setRoles(['ROLE_ADMIN']);
