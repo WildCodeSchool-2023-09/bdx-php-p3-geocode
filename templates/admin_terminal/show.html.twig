@@ -33,33 +33,33 @@
                         <td>{{ terminal.id }}</td>
                     </tr>
                     <tr>
-                        <th>Point</th>
+                        <th>Latitude Longitude</th>
                         <td>{{ terminal.point }}</td>
                     </tr>
                     <tr>
-                        <th>Address</th>
+                        <th>Adresse</th>
                         <td>{{ terminal.address }}</td>
                     </tr>
                     <tr>
-                        <th>OutletType</th>
+                        <th>Type de prise</th>
                         <td>{{ terminal.outletType }}</td>
                     </tr>
                     <tr>
-                        <th>NumberOutlet</th>
+                        <th>Nombre de prises</th>
                         <td>{{ terminal.numberOutlet }}</td>
                     </tr>
-                    <tr>
-                        <th>MaxPower</th>
-                        <td>{{ terminal.maxPower }}</td>
-                    </tr>
+{#                    <tr>#}
+{#                        <th>MaxPower</th>#}
+{#                        <td>{{ terminal.maxPower }}</td>#}
+{#                    </tr>#}
                 </tbody>
             </table>
             <div id="map"></div>
         </div>
 
-        <a href="{{ path('app_admin_terminal_index') }}">back to list</a>
+        <a href="{{ path('app_admin_terminal_index') }}">Retour à la liste</a>
 
-        <a href="{{ path('app_admin_terminal_edit', {'id': terminal.id}) }}">edit</a>
+        <a href="{{ path('app_admin_terminal_edit', {'id': terminal.id}) }}">Editer la borne</a>
 
         {{ include('admin_terminal/_delete_form.html.twig') }}
     </main>

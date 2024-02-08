@@ -3,12 +3,19 @@ li {
     font-style: italic;
     text-align: center;
 }
-
+.center {
+    text-align: center;
+}
 .contact {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 3rem;
+    margin: 0 0 3rem 0;
+    width: 100%;
+
+    form {
+        width: 100%;
+    }
 }
 
 textarea {
@@ -33,13 +40,15 @@ input {
 }
 
 .Coordon {
+
+    padding: 1rem;
     background-color: var(--color-ternary);
     color: var(--color-quinternary);
     border: none;
     border-radius: 2rem;
     cursor: pointer;
     text-align: center;
-    width: 80%;
+    width: 100%;
     margin: 0 0 2rem 0;
 }
 
