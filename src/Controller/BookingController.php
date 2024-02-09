@@ -44,6 +44,16 @@ class BookingController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $session = $request->getSession();
+        if (!empty($session->get('departure'))) {
+            $departure = $session->get('departure');
+            $arrival = $session->get('arrival');
+            $step = $session->get('step');
+            $url = "/routeshow/$departure/$arrival/$step";
+        } else {
+            $url = '/';
+        }
+
         $user = $this->getUser();
         $terminal = $terminalRepository->find($id);
 
@@ -91,6 +101,7 @@ class BookingController extends AbstractController
             'form' => $form,
             'book' => $booking,
             'availableTimeSlots' => $availableTimeSlots,
+            'url' => $url,
         ]);
     }
 
