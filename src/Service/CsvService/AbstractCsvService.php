@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\CsvService;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

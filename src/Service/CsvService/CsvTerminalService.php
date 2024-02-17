@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\CsvService;
 
 use App\Entity\Terminal;
-use App\Repository\TownRepository;
-use App\Service\AbstractGeoCsvService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use LongitudeOne\Spatial\Exception\InvalidValueException;

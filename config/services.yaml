@@ -28,22 +28,22 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    App\Service\AbstractCsvService:
+    App\Service\CsvService\AbstractCsvService:
         abstract: true
         arguments: ['@doctrine.orm.entity_manager']
-    App\Service\AbstractGeoCsvService:
+    App\Service\CsvService\AbstractGeoCsvService:
         abstract: true
-        parent: App\Service\AbstractCsvService
-    App\Service\CsvTownService:
+        parent: App\Service\CsvService\AbstractCsvService
+    App\Service\CsvService\CsvTownService:
         public: true
-        parent: App\Service\AbstractGeoCsvService
+        parent: App\Service\CsvService\AbstractGeoCsvService
         arguments:
             $filename: '%app.town_csv%'
             $sortingIndex1: '%app.town_sorting_index1%'
             $sortingIndex2: '%app.town_sorting_index2%'
-    App\Service\CsvTerminalService:
+    App\Service\CsvService\CsvTerminalService:
         public: true
-        parent: App\Service\AbstractGeoCsvService
+        parent: App\Service\CsvService\AbstractGeoCsvService
         arguments:
             $filename: '%app.terminal_csv%'
             $sortingIndex1: '%app.terminal_sorting_index1%'

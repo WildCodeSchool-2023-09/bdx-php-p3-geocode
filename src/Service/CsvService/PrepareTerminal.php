@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\CsvService;
 
-use App\Repository\TownRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
-use UnexpectedValueException;
 use Exception;
 
 class PrepareTerminal

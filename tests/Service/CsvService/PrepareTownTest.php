@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\CsvService;
 
+use App\Service\CsvService\PrepareTown;
 use PHPUnit\Framework\TestCase;
-use App\Service\PrepareTown;
 
 class PrepareTownTest extends TestCase
 {
