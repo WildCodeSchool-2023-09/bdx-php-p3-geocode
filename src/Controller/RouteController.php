@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Town;
 use App\Form\RouteType;
+use App\Service\Route\RouteService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,5 +47,16 @@ class RouteController extends AbstractController
             'arrival' => $arrival,
             'step' => $step,
         ]);
+    }
+
+    #[Route('/api/route', name: 'app_api_route', methods: ['POST'])]
+    public function getRoute(Request $request): Response
+    {
+        $routeService = new RouteService();
+        $step = $request->getPayload()->get('step');
+        $jsonPoints = $request->getPayload()->get('points');
+        $points = $routeService->getAllPoints($jsonPoints);
+        $steps = $routeService->findAllSteps($points, $step);
+        return $this->json($steps);
     }
 }
