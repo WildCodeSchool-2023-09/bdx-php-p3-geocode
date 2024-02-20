@@ -29,7 +29,7 @@ class RouteService
         return $closest;
     }
 
-    private function findNextStep(
+    public function findNextStep(
         array $start,
         array $pointList,
         int $stepLength = 100,
