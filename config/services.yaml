@@ -50,5 +50,7 @@ services:
             $sortingIndex2: '%app.terminal_sorting_index2%'
     App\Service\BookingService:
         public: true
+    App\Service\Route\RouteService:
+        public: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
