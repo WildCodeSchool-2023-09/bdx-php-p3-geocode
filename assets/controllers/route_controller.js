@@ -35,7 +35,7 @@ export default class extends Controller {
         control.addTo(map);
         control._pendingRequest.onloadend = function () {
             const resp = fetch('/api/route', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -43,17 +43,6 @@ export default class extends Controller {
                 body: JSON.stringify({ "points": JSON.stringify(control._selectedRoute.coordinates), 'step': stepLength })
             })
             .then(response => response.json())
-            .then((data) => displayDataMap(data))
-            .catch((err) => console.error(err));
-        }
-
-        function getTerminals(step)
-        {
-            const protocol = window.location.protocol;
-            const host = window.location.host;
-            const terminals = fetch(protocol + '//' + host + '/getterminal/' + step.longitude + '/' + step.latitude + '/5000')
-            .then((resp) => {return resp.json()})
-            .then((data) => isNeedMore(data, step))
             .then((data) => displayDataMap(data))
             .catch((err) => console.error(err));
         }
@@ -67,17 +56,6 @@ export default class extends Controller {
                 url +
                 '"><button class="button" data-terminal-id="' + elt.id + '">Reservation</button></a>');
             });
-        }
-
-        function isNeedMore(data, step)
-        {
-            const protocol = window.location.protocol;
-            const host = window.location.host;
-            if (data.length === 0) {
-                data =  fetch(protocol + '//' + host + '/getterminal/' + step.longitude + '/' + step.latitude + '/10000')
-                .then((resp) => {return resp.json()});
-            }
-            return data;
         }
     }
 }
