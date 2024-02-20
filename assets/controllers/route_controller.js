@@ -1,7 +1,4 @@
 import {Controller} from '@hotwired/stimulus';
-import {Point} from "../module/Point";
-import {findAllSteps, findNextStep} from "../module/geoloc";
-
 
 export default class extends Controller {
     static targets =  ['target_name'];
@@ -14,7 +11,6 @@ export default class extends Controller {
 
     displayMap()
     {
-        console.log(this.element.dataset);
         const stepLength = Number(this.element.dataset.step);
         let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon'})
         const map = L.map('map');
@@ -38,9 +34,17 @@ export default class extends Controller {
         });
         control.addTo(map);
         control._pendingRequest.onloadend = function () {
-            const steps = findAllSteps(control._selectedRoute.coordinates, stepLength);
-            console.log(steps)
-            steps.forEach((step) => getTerminals(step))
+            const resp = fetch('/api/route', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "points": JSON.stringify(control._selectedRoute.coordinates), 'step': stepLength })
+            })
+            .then(response => response.json())
+            .then((data) => displayDataMap(data))
+            .catch((err) => console.error(err));
         }
 
         function getTerminals(step)
