@@ -50,13 +50,13 @@ class RouteController extends AbstractController
     }
 
     #[Route('/api/route', name: 'app_api_route', methods: ['POST'])]
-    public function getRoute(Request $request): Response
+    public function getRoute(Request $request, RouteService $routeService): Response
     {
-        $routeService = new RouteService();
         $step = $request->getPayload()->get('step');
         $jsonPoints = $request->getPayload()->get('points');
         $points = $routeService->getAllPoints($jsonPoints);
         $steps = $routeService->findAllSteps($points, $step);
-        return $this->json($steps);
+        $terminals = $routeService->findTerminals($steps);
+        return $this->json($terminals);
     }
 }
