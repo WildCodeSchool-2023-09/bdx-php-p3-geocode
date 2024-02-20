@@ -2,8 +2,13 @@
 
 namespace App\Service\Route;
 
+use App\Repository\TerminalRepository;
+
 class RouteService
 {
+    public function __construct(private TerminalRepository $terminalRepository)
+    {
+    }
     public function getAllPoints(string $json): array
     {
         return json_decode($json, true);
@@ -24,17 +29,15 @@ class RouteService
         return $closest;
     }
 
-    public function findNextStep(
+    private function findNextStep(
         array $start,
         array $pointList,
         int $stepLength = 100,
         int $marginOfError = 10
-    ): Point|array|null {
-
+    ): array {
         if (count($pointList) <= 3) {
             return $this->findClosest($start, $stepLength, $pointList);
         }
-
         $tab = $pointList;
         $startingPoint = new Point($start);
         $left = 0;
@@ -62,13 +65,14 @@ class RouteService
 
     public function findAllSteps(array $pointList, int $stepLength = 100, int $marginOfError = 10): array
     {
+
         $steps = [];
         $step = $pointList[0];
         $stepPoint = new Point($step);
         $end = new Point($pointList[count($pointList) - 1]);
 
         while ($stepPoint->calcDistanceWith($end) > $stepLength) {
-            $steps[] = $stepPoint;
+            $steps[] = $step;
             $step = $this->findNextStep($step, $pointList, $stepLength, $marginOfError);
             $index = array_search($step, $pointList);
             $stepPoint = new Point($step);
@@ -79,5 +83,16 @@ class RouteService
             $steps[] = $pointList[count($pointList) - 1];
         }
         return $steps;
+    }
+
+    public function findTerminals(array $steps): array
+    {
+        $terminals = [];
+        foreach ($steps as $step) {
+            foreach ($this->terminalRepository->findNearPosition($step['lng'], $step['lat']) as $terminal) {
+                $terminals[] = $terminal;
+            }
+        }
+        return $terminals;
     }
 }
