@@ -65,7 +65,6 @@ class RouteService
 
     public function findAllSteps(array $pointList, int $stepLength = 100, int $marginOfError = 10): array
     {
-
         $steps = [];
         $step = $pointList[0];
         $stepPoint = new Point($step);
