@@ -10,7 +10,6 @@ export default class extends Controller {
 
     displayMap()
     {
-        let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon'})
         let userLat = 0;
         let userLon = 0;
         let map = L.map("map").setView({ lon: userLon, lat: userLat }, 2);
@@ -35,7 +34,6 @@ export default class extends Controller {
       // initialize Leaflet
         function displayMap()
         {
-            // map.setView({ lon: userLon, lat: userLat }, 2);
             map.setZoom(15);
           // add the OpenStreetMap tiles
             L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -50,7 +48,6 @@ export default class extends Controller {
 
         function getTerminals()
         {
-            console.log(userLon, userLat);
             const terminals = fetch('getterminal/' + userLon + '/' + userLat + '/10000')
             .then((resp) => {return resp.json()})
               .then((data) => displayDataMap(data));
@@ -60,6 +57,8 @@ export default class extends Controller {
         {
             const pathname = window.location.pathname;
             data.forEach(elt => {
+                let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon',
+                    html: '<div aria-label="' + elt.address + '">' + elt.address + '</div>'})
                 let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
                 const url = '/booking/register/' + elt.id;
                 marker.bindPopup(' <br> ' + elt.address + ' <br> ' + '<a href="' +
