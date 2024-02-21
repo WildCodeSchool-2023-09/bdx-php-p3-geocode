@@ -7,7 +7,6 @@ export default class extends Controller {
     connect()
     {
         const stepLength = Number(this.element.dataset.step);
-        let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon'})
         const map = L.map('map');
       // create map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
