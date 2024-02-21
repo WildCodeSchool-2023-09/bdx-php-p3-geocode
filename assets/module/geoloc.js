@@ -21,10 +21,10 @@ export function getTerminals(L, map, longitude, latitude)
 {
     const terminals = fetch('/getterminal/' + longitude + '/' + latitude + '/10000')
         .then((resp) => {return resp.json()})
-        .then((data) => displayDataMap(data, L, map));
+        .then((data) => displayTerminals(data, L, map));
 }
 
-export function displayDataMap(data, L, map)
+export function displayTerminals(data, L, map)
 {
     const pathname = window.location.pathname;
     data.forEach(elt => {

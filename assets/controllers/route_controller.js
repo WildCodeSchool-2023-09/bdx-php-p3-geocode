@@ -1,5 +1,5 @@
 import {Controller} from '@hotwired/stimulus';
-import {displayDataMap} from "../module/geoloc";
+import {displayTerminals} from "../module/geoloc";
 
 export default class extends Controller {
     static targets =  ['target_name'];
@@ -37,7 +37,7 @@ export default class extends Controller {
                 body: JSON.stringify({ "points": JSON.stringify(control._selectedRoute.coordinates), 'step': stepLength })
             })
             .then(response => response.json())
-            .then((data) => displayDataMap(data, L, map))
+            .then((data) => displayTerminals(data, L, map))
             .catch((err) => console.error(err));
         }
     }
