@@ -19,9 +19,7 @@ export function displayMap(L, map)
 
 export function getTerminals(L, map, longitude, latitude)
 {
-    const protocol = window.location.protocol;
-    const host = window.location.host;
-    const terminals = fetch(protocol + '//' + host + '/getterminal/' + longitude + '/' + latitude + '/10000')
+    const terminals = fetch('/getterminal/' + longitude + '/' + latitude + '/10000')
         .then((resp) => {return resp.json()})
         .then((data) => displayDataMap(data, L, map));
 }
