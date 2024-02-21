@@ -1,71 +1,41 @@
-import {Point} from "./Point";
-
-export function degToRad(Value)
+export function geolocationError()
 {
-    return Value * Math.PI / 180;
+    document.location.href = '/search'
 }
 
-/**
- * find the next point from start where distance is between stepLength +- marginOfError
- *
- * @param start
- * @param pointList
- * @param stepLength
- * @param marginOfError
- */
-export function findNextStep(start, pointList, stepLength = 100, marginOfError = 10)
+export function displayMap(L, map)
 {
-    let len = pointList.length;
-    if (len === 0) {
-        console.error('POINTLIST EMPTY')
-        return;
-    }
-    if (len === 1) {
-        return pointList[0];
-    }
-    if (!(start instanceof Point)) {
-        start = new Point(start);
-    }
+    map.setZoom(15);
+    // add the OpenStreetMap tiles
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+        '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+    }).addTo(map);
 
-    let maxDistance = start.calcDistanceWith(new Point(pointList[len - 1]));
-    let minimumStep = stepLength - marginOfError;
-    let maximumStep = stepLength + marginOfError;
-    if (maxDistance >= minimumStep && maxDistance <= maximumStep) {
-        return pointList[len - 1];
-    }
-
-    let middle = Math.ceil(len / 2);
-    let middleDistance = start.calcDistanceWith(new Point(pointList[middle]));
-    let newList;
-
-    if (middleDistance >= minimumStep && middleDistance <= maximumStep) {
-        return pointList[middle];
-    } else if (middleDistance > minimumStep ) {
-        newList = pointList.slice(0, middle + 1);
-    } else {
-        newList = pointList.slice(middle, -1);
-    }
-    return findNextStep(start,newList, stepLength, marginOfError);
+    // show the scale bar on the lower left corner
+    L.control.scale({ imperial: true, metric: true }).addTo(map);
 }
 
-export function findAllSteps(pointList, stepLength = 100, marginOfError = 10)
+export function getTerminals(L, map, longitude, latitude)
 {
-    const steps = [];
-    let step = pointList[0];
-    let stepPoint = new Point(pointList[0]);
-    let end = new Point(pointList[pointList.length - 1]);
+    const protocol = window.location.protocol;
+    const host = window.location.host;
+    const terminals = fetch(protocol + '//' + host + '/getterminal/' + longitude + '/' + latitude + '/10000')
+        .then((resp) => {return resp.json()})
+        .then((data) => displayDataMap(data, L, map));
+}
 
-    while (stepPoint.calcDistanceWith(end) > stepLength) {
-        steps.push(stepPoint);
-
-        step = findNextStep(stepPoint, pointList, stepLength, marginOfError);
-        let index = pointList.indexOf(step);
-        stepPoint = new Point(step);
-        pointList = pointList.slice(index, -1);
-    }
-    steps.push(stepPoint);
-    if (stepPoint.calcDistanceWith(pointList[pointList.length - 1]) > 50) {
-        steps.push(new Point(pointList[pointList.length - 1]));
-    }
-    return steps;
+export function displayDataMap(data, L, map)
+{
+    const pathname = window.location.pathname;
+    data.forEach(elt => {
+        let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon',
+            html: '<div aria-label="' + elt.address + '">' + elt.address + '</div>'})
+        let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
+        const url = '/booking/register/' + elt.id;
+        marker.bindPopup(' <br> ' + elt.address + ' <br> ' + '<a href="' +
+      url +
+      '"><button class="button" data-terminal-id="' + elt.id + '">Reservation</button></a>');
+    });
 }

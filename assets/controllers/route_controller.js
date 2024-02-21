@@ -1,15 +1,10 @@
 import {Controller} from '@hotwired/stimulus';
+import {displayDataMap} from "../module/geoloc";
 
 export default class extends Controller {
     static targets =  ['target_name'];
 
     connect()
-    {
-        console.log('map connect');
-        this.displayMap();
-    }
-
-    displayMap()
     {
         const stepLength = Number(this.element.dataset.step);
         let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon'})
@@ -43,19 +38,8 @@ export default class extends Controller {
                 body: JSON.stringify({ "points": JSON.stringify(control._selectedRoute.coordinates), 'step': stepLength })
             })
             .then(response => response.json())
-            .then((data) => displayDataMap(data))
+            .then((data) => displayDataMap(data, L, map))
             .catch((err) => console.error(err));
-        }
-
-        function displayDataMap(data)
-        {
-            data.forEach(elt => {
-                let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
-                const url = '/booking/register/' + elt.id;
-                marker.bindPopup(' <br> ' + elt.address + ' <br> ' + '<a href="' +
-                url +
-                '"><button class="button" data-terminal-id="' + elt.id + '">Reservation</button></a>');
-            });
         }
     }
 }
