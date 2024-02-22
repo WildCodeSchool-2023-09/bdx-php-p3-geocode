@@ -45,7 +45,8 @@ export function displayTerminals(terminals, L, map)
     terminals.forEach(terminal => {
         let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon',
             //html here is to use keyboard navigation
-            html: '<div aria-label="' + terminal.address + '">' + terminal.address + '</div>'})
+            html: '<div aria-label="Borne électrique ' + terminal.address + '">Borne électrique '
+              + terminal.address + '</div>'})
         let marker = L.marker([terminal.latitude, terminal.longitude], {icon: terminalIcon}).addTo(map);
         const url = '/booking/register/' + terminal.id;
         marker.bindPopup(' <br> ' + terminal.address + ' <br> ' + '<a href="' +
