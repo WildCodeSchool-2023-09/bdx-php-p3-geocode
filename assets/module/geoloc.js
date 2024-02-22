@@ -36,21 +36,20 @@ export function getTerminals(L, map, longitude, latitude)
 }
 
 /**
- *
- * @param data all terminals position to be displayed
+ * @param terminals all terminals position to be displayed
  * @param L Leaflet Object
  * @param map Map map where terminals will be displayed
  */
-export function displayTerminals(data, L, map)
+export function displayTerminals(terminals, L, map)
 {
-    data.forEach(elt => {
+    terminals.forEach(terminal => {
         let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon',
             //html here is to use keyboard navigation
-            html: '<div aria-label="' + elt.address + '">' + elt.address + '</div>'})
-        let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
-        const url = '/booking/register/' + elt.id;
-        marker.bindPopup(' <br> ' + elt.address + ' <br> ' + '<a href="' +
+            html: '<div aria-label="' + terminal.address + '">' + terminal.address + '</div>'})
+        let marker = L.marker([terminal.latitude, terminal.longitude], {icon: terminalIcon}).addTo(map);
+        const url = '/booking/register/' + terminal.id;
+        marker.bindPopup(' <br> ' + terminal.address + ' <br> ' + '<a href="' +
       url +
-      '"><button class="button" data-terminal-id="' + elt.id + '">Reservation</button></a>');
+      '"><button class="button" data-terminal-id="' + terminal.id + '">Reservation</button></a>');
     });
 }
