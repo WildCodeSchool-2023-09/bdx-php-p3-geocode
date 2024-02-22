@@ -13,17 +13,15 @@
     --color-quaternary: #5cd858;
     --color-quinternary: #FFFFFF;
 
-    --map-heigth: calc(97svh - calc(2 * var(--navbar-height) + 6px));
-
-    --navbar-height: 70px;
-
     --gradient: linear-gradient(
         90deg,
         var(--color-ternary),
         var(--color-quaternary)
     );
 
-    /*navbar responsive*/
+    --map-heigth: calc(97svh - calc(2 * var(--navbar-height) + 6px));
+    /*navbar mobile*/
+    --navbar-height: 70px;
     --navbar-svg-size: calc(var(--navbar-height) / 2.1875);
     --navbar-ul-width: 350px;
     --navbar-li-width: 20%;
@@ -31,7 +29,6 @@
     --navbar-indicator-positionY: -50%;
     --navbar-font-size: 0.75em;
     --navbar-line-icon-height: 75x;
-
     --navbar-translateY-icon: 20px;
     --navbar-translateY-icon-active: -24px;
     --navbar-translateY-text-active: 25px;
@@ -59,7 +56,6 @@
         --navbar-indicator-positionY: -52%;
         --navbar-font-size: 1em;
         --navbar-line-icon-height: 140x;
-
         --navbar-translateY-text-active: 52px;
 
         --header-height: calc(var(--navbar-height) * 3 / 4);
