@@ -21,9 +21,11 @@ class RouteController extends AbstractController
             $departure = $form->get('departure')->getData()->getId();
             $arrival = $form->get('arrival')->getData()->getId();
             $step = $form->get('step')->getData();
-            return $this->redirectToRoute('app_route_show', ['departure' => $departure,
-                                                           'arrival' => $arrival,
-                                                            'step' => $step]);
+            return $this->redirectToRoute('app_route_show', [
+                'departure' => $departure,
+                'arrival' => $arrival,
+                'step' => $step
+            ]);
         }
         return $this->render('route/ask.html.twig', [
             'form' => $form,
