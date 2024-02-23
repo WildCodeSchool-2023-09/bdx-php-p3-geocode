@@ -20,17 +20,11 @@ class RouteType extends AbstractType
             ->add('departure', TownNameAutocompleteField::class, [
                 'class' => Town::class,
                 'label' => 'Ville de départ',
-                'attr' => [
-                    'class' => 'input'
-                ],
                 'mapped' => false,
             ])
             ->add('arrival', TownNameAutocompleteField::class, [
                 'class' => Town::class,
                 'label' => 'Ville d\'arrivée',
-                'attr' => [
-                    'class' => 'input'
-                ],
                 'mapped' => false,
             ])
             ->add('step', NumberType::class, [
