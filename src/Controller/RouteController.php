@@ -15,8 +15,7 @@ class RouteController extends AbstractController
     #[Route('/route', name: 'app_route')]
     public function ask(Request $request): Response
     {
-        $result = [];
-        $form = $this->createForm(RouteType::class, $result);
+        $form = $this->createForm(RouteType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $departure = $form->get('departure')->getData()->getId();
