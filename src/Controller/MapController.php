@@ -45,8 +45,6 @@ class MapController extends AbstractController
         $form = $this->createForm(SearchTownType::class, $townSearched);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$entityManager->persist($town);
-            //$entityManager->flush();
             return $this->redirectToRoute('app_map_show_town', ['id' => $townSearched->getTown()->getId()]);
         }
         return $this->render('map/search_town.html.twig', [

@@ -1,71 +1,56 @@
-import {Point} from "./Point";
-
-export function degToRad(Value)
+/**
+ *  Use this if geolocation isn't authorized by user
+ */
+export function geolocationError()
 {
-    return Value * Math.PI / 180;
+    document.location.href = '/search'
+}
+
+export function displayMap(L, map)
+{
+    // add the OpenStreetMap tiles
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        // add copyright. It's in Leaflet terms of use
+        attribution:
+        '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+    }).addTo(map);
+
+    // show the scale bar in the lower left corner
+    L.control.scale({ imperial: true, metric: true }).addTo(map);
 }
 
 /**
- * find the next point from start where distance is between stepLength +- marginOfError
+ *  get all terminals around a position and displays them
  *
- * @param start
- * @param pointList
- * @param stepLength
- * @param marginOfError
+ * @param L Leaflet object
+ * @param map map where terminals will be displayed
+ * @param longitude
+ * @param latitude
  */
-export function findNextStep(start, pointList, stepLength = 100, marginOfError = 10)
+export function getTerminals(L, map, longitude, latitude)
 {
-    let len = pointList.length;
-    if (len === 0) {
-        console.error('POINTLIST EMPTY')
-        return;
-    }
-    if (len === 1) {
-        return pointList[0];
-    }
-    if (!(start instanceof Point)) {
-        start = new Point(start);
-    }
-
-    let maxDistance = start.calcDistanceWith(new Point(pointList[len - 1]));
-    let minimumStep = stepLength - marginOfError;
-    let maximumStep = stepLength + marginOfError;
-    if (maxDistance >= minimumStep && maxDistance <= maximumStep) {
-        return pointList[len - 1];
-    }
-
-    let middle = Math.ceil(len / 2);
-    let middleDistance = start.calcDistanceWith(new Point(pointList[middle]));
-    let newList;
-
-    if (middleDistance >= minimumStep && middleDistance <= maximumStep) {
-        return pointList[middle];
-    } else if (middleDistance > minimumStep ) {
-        newList = pointList.slice(0, middle + 1);
-    } else {
-        newList = pointList.slice(middle, -1);
-    }
-    return findNextStep(start,newList, stepLength, marginOfError);
+    const terminals = fetch('/getterminal/' + longitude + '/' + latitude + '/10000')
+        .then((resp) => {return resp.json()})
+        .then((data) => displayTerminals(data, L, map));
 }
 
-export function findAllSteps(pointList, stepLength = 100, marginOfError = 10)
+/**
+ * @param terminals all terminals position to be displayed
+ * @param L Leaflet Object
+ * @param map Map map where terminals will be displayed
+ */
+export function displayTerminals(terminals, L, map)
 {
-    const steps = [];
-    let step = pointList[0];
-    let stepPoint = new Point(pointList[0]);
-    let end = new Point(pointList[pointList.length - 1]);
-
-    while (stepPoint.calcDistanceWith(end) > stepLength) {
-        steps.push(stepPoint);
-
-        step = findNextStep(stepPoint, pointList, stepLength, marginOfError);
-        let index = pointList.indexOf(step);
-        stepPoint = new Point(step);
-        pointList = pointList.slice(index, -1);
-    }
-    steps.push(stepPoint);
-    if (stepPoint.calcDistanceWith(pointList[pointList.length - 1]) > 50) {
-        steps.push(new Point(pointList[pointList.length - 1]));
-    }
-    return steps;
+    terminals.forEach(terminal => {
+        let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon',
+            //html here is to use keyboard navigation
+            html: '<div aria-label="Borne électrique ' + terminal.address + '">Borne électrique '
+              + terminal.address + '</div>'})
+        let marker = L.marker([terminal.latitude, terminal.longitude], {icon: terminalIcon}).addTo(map);
+        const url = '/booking/register/' + terminal.id;
+        marker.bindPopup(' <br> ' + terminal.address + ' <br> ' + '<a href="' +
+      url +
+      '"><button class="button" data-terminal-id="' + terminal.id + '">Reservation</button></a>');
+    });
 }

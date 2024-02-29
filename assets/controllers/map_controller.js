@@ -1,71 +1,41 @@
 import { Controller } from '@hotwired/stimulus';
+import { getTerminals, geolocationError, displayMap } from '../module/geoloc';
 
 export default class extends Controller {
-    static targets =  ['target_name'];
-
     connect()
     {
-        this.displayMap();
-    }
-
-    displayMap()
-    {
-        let terminalIcon = L.divIcon({iconSize:[32, 32], className: 'map-terminal-icon'})
-        let userLat = 0;
+        // variables initialization
+        let userLat = 45;
         let userLon = 0;
-        let map = L.map("map").setView({ lon: userLon, lat: userLat }, 2);
+        let map = L.map("map");
+        // if navigator can use geolocation
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
+                // if user accept geolocation
+                // we get coordinates with 4 digits, an accuracy of 10 meters
                 userLat = Number(position.coords.latitude.toFixed(4));
                 userLon = Number(position.coords.longitude.toFixed(4));
+
+                //This allows you to avoid having several world maps if you zoom out too much.
                 map.setMinZoom(3);
+                // This set view on user position, with a zoom of 15
                 map.setView({ lon: userLon, lat: userLat }, 15);
 
-                //map.setZoom(15);
+                // This creates a marker on user position
                 L.marker({ lon: userLon, lat: userLat })
-                .bindPopup("Vous êtes ici")
-                .addTo(map);
-                getTerminals();
-            });
+                    .bindPopup("Vous êtes ici")
+                    .addTo(map);
+                //This gets all terminals positions and icons, around 10 kilometers
+                getTerminals(L, map, userLon, userLat);
+            },
+            // if user doesn't accept geolocation
+            geolocationError);
         } else {
+            //if navigator can't use geolocation
+            // eslint-disable-next-line no-console
             console.log("geolocation IS NOT available");
         }
-        displayMap();
-
-      // initialize Leaflet
-        function displayMap()
-        {
-            // map.setView({ lon: userLon, lat: userLat }, 2);
-            map.setZoom(15);
-          // add the OpenStreetMap tiles
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 19,
-                attribution:
-                '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-            }).addTo(map);
-
-          // show the scale bar on the lower left corner
-            L.control.scale({ imperial: true, metric: true }).addTo(map);
-        }
-
-        function getTerminals()
-        {
-            console.log(userLon, userLat);
-            const terminals = fetch('getterminal/' + userLon + '/' + userLat + '/10000')
-            .then((resp) => {return resp.json()})
-              .then((data) => displayDataMap(data));
-        }
-
-        function displayDataMap(data)
-        {
-            const pathname = window.location.pathname;
-            data.forEach(elt => {
-                let marker = L.marker([elt.latitude, elt.longitude], {icon: terminalIcon}).addTo(map);
-                const url = '/booking/register/' + elt.id;
-                marker.bindPopup(' <br> ' + elt.address + ' <br> ' + '<a href="' +
-                url +
-                '"><button class="button" data-terminal-id="' + elt.id + '">Reservation</button></a>');
-            });
-        }
+        // display the map
+        displayMap(L, map);
     }
 }

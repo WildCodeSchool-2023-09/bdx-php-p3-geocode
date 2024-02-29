@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\CsvService;
 
-use App\Service\AbstractCsvService;
 use Exception;
 
 abstract class AbstractGeoCsvService extends AbstractCsvService

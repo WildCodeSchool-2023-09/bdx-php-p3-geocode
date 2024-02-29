@@ -21,7 +21,6 @@ class TownNameAutocompleteField extends AbstractType
             'query_builder' => function (TownRepository $townRepository) {
                 return $townRepository->createQueryBuilder('town');
             }
-            //'security' => 'ROLE_SOMETHING',
         ]);
     }
 

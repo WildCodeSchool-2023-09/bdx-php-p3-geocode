@@ -2,16 +2,21 @@
 
 {% block title %}Geocode - Carte{% endblock %}
 
-{% block stylesheets %}
+
+{% block javascripts %}
     {{ parent() }}
     <script>
         let userLon;
         let userLat;
     </script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
     <link
         rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
 {% endblock %}
 
