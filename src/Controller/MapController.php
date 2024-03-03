@@ -22,9 +22,7 @@ class MapController extends AbstractController
     public function index(Request $request): Response
     {
         $request->getSession()->clear();
-        return $this->render('map/index.html.twig', [
-            'controller_name' => 'MapController',
-        ]);
+        return $this->render('map/index.html.twig');
     }
 
     #[Route('/getterminal/{longitude}/{latitude}/{distance}', name:'app_map_get_terminals', methods: ['GET'])]
@@ -32,7 +30,7 @@ class MapController extends AbstractController
         float $longitude,
         float $latitude,
         TerminalRepository $terminalRepository,
-        int $distance = 10,
+        int $distance = 10000,
     ): JsonResponse {
         $terminals = $terminalRepository->findNearPosition($longitude, $latitude, $distance);
         return $this->json($terminals);
