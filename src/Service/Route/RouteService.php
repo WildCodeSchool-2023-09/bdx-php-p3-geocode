@@ -29,6 +29,14 @@ class RouteService
         return $closest;
     }
 
+    /**
+     * Returns the next point, based on the start point and step length
+     * @param array $start
+     * @param array $pointList
+     * @param int $stepLength in kilometers
+     * @param int $marginOfError in kilometers
+     * @return array
+     */
     public function findNextStep(
         array $start,
         array $pointList,
