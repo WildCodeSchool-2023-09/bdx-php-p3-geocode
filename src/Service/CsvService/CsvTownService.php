@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\CsvService;
 
 use App\Entity\Town;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use LongitudeOne\Spatial\Exception\InvalidValueException;
 use LongitudeOne\Spatial\PHP\Types\Geometry\Point;

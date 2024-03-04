@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Service\CsvTerminalService;
+use App\Service\CsvService\CsvTerminalService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

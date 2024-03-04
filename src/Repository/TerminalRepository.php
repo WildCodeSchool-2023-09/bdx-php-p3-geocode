@@ -39,6 +39,14 @@ class TerminalRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    /**
+     * Return all terminals near a position (longitude, latitude)
+     * @param float $longitude
+     * @param float $latitude
+     * @param int $distance
+     * @return array
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function findNearPosition(float $longitude, float $latitude, int $distance = 10000): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -47,7 +55,6 @@ class TerminalRepository extends ServiceEntityRepository
         SELECT id, address, ST_X(point) as longitude, ST_Y(point) as latitude, number_outlet,
                ST_Distance_Sphere(point, ST_GeomFromText(:target)) AS distance_m
         FROM terminal HAVING distance_m <= :distance and longitude != 0';
-
         $resultSet = $conn->executeQuery($sql, [
             'target' => $target,
             'distance' => $distance
@@ -55,42 +62,19 @@ class TerminalRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-//    /**
-//     * @return Terminal[] Returns an array of Terminal objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Terminal
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
-
+    /**
+     * Return nth page from terminal list
+     * @param int $page nth page
+     * @param int $pageSize nb terminals by page
+     * @return Paginator
+     */
     public function getTerminals(int $page, int $pageSize): Paginator
     {
-        //$pageSize = 200;
         $firstResult = ($page - 1) * $pageSize;
-
         $queryBuilder = $this->createQueryBuilder('t');
         $queryBuilder->setFirstResult($firstResult);
         $queryBuilder->setMaxResults($pageSize);
-
         $query = $queryBuilder->getQuery();
-
         return new Paginator($query);
     }
 
