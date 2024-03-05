@@ -29,7 +29,7 @@ export default class extends Controller {
         control.addTo(map);
         control._pendingRequest.onloadend = function () {
             const resp = fetch('/api/route', {
-                method: 'PUT',
+                method: 'QUERY',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
