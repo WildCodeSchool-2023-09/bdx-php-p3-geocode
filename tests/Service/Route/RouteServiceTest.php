@@ -71,6 +71,16 @@ class RouteServiceTest extends KernelTestCase
             ['lat' => 45, 'lng' => 2.50],
             $route->findNextStep($start, $points, 200)
         );
+        $lng = 0;
+        $points = [];
+        for ($i = 0; $i < 1000; $i += 1) {
+            $lng += 3 / 1000;
+            $points[] = ['lat' => 45, 'lng' => round($lng, 5)];
+        }
+        $this->assertEquals(
+            ['lat' => 45, 'lng' => 2.622],
+            $route->findNextStep($start, $points, 200)
+        );
     }
 
     public function testFindAllSteps(): void
