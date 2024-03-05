@@ -41,8 +41,11 @@ class RouteService
         array $start,
         array $pointList,
         int $stepLength = 100,
-        int $marginOfError = 10
+        int $marginOfError = 10,
+        int $nbOperation = 0
     ): array {
+        $nbOperation += 1;
+        //var_dump($nbOperation); // use when test to see how many operations are needed
         if (count($pointList) <= 3) {
             return $this->findClosest($start, $stepLength, $pointList);
         }
@@ -59,14 +62,16 @@ class RouteService
                 $start,
                 array_slice($pointList, $middle - 1, $right),
                 $stepLength,
-                $marginOfError
+                $marginOfError,
+                $nbOperation
             );
         } else {
             return $this->findNextStep(
                 $start,
                 array_slice($pointList, $left, $middle + 1),
                 $stepLength,
-                $marginOfError
+                $marginOfError,
+                $nbOperation
             );
         }
     }
