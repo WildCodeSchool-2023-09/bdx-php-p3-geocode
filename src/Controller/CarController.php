@@ -47,7 +47,6 @@ class CarController extends AbstractController
             $entityManager->persist($car);
             $entityManager->flush();
 
-//            return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
             return $this->redirectToRoute('app_profile_user');
         }
 
@@ -100,8 +99,6 @@ class CarController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre image à été modifié');
-
-//            return $this->redirectToRoute('app_car_show', [], Response::HTTP_SEE_OTHER);
             return $this->redirectToRoute('app_car_list');
         }
 
@@ -119,6 +116,10 @@ class CarController extends AbstractController
         ) {
             $entityManager->remove($car);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre véhicule a été supprimé');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression de votre véhicule');
         }
 
         return $this->redirectToRoute('app_car_list', [], Response::HTTP_SEE_OTHER);

@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProfileUserController extends AbstractController
 {
@@ -27,34 +26,33 @@ class ProfileUserController extends AbstractController
         ]);
     }
 
-//    #[IsGranted('ROLE_ADMIN')]
-    #[Route('/profile/user/new', name: 'app_profile_user_new', methods: ['GET', 'POST'])]
-    public function new(
-        Request $request,
-        UserRepository $userRepository,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $user = new User();
-
-        $form = $this->createForm(ProfileUserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $newFile = $form['pictureFile']->getData();
-            if ($newFile) {
-                $user->setPictureFile($newFile);
-            }
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_profile_user');
-        }
-
-        return $this->render('profile_user/edit.html.twig', [
-            'form' => $form,
-        ]);
-    }
+//    #[Route('/profile/user/new', name: 'app_profile_user_new', methods: ['GET', 'POST'])]
+//    public function new(
+//        Request $request,
+//        UserRepository $userRepository,
+//        EntityManagerInterface $entityManager
+//    ): Response {
+//        $user = new User();
+//
+//        $form = $this->createForm(ProfileUserType::class, $user);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $newFile = $form['pictureFile']->getData();
+//            if ($newFile) {
+//                $user->setPictureFile($newFile);
+//            }
+//
+//            $entityManager->persist($user);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('app_profile_user');
+//        }
+//
+//        return $this->render('profile_user/edit.html.twig', [
+//            'form' => $form,
+//        ]);
+//    }
 
     #[Route('/profile/user/show/{id<^[0-9]+$>}', name: 'app_profile_user_show', methods: ['GET', 'POST'])]
     public function show(
@@ -186,13 +184,7 @@ class ProfileUserController extends AbstractController
     ): Response {
 
         $tokenStorage->getToken()->getUser();
-//        $currentUser = $tokenStorage->getToken()->getUser();
 
-//        if ($currentUser !== $user && !$this->isGranted('ROLE_ADMIN')) {
-//            throw $this->createAccessDeniedException(
-//                'Vous n\'avez pas les autorisations nécessaires pour supprimer ce profil.'
-//            );
-//        }
 
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);

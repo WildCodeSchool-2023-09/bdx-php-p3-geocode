@@ -11,32 +11,20 @@
 
         {{ form_errors(registrationForm) }}
         {{ form_errors(registrationForm.gender) }}
-        <details>
-            <summary><span class="placeholder">{{ field_label(registrationForm.gender) }}</span></summary>
-            <p>
-                {% for label, value in field_choices(registrationForm.gender) %}
 
-                    <label class="">
-                        <input class='' type="radio" name="{{ field_name(registrationForm.gender) }}" value='{{ value }}'>
-                        <span class="">{{ label }}</span>
-                    </label>
-                {% endfor %}
-            </p>
-        </details>
-        {#        <div class="select-list" >#}
-        {#            {{ form_errors(registrationForm.gender) }}#}
-        {#            <input type="radio" name="{{ field_name(registrationForm.gender) }}">#}
-        {#            <span class="placeholder">{{ field_label(registrationForm.gender) }}</span>#}
+        <div class="select-list" >
+            {{ form_errors(registrationForm.gender) }}
+            <input type="radio" name="{{ field_name(registrationForm.gender) }}">
+            <span class="placeholder">{{ field_label(registrationForm.gender) }}</span>
 
-        {#            {% for label, value in field_choices(registrationForm.gender) %}#}
+            {% for label, value in field_choices(registrationForm.gender) %}
 
-        {#                <label class="option">#}
-        {#                    <input class='reset-radio' type="radio" name="{{ field_name(registrationForm.gender) }}" value='{{ value }}'>#}
-        {#                    <span class="list-title">{{ label }}</span>#}
-        {#                </label>#}
-        {#            {% endfor %}#}
-        {#        </div>#}
-
+                <label class="option">
+                    <input class='reset-radio' type="radio" name="{{ field_name(registrationForm.gender) }}" value='{{ value }}'>
+                    <span class="list-title">{{ label }}</span>
+                </label>
+            {% endfor %}
+        </div>
 
         {{ form_row(registrationForm.firstname) }}
         {{ form_row(registrationForm.lastname) }}
@@ -58,9 +46,6 @@
             </label>
             <a class="rgpdLinkUp" href="{{ path('app_rgpd') }}">Consulter notre politique de confidentialité</a>
         </div>
-
-        {#        {{ form_row(registrationForm.agreeTerms)  }}#}
-        {#        <a class="rgpdLinkUp" href="{{ path('app_rgpd') }}">Consulter notre politique de confidentialité</a>#}
 
         <button class="button" type="submit" >S'enregistrer</button>
 
