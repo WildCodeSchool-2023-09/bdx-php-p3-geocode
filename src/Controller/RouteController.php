@@ -50,7 +50,7 @@ class RouteController extends AbstractController
         ]);
     }
 
-    #[Route('/api/route', name: 'app_api_route', methods: ['PUT'])]
+    #[Route('/api/route', name: 'app_api_route', methods: ['QUERY'])]
     public function getRoute(Request $request, RouteService $routeService): Response
     {
         $step = $request->getPayload()->get('step');
