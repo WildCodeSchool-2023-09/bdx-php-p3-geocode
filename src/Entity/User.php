@@ -11,15 +11,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
-//class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -321,10 +320,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pictureFile;
     }
 
-    public function setPictureFile(File $image = null): User
+    public function setPictureFile(File $imageUploaded = null): User
     {
-        $this->pictureFile = $image;
-        if ($image) {
+        $this->pictureFile = $imageUploaded;
+        if ($imageUploaded) {
             $this->updatedAt = new DateTime('now');
         }
         return $this;

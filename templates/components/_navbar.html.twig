@@ -55,7 +55,6 @@
                 <span class="text">Informations</span>
             </a>
         </li>
-{#        {{ dump((app.request.attributes.get('_route')) }}#}
         <li class="list {{  ((app.request.attributes.get('_route') == 'app_login') or
                             (app.request.attributes.get('_route') == 'app_register') or
                             (app.request.attributes.get('_route') starts with 'app_profile_user') or
