@@ -2,7 +2,7 @@
     {{ form_row(form.brand) }}
     {{ form_row(form.model) }}
 
-<div class="select-list" >
+<div class="select-list">
     {{ form_errors(form.outletType) }}
     <input type="radio" name="{{ field_name(form.outletType) }}">
     <span class="placeholder">{{ field_label(form.outletType) }}</span>
@@ -15,7 +15,7 @@
         </label>
     {% endfor %}
 </div>
-<div class="select-list" >
+<div class="select-list">
     {{ form_errors(form.user) }}
     <input type="radio" name="{{ field_name(form.user) }}">
     <span class="placeholder">{{ field_label(form.user) }}</span>
@@ -29,5 +29,5 @@
     {% endfor %}
 </div>
 
-    <button class="button">{{ button_label|default('Sauvegarder') }}</button>
+<button class="button">{{ button_label|default('Sauvegarder') }}</button>
 {{ form_end(form) }}

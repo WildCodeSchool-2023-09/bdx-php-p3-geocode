@@ -31,7 +31,6 @@ class AdminCarTest extends WebTestCase
         $client = static::createClient();
 
         $urlGenerator = $client->getContainer()->get('router');
-
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
 
         //Fetching user id 1 = admin@geocode.com
@@ -55,11 +54,14 @@ class AdminCarTest extends WebTestCase
         $client->followRedirect();
 
         //Verify if the car has been successfully created in the database
-        $newCar = $entityManager->getRepository(Car::class)->findOneBy(['user' => 2, 'brand' => 'Tesla', 'model' => 'model Y']);
+        $newCar = $entityManager->getRepository(Car::class)->findOneBy([
+            'user' => 2,
+            'brand' => 'Tesla',
+            'model' => 'model Y']);
         $this->assertNotNull($newCar);
     }
 
-    public function testIfShowCarIsSuccessfull() : void
+    public function testIfShowCarIsSuccessfull(): void
     {
         $client = static::createClient();
 
@@ -76,7 +78,10 @@ class AdminCarTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $crawler = $client->request(Request::METHOD_GET, $urlGenerator->generate('app_admin_car_show', ['id' => $car->getId()]));
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            $urlGenerator->generate('app_admin_car_show', ['id' => $car->getId()])
+        );
 
         $this->assertResponseIsSuccessful();
 
@@ -87,10 +92,9 @@ class AdminCarTest extends WebTestCase
         $this->assertSelectorTextContains('td.userId', 'Toto - Toto');
     }
 
-    public function testIfUpdateCarIsSuccessfull() : void
+    public function testIfUpdateCarIsSuccessfull(): void
     {
         $client = static::createClient();
-
         $urlGenerator = $client->getContainer()->get('router');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
 
@@ -103,8 +107,9 @@ class AdminCarTest extends WebTestCase
         ]);
 
         $client->loginUser($user);
-
-        $crawler =$client->request(Request::METHOD_GET, $urlGenerator->generate('app_admin_car_edit', ['id'=> $car->getID()])
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            $urlGenerator->generate('app_admin_car_edit', ['id' => $car->getID()])
         );
 
         $this->assertResponseIsSuccessful();
@@ -121,15 +126,19 @@ class AdminCarTest extends WebTestCase
         $this->assertResponseRedirects('/admin/car/');
         $client->followRedirect();
 
-        $editCar = $entityManager->getRepository(Car::class)->findOneBy(['user' => 2, 'brand' => 'Tesla', 'model' => 'model S']);
+        $editCar = $entityManager->getRepository(Car::class)->findOneBy([
+            'user' => 2,
+            'brand' => 'Tesla',
+            'model' => 'model S'
+        ]);
         $this->assertNotNull($editCar);
     }
 
-    public function testIfDeleteCarIsSuccessfull() : void
+    public function testIfDeleteCarIsSuccessfull(): void
     {
         $client = static::createClient();
 
-        $urlGenerator =$client->getContainer()->get('router');
+        $urlGenerator = $client->getContainer()->get('router');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
 
         $user = $entityManager->find(User::class, 1);
@@ -141,18 +150,26 @@ class AdminCarTest extends WebTestCase
 
         $client->loginUser($user);
 
-        $crawler = $client->request(Request::METHOD_GET, $urlGenerator->generate('app_admin_car_delete',
-            ['id'=> $editedCar->getID()]));
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            $urlGenerator->generate('app_admin_car_delete', ['id' => $editedCar->getID()])
+        );
 
-        $form = $crawler->filter('form[action= "' . $urlGenerator->generate('app_admin_car_delete',
-                ['id'=> $editedCar->getID()]) . '"]')->form();
+        $form = $crawler->filter('form[action="' . $urlGenerator->generate('app_admin_car_delete', [
+                'id' => $editedCar->getID()
+            ]) . '"]')
+            ->form();
 
         $client->submit($form);
 
         $this->assertResponseRedirects('/admin/car/');
         $client->followRedirect();
 
-        $deletedCar = $entityManager->getRepository(Car::class)->findOneBy(['user' => 2, 'brand' => 'Tesla', 'model' => 'model S']);
+        $deletedCar = $entityManager->getRepository(Car::class)->findOneBy([
+            'user' => 2,
+            'brand' => 'Tesla',
+            'model' => 'model S'
+        ]);
         $this->assertNull($deletedCar);
     }
 }

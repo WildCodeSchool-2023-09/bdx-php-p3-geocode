@@ -10,7 +10,6 @@
         {{ form_start(registrationForm) }}
 
         {{ form_errors(registrationForm) }}
-        {{ form_errors(registrationForm.gender) }}
 
         <div class="select-list" >
             {{ form_errors(registrationForm.gender) }}
@@ -30,7 +29,7 @@
         {{ form_row(registrationForm.lastname) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Password',
         }) }}
 
         <div class="inputTown">

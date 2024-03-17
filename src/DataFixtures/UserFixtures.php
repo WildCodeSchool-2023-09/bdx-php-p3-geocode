@@ -46,9 +46,9 @@ class UserFixtures extends Fixture
             $user->setBirthday($faker->dateTimeBetween('-80 years', '-18 years'));
             $user->setEmail($faker->email);
             $user->setRoles(['ROLE_CONTRIBUTOR']);
+            $plainPassword = $faker->password(8, 40);
             $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,
-                'azertyui'
+                $user,$plainPassword
             );
             $user->setPassword($hashedPassword);
             $manager->persist($user);

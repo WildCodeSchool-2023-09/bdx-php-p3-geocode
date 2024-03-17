@@ -17,8 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet e-mail')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -39,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $cars;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
-    #[ORM\JoinColumn(name:"town_id", referencedColumnName:"id")]
+    #[ORM\JoinColumn(name: "town_id", referencedColumnName: "id")]
     private ?Town $town = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Booking::class)]
@@ -67,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $picture = null;
 
     #[Vich\UploadableField(mapping: 'user_picture', fileNameProperty: 'picture')]
-    #[Assert\File(maxSize: '1M', mimeTypes: ['image/jpeg','image/jpg', 'image/png', 'image/webp'],)]
+    #[Assert\File(maxSize: '1M', mimeTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],)]
     private ?File $pictureFile = null;
 
 
@@ -108,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -315,6 +315,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
