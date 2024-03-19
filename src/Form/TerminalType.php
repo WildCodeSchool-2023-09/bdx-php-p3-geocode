@@ -72,21 +72,25 @@ class TerminalType extends AbstractType
                 ]
             ])
             ->add('outletType', ChoiceType::class, [
+                'attr' => ['class' => 'terminal-select'],
                 'label' => 'Type de prise',
                 'choices' => [
-                    'Type EF' => 'Type 1',
+                    'Type EF' => 'Type EF',
                     'Type 2' => 'Type 2',
-                    'Type Combo CCS' => 'Type 3',
-                    'Type CHAdeMO' => 'Type 4',
-                    'Autres' => 'Type 5',
+                    'Type Combo CCS' => 'Type Combo CCS',
+                    'Type CHAdeMO' => 'Type CHAdeMO',
+                    'Autres' => 'Autres',
+                    'Inconnu' => 'Inconnu',
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez selectionner un type de prise.']),
                     new Choice([
-                        'choices' => ['Type 1', 'Type 2', 'Type 3', 'Type 4', 'Type 5'],
+                        'choices' => ['Type EF', 'Type 2', 'Type Combo CCS', 'Type CHAdeMO', 'Autres', 'Inconnu'],
                         'message' => 'Veuillez selectionner un type de prise',
                     ]),
                 ],
+                'expanded' => false,
+                'multiple' => false,
             ])
             ->add('numberOutlet', NumberType::class, [
                 'label' => 'Nombre de prises',
