@@ -135,3 +135,12 @@ details {
         }
     }
 }
+div:has(select.terminal-select) {
+    width: 100%;
+    padding-bottom: 1rem;
+    select.terminal-select {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0.5rem;
+    }
+}
