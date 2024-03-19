@@ -80,12 +80,12 @@ class TerminalType extends AbstractType
                     'Type Combo CCS' => 'Type Combo CCS',
                     'Type CHAdeMO' => 'Type CHAdeMO',
                     'Autres' => 'Autres',
-                    'Inconnu' => 'Inconnu',
+                    'inconnu' => 'inconnu',
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez selectionner un type de prise.']),
                     new Choice([
-                        'choices' => ['Type EF', 'Type 2', 'Type Combo CCS', 'Type CHAdeMO', 'Autres', 'Inconnu'],
+                        'choices' => ['Type EF', 'Type 2', 'Type Combo CCS', 'Type CHAdeMO', 'Autres', 'inconnu'],
                         'message' => 'Veuillez selectionner un type de prise',
                     ]),
                 ],
