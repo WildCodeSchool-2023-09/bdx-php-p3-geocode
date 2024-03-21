@@ -48,7 +48,8 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_CONTRIBUTOR']);
             $plainPassword = $faker->password(8, 40);
             $hashedPassword = $this->passwordHasher->hashPassword(
-                $user,$plainPassword
+                $user,
+                $plainPassword
             );
             $user->setPassword($hashedPassword);
             $manager->persist($user);
