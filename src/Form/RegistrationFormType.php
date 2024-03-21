@@ -4,19 +4,16 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Town;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LessThan;
@@ -55,8 +52,8 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 2,
                         'max' => 255,
-                        'minMessage' => "Veuillez choisir un nom d'utilisateur entre 2 et 255 caractères",
-                        'maxMessage' => "Veuillez choisir un nom d'utilisateur entre 2 et 255 caractères.",
+                        'minMessage' => "Votre Nom doit comporter plus de 2 caractères",
+                        'maxMessage' => "Votre Nom doit comporter moins de 255 caractères.",
                     ]),
                     new Regex([
                         'pattern' => '/^[a-z]+$/i',
@@ -77,8 +74,8 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 2,
                         'max' => 255,
-                        'minMessage' => "Veuillez choisir un prénom d'utilisateur entre 2 et 255 caractères",
-                        'maxMessage' => "Veuillez choisir un prénom d'utilisateur entre 2 et 255 caractères.",
+                        'minMessage' => "Votre Prenom doit comporter plus de 2 caractères",
+                        'maxMessage' => "Votre Prenom doit comporter moins de 255 caractères",
                     ]),
                     new Regex([
                         'pattern' => '/^[a-z]+$/i',
@@ -142,6 +139,7 @@ class RegistrationFormType extends AbstractType
                     'Ne pas spécifier' => 'non_spécifier',
                 ],
                 'expanded' => true,
+                'required' => true,
                 'invalid_message' => 'Veuillez remplir ce champ',
                 'constraints' => [
                     new NotBlank([
@@ -180,6 +178,11 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'Mot de passe',
+                    'required' => true,
+                    'attr' => [
+                        'title' => 'Le mot de passe doit faire au moins 8 caractères.',
+                        'minlength' => '8',
+                    ],
                 ],
                 'second_options' => [
                     'label' => 'Confirmation du mot de passe'
@@ -188,9 +191,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'input',
+                    'class' => 'input align-input',
                     'pattern' => '.{8,}',
-                    'title' => 'Le mot de passe doit faire au moins 8 caractères.',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -198,9 +200,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Votre mot de passe doit comporter au moins {{ limite }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'minMessage' => 'Doit contenir au moins 8 caractères',
+                        'max' => 40,
+                        'maxMessage'  => 'Doit contenir entre 8 et 40 caractères.',
                     ]),
                 ],
             ])

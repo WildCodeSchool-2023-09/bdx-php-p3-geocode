@@ -19,7 +19,6 @@ form, .form {
     background-color: var(--color-primary);
     border-radius: 1.25rem;
     padding:  1.25rem 1.25rem 0 1.25rem ;
-    //box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
   }
 
 
@@ -105,14 +104,14 @@ label#registration_form_town-ts-label {
 }
 
 .alert.alert-success {
-    position: absolute;
+    //position: absolute;
     color: #127127;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     z-index: 10000;
-    width: 100vw;
+    //width: 100vw;
     background-color: peachpuff;
 }
 
@@ -121,14 +120,14 @@ label#registration_form_town-ts-label {
 }
 
 .alert.alert-danger {
-    position: absolute;
+    //position: absolute;
     color: #f02d3f;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     z-index: 10000;
-    width: 100vw;
+    //width: 100vw;
     background-color: peachpuff;
 }
 
