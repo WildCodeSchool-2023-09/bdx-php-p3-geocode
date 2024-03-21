@@ -87,7 +87,9 @@ class AdminTerminalController extends AbstractController
             $terminal->setPoint($point);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_terminal_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_terminal_show', [
+                'id' => $terminal->getId(),
+                ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin_terminal/edit.html.twig', [

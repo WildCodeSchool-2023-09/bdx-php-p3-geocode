@@ -114,6 +114,7 @@ select {
         }
     }
 }
+
 //details {
 //    background: var(--color-quinternary);
 //    padding: 0.5rem;
@@ -136,3 +137,12 @@ select {
 //        }
 //    }
 //}
+div:has(select.terminal-select) {
+    width: 100%;
+    padding-bottom: 1rem;
+    select.terminal-select {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0.5rem;
+    }
+}
