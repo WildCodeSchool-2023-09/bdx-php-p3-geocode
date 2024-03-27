@@ -38,12 +38,10 @@ class CarAdminType extends AbstractType
                     'Autres' => 'Type 5',
                 ],
             ])
-//            ->add('picture')
-//            ->add('updatedAt')
+
             ->add('user', EntityType::class, [
                 'label' => 'Id, Prénom et Nom de l\'utilisateur',
                 'class' => User::class,
-//                'choice_label' => 'id',
                 'choice_label' => function ($entity) {
                     return $entity->getId() . ' - ' . $entity->getFirstname() . ' - ' . $entity->getLastname();
                 },

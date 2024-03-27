@@ -1,4 +1,23 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_row(form.longitude) }}
+{{ form_row(form.latitude) }}
+{{ form_row(form.address) }}
+{{ form_row(form.outletType) }}
+{#<details class="select-list" >#}
+{#    {{ form_errors(form.outletType) }}#}
+{#    <summary>#}
+{#        <span class="placeholder">{{ field_label(form.outletType) }}</span>#}
+{#    </summary>#}
+{#    <p>#}
+{#        {% for label, value in field_choices(form.outletType) %}#}
+{#            <label>#}
+{#                <input type="radio" name="{{ field_name(form.outletType) }}" value='{{ value }}'>#}
+{#                <span>{{ label }}</span>#}
+{#            </label>#}
+{#        {% endfor %}#}
+{#    </p>#}
+{#</details>#}
+{{ form_row(form.numberOutlet) }}
+{{ form_row((form.maxPower)) }}
     <button class="button" >{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

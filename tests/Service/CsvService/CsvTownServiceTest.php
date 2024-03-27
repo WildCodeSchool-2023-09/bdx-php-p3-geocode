@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Service\CsvService;
 
-use App\Entity\Town;
-use App\Service\CsvTownService;
+use App\Service\CsvService\CsvTownService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CsvTownServiceTest extends KernelTestCase

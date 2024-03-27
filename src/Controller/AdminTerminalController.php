@@ -8,6 +8,7 @@ use App\Form\SearchTownType;
 use App\Form\TerminalType;
 use App\Repository\TerminalRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use LongitudeOne\Spatial\PHP\Types\Geometry\Point;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +48,10 @@ class AdminTerminalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $latitude = $form->get('latitude')->getData();
+            $longitude = $form->get('longitude')->getData();
+            $point = new Point([$longitude, $latitude]);
+            $terminal->setPoint($point);
             $entityManager->persist($terminal);
             $entityManager->flush();
 
@@ -71,12 +76,20 @@ class AdminTerminalController extends AbstractController
     public function edit(Request $request, Terminal $terminal, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TerminalType::class, $terminal);
+        $form->get('longitude')->setData($terminal->getPoint()->getLongitude());
+        $form->get('latitude')->setData($terminal->getPoint()->getLatitude());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $latitude = $form->get('latitude')->getData();
+            $longitude = $form->get('longitude')->getData();
+            $point = new Point([$longitude, $latitude]);
+            $terminal->setPoint($point);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_terminal_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_terminal_show', [
+                'id' => $terminal->getId(),
+                ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin_terminal/edit.html.twig', [

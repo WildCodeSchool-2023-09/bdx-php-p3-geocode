@@ -15,21 +15,20 @@ select {
     border-radius: 2rem;
     background-color: #E5E9E7;
     color: #525B5A;
-}
+   }
 
 
 .select-list {
     position: relative;
     overflow: hidden;
     display: block;
-    margin: auto;
-    margin-bottom: 1rem;
+    margin: auto auto 1rem;
     width: 330px;
     height: 100%;
-    border-bottom: 0px;
+    border-bottom: 0;
     border-radius: 15px;
     font-size: 1rem;
-    box-shadow: 0px 1em 2em -1.5em rgba(0, 0, 0, .5);
+    box-shadow: 0 1em 2em -1.5em rgba(0, 0, 0, .5);
 
     .list-title,
     .placeholder {
@@ -44,8 +43,8 @@ select {
     }
     &>input {
         position: absolute;
-        left: 0px;
-        top: 0px;
+        left: 0;
+        top: 0;
         z-index: 1;
         width: 100%;
         height: 100%;
@@ -91,7 +90,8 @@ select {
             transition: background .3s ease-out;
 
             &:hover {
-                color:var(--color-quinternary);
+                //color:var(--color-quinternary);
+                color:var(--color-ternary);
                 background: rgba(255, 255, 255, .3);
                 box-shadow: inset 0px 1px 0px rgba(0, 0, 0, .1);
             }
@@ -112,5 +112,37 @@ select {
             }
 
         }
+    }
+}
+
+//details {
+//    background: var(--color-quinternary);
+//    padding: 0.5rem;
+//    margin-bottom: 1rem;
+//    border: 0.05rem solid #ccc;
+//    border-radius: 1rem;
+//    width: 300px;
+//    @media screen and (width > 572px) {
+//        width: 359px;
+//    }
+//    summary {
+//        margin-bottom: 0.5rem;
+//    }
+//    label {
+//        display: flex;
+//
+//        input[type=radio] {
+//            width: 100px;
+//            height: 1rem;
+//        }
+//    }
+//}
+div:has(select.terminal-select) {
+    width: 100%;
+    padding-bottom: 1rem;
+    select.terminal-select {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0.5rem;
     }
 }

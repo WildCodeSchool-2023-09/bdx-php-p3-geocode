@@ -11,15 +11,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-
-//class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet e-mail')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -40,6 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
@@ -55,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $cars;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
-    #[ORM\JoinColumn(name:"town_id", referencedColumnName:"id")]
+    #[ORM\JoinColumn(name: "town_id", referencedColumnName: "id")]
     private ?Town $town = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Booking::class)]
@@ -68,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $picture = null;
 
     #[Vich\UploadableField(mapping: 'user_picture', fileNameProperty: 'picture')]
-    #[Assert\File(maxSize: '1M', mimeTypes: ['image/jpeg','image/jpg', 'image/png', 'image/webp'],)]
+    #[Assert\File(maxSize: '1M', mimeTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],)]
     private ?File $pictureFile = null;
 
 
@@ -109,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -316,15 +315,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     public function getPictureFile(): ?File
     {
         return $this->pictureFile;
     }
 
-    public function setPictureFile(File $image = null): User
+    public function setPictureFile(File $imageUploaded = null): User
     {
-        $this->pictureFile = $image;
-        if ($image) {
+        $this->pictureFile = $imageUploaded;
+        if ($imageUploaded) {
             $this->updatedAt = new DateTime('now');
         }
         return $this;

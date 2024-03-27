@@ -1,5 +1,5 @@
 <header>
-    <img src="{{ asset('build/images/logo.png')}}" alt="logo de GeoCode" />
+    <a href="{{ path("app_map") }}"><img src="{{ asset('build/images/logo.png')}}" alt="logo de GeoCode - Retour à l'accueil" /></a>
     {% if app.user %}
     <div class="icon_header">
 {#        <button class="disconnectButton"><a href="{{ path('app_logout') }}">Me déconnecter</a></button>#}

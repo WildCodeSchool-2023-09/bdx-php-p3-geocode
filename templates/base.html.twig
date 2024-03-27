@@ -5,29 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" type="image/png" href="{{ asset('build/images/logo-wild-code-school.svg') }}"/>
         <title>
-            {% block title %}Projet 3 Name{% endblock %}
+            {% block title %}Geocode{% endblock %}
         </title>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
         {% for message in app.flashes('success') %}
             <div class="alert alert-success" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                 {{ message }}
             </div>
         {% endfor %}
 
         {% for message in app.flashes('danger') %}
             <div class="alert alert-danger" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 {{ message }}
             </div>
         {% endfor %}

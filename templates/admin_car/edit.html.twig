@@ -5,11 +5,11 @@
 {% block body %}
     <main class="main-vertical">
 
-    <h1 class="title" >Modifier les véhicules</h1>
+        <h1 class="title">Modifier les véhicules</h1>
 
-    {{ include('admin_car/_form.html.twig', {'button_label': 'Modifier'}) }}
+        {{ include('admin_car/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
+        <a href="{{ path('app_admin_car_index') }}">Retour à la liste</a>
 
-    </main >
+    </main>
 {% endblock %}

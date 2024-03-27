@@ -6,7 +6,7 @@
 
 {% block body %}
     <main>
-       {# <div class="contact">#}
+        {# <div class="contact">#}
         <div>
 
             <h1 class="title center">Pour nous contacter</h1>
@@ -14,19 +14,30 @@
             <div class="contact">
 
                 {{ form_start(form) }}
-                <div class="select-list" >
-                    {{ form_errors(form.demande) }}
-                    <input type="radio" name="{{ field_name(form.demande) }}">
-                    <span class="placeholder">{{ field_label(form.demande) }}</span>
-
+                {{ form_errors(form.demande) }}
+                <details>
+                    <summary><span class="placeholder">{{ field_label(form.demande) }}</summary>
                     {% for label, value in field_choices(form.demande) %}
 
                         <label class="option">
-                            <input class='reset-radio' type="radio" name="{{ field_name(form.demande) }}" value='{{ value }}'>
-                            <span class="list-title">{{ label }}</span>
+                            <input class='' type="radio" name="{{ field_name(form.demande) }}" value='{{ value }}'>
+                            <span class="">{{ label }}</span>
                         </label>
                     {% endfor %}
-                </div>
+                </details>
+                {#                <div class="select-list" >#}
+                {#                    {{ form_errors(form.demande) }}#}
+                {#                    <input type="radio" name="{{ field_name(form.demande) }}">#}
+                {#                    <span class="placeholder">{{ field_label(form.demande) }}</span>#}
+
+                {#                    {% for label, value in field_choices(form.demande) %}#}
+
+                {#                        <label class="option">#}
+                {#                            <input class='reset-radio' type="radio" name="{{ field_name(form.demande) }}" value='{{ value }}'>#}
+                {#                            <span class="list-title">{{ label }}</span>#}
+                {#                        </label>#}
+                {#                    {% endfor %}#}
+                {#                </div>#}
                 {{ form_row(form.email) }}
                 {{ form_row(form.message) }}
                 <button class="button" type="submit">Envoyer</button>

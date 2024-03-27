@@ -90,6 +90,13 @@
 .rgpdText p{
     margin-bottom: 1rem;
 }
+.rgpdLink>a,
+.contactLink>a {
+    text-decoration: underline;
+    &:visited {
+        color: #5cd858;
+    }
+}
 
 .rgpdLink{
     text-align: center;
